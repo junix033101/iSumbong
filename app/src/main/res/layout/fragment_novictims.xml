@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/Text_no_victims"
+        android:id="@+id/Text_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
@@ -44,6 +44,6 @@
         android:text="OK"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Text_no_victims" />
+        app:layout_constraintTop_toBottomOf="@+id/Text_number" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

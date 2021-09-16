@@ -2,6 +2,11 @@ package com.example.isumbong;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
+import static com.example.isumbong.fragment_accident_info.Text_license;
+import static com.example.isumbong.fragment_accident_info.text_license;
+import static com.example.isumbong.fragment_vehicle_info.Plate;
+import static com.example.isumbong.fragment_vehicle_info.plate;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -10,16 +15,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anton46.stepsview.StepsView;
+//import com.anton46.stepsview.StepsView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.rakshakhegde.stepperindicator.StepperIndicator;
+
+import org.w3c.dom.Text;
 
 
 public class public_report_now extends AppCompatActivity {
@@ -32,38 +44,43 @@ public class public_report_now extends AppCompatActivity {
     static FloatingActionButton next;
     static FloatingActionButton prev;
 
+    INPUTS input;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_public_report_now);
+//        //shared preferences
+//        prefs = getSharedPreferences("mypref",0);
 //
-//        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-//            @Override
-//            public void onBackStackChanged() {
-//                Toast.makeText(public_report_now.this, "COunt"+getSupportFragmentManager().getBackStackEntryCount(), Toast.LENGTH_SHORT).show();
+//        try {
+//            if(prefs.contains("plate")){
+//                plate.setText(prefs.getString("plate",""),TextView.BufferType.EDITABLE);
 //            }
-//        });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
-        StepsView mStepsView = findViewById(R.id.stepsView);
+        input = new INPUTS();
 
-        String[] steps = {"VICTIMS\nINFO", "ACCIDENT\nINFO", "VEHICLE\nINFO", "LOC", "STATE","CONFIRM", "FINISH"};
-        mStepsView.setLabels(steps)
-                .setBarColorIndicator(public_report_now.this.getResources().getColor(R.color.material_blue_grey_800))
-                .setProgressColorIndicator(public_report_now.this.getResources().getColor(R.color.green))
-                .setLabelColorIndicator(public_report_now.this.getResources().getColor(android.R.color.holo_green_dark))
-                .setCompletedPosition(state)
-                .drawView();
+        //Stepper
+        StepperIndicator stpi = findViewById(R.id.stepperIndicator);
+        String[] steps = {"VICTIMS\nINFO", "ACCIDENT\nINFO", "VEHICLE\nINFO", "LOCATION", "STATEMENT","CONFIRM"};
+        stpi.setLabels(steps);
+        stpi.showLabels(true);
+       // stpi.setLabelSize(26);
+        stpi.setLabelColor(public_report_now.this.getResources().getColor(R.color.black));
+        stpi.setStepCount(steps.length);
+        stpi.setIndicatorColor(public_report_now.this.getResources().getColor(R.color.green1));
+        stpi.setLineColor(public_report_now.this.getResources().getColor(R.color.grey));
+        stpi.setLineDoneColor(public_report_now.this.getResources().getColor(R.color.green1));
+        stpi.setShowDoneIcon(true);
+
+
 
         next = findViewById(R.id.button);
         prev = findViewById(R.id.button_prev);
-        Button ok = findViewById(R.id.button_no_ok);
-//        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) next.getLayoutParams();
-//        p.setBehavior(null); //should disable default animations
-//        p.setAnchorId(View.NO_ID); //should let you set visibility
-//        next.setLayoutParams(p);
-
 
         //DEFAULT FRAG
 
@@ -77,59 +94,77 @@ public class public_report_now extends AppCompatActivity {
                 fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
                 if (state < (steps.length-1)) {
 
-//                    if (fragment instanceof fragment_novictims) {
-//                        state = 0;
-//                        mStepsView.setCompletedPosition(state).drawView();
-//                        Toast.makeText(public_report_now.this, "Input no. of victims!", Toast.LENGTH_SHORT).show();
-//                    }
-                        state = state + 1;
-                        mStepsView.setCompletedPosition(state).drawView();
-                        Toast.makeText(public_report_now.this, "STATE"+state, Toast.LENGTH_SHORT).show();
-
-
-//                        if (fragment instanceof fragment_novictims){
-//                            fragment = new fragment_victim_details();
-//
-//                        }
+                    state = state + 1;
+                    stpi.setCurrentStep(state);
+                    //    Toast.makeText(public_report_now.this, "STATE"+state, Toast.LENGTH_SHORT).show();
 
 //                    if (state == 2) {
                         if (fragment instanceof fragment_victim_details){
-                            fragment = new fragment_accident_info();
-
+                            Toast.makeText(public_report_now.this, ""+input.getText_license(), Toast.LENGTH_SHORT).show();
+                            if(input.getText_license()==null || input.getText_license() == ""){
+                                fragment = new fragment_accident_info();
+                            }
+                            else
+                                fragment = new fragment_accident_info(input.getText_license());
                         }
 //                    } else if (state == 3) {
-                        else if (fragment instanceof fragment_accident_info)
+                        else if (fragment instanceof fragment_accident_info){
+                            input.setText_license(text_license.getText().toString());
                             fragment = new fragment_vehicle_info();
+
+
+                        }
+
 //                    } else if (state == 4) {
-                        else if (fragment instanceof fragment_vehicle_info)
-                            fragment = new fragment_location();
-                        else if(fragment instanceof fragment_location){
+                        else if (fragment instanceof fragment_vehicle_info){
+                            fragment = new MapsFragment();
+                        }
+
+                        else if(fragment instanceof MapsFragment){
                             fragment = new fragment_statement();
                         }
+
                         else if(fragment instanceof fragment_statement){
-                            Toast.makeText(public_report_now.this, "build a bitch", Toast.LENGTH_SHORT).show();
-                        }
-                        if (state == 6)
-                            fragment = new fragment_serial();
+                            fragment = new fragment_confirm();
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(public_report_now.this);
+                        builder1.setTitle("CONFRIMATION")
+                                .setCancelable(false)
+                                .setMessage("Please confirm all inputted data");
+                        builder1.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                state -=1;
+                                stpi.setCurrentStep(state);
+                                getSupportFragmentManager().popBackStack();
 
+                            }
+                        });
+                        builder1.setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if(fragment !=null){
+                                    fragment = new fragment_serial();
+                                    ft = getSupportFragmentManager().beginTransaction();
+                                    ft.add(R.id.fragment_container, fragment)
+                                            .addToBackStack(null)
+                                            .commit();
+                                    //state+=1;
+                                    stpi.setCurrentStep(state+1);
+                                    next.hide();
+                                    prev.hide();
+                                }
 
-
-//                    } else if (state == 6) {
-//                        else
-//                            fragment = new fragment_serial();
-
-
-//                    }
+                                    }
+                                });
+                        AlertDialog alertDialog = builder1.create();
+                        alertDialog.show();
+                    }
 
                     ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.fragment_container, fragment)
+                    ft.add(R.id.fragment_container, fragment)
                             .addToBackStack(null)
                             .commit();
                 }
-//                else if(state == steps.length-1){
-//                    next.setVisibility(View.GONE);
-//                    prev.setVisibility(View.GONE);
-//                }
 
             }
         });
@@ -150,37 +185,15 @@ public class public_report_now extends AppCompatActivity {
 
                     else{
                         state = state - 1;
-                        Toast.makeText(public_report_now.this, "STATE"+state, Toast.LENGTH_SHORT).show();
-                        mStepsView.setCompletedPosition(state).drawView();
+                       // Toast.makeText(public_report_now.this, "STATE"+state, Toast.LENGTH_SHORT).show();
+                        stpi.setCurrentStep(state);
+                    //    text_license.setText(getIntent().getStringExtra("license"));
                     }
 
 
-
-
-
                 }
-//                if(getSupportFragmentManager().findFragmentByTag("details")!=null){
-//                    Toast.makeText(public_report_now.this, "POTAAAAA", Toast.LENGTH_SHORT).show();
-//                    state = 1;
-//                    mStepsView.setCompletedPosition(0).drawView();
-//                    Toast.makeText(public_report_now.this, "STATE"+state, Toast.LENGTH_SHORT).show();
-//                    ft = getSupportFragmentManager().beginTransaction();
-//                    ft.remove(getSupportFragmentManager().findFragmentByTag("details")).commit();
-//                   // getSupportFragmentManager().popBackStack("details",FragmentManager.POP_BACK_STACK_INCLUSIVE);
-//                }
+
                 getSupportFragmentManager().popBackStack();
-
-
-
-
-//                if(fragment instanceof fragment_victim_details){
-//                    state = 1;
-//                    Toast.makeText(public_report_now.this, "POTAAAAA", Toast.LENGTH_SHORT).show();
-//
-////                       Intent intent = new Intent(public_report_now.this,public_homepage.class);
-////                       startActivity(intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP));
-//                }
-
 
             }
         });
@@ -201,12 +214,13 @@ public class public_report_now extends AppCompatActivity {
     public void numvitims(){
         ft = getSupportFragmentManager().beginTransaction();
         fragment_novictims fnum = new fragment_novictims();
-        ft.replace(R.id.fragment_container, fnum, "fnum")
+        ft.add(R.id.fragment_container, fnum, "fnum")
                 .addToBackStack(null);
         ft.commit();
         next.hide();
         prev.hide();
 
     }
+
 
 }
