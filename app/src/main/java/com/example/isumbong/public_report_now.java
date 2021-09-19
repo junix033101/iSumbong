@@ -1,37 +1,26 @@
 package com.example.isumbong;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-
-import static com.example.isumbong.fragment_accident_info.Text_license;
 import static com.example.isumbong.fragment_accident_info.text_license;
-import static com.example.isumbong.fragment_vehicle_info.Plate;
-import static com.example.isumbong.fragment_vehicle_info.plate;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-
-import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.anton46.stepsview.StepsView;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rakshakhegde.stepperindicator.StepperIndicator;
 
-import org.w3c.dom.Text;
+import java.util.ArrayList;
+
+//import com.anton46.stepsview.StepsView;
 
 
 public class public_report_now extends AppCompatActivity {
@@ -43,7 +32,7 @@ public class public_report_now extends AppCompatActivity {
     Fragment fragment;
     static FloatingActionButton next;
     static FloatingActionButton prev;
-
+    database db;
     INPUTS input;
 
 
@@ -63,7 +52,7 @@ public class public_report_now extends AppCompatActivity {
 //        }
 
         input = new INPUTS();
-
+        db = new database(this);
         //Stepper
         StepperIndicator stpi = findViewById(R.id.stepperIndicator);
         String[] steps = {"VICTIMS\nINFO", "ACCIDENT\nINFO", "VEHICLE\nINFO", "LOCATION", "STATEMENT","CONFIRM"};
@@ -100,7 +89,7 @@ public class public_report_now extends AppCompatActivity {
 
 //                    if (state == 2) {
                         if (fragment instanceof fragment_victim_details){
-                            Toast.makeText(public_report_now.this, ""+input.getText_license(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(public_report_now.this, ""+input.getText_license(), Toast.LENGTH_SHORT).show();
                             if(input.getText_license()==null || input.getText_license() == ""){
                                 fragment = new fragment_accident_info();
                             }
@@ -111,8 +100,10 @@ public class public_report_now extends AppCompatActivity {
                         else if (fragment instanceof fragment_accident_info){
                             input.setText_license(text_license.getText().toString());
                             fragment = new fragment_vehicle_info();
-
-
+                            ArrayList<String> age = fragment_victim_details.inputAge;
+                            for(String ag:age){
+                                Toast.makeText(public_report_now.this, ag, Toast.LENGTH_SHORT).show();
+                            }
                         }
 
 //                    } else if (state == 4) {
@@ -152,6 +143,22 @@ public class public_report_now extends AppCompatActivity {
                                     stpi.setCurrentStep(state+1);
                                     next.hide();
                                     prev.hide();
+
+                                    boolean check =db.InsertVictims(Integer.parseInt(fragment_novictims.vnum));
+                                    if (check){
+                                        int id = db.victimsID();
+                                        ArrayList<Victim> victims = fragment_victim_details.victims;
+                                        for(int j=0;j<victims.size();j++){
+                                            if(check)
+                                                check = db.InsertVictimInfo(victims.get(j),id);
+                                            else
+                                                break;
+                                        }
+                                    }
+
+
+
+
                                 }
 
                                     }

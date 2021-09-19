@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/Textview_builder_age"
+        android:layout_width="287dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="27dp"
+        android:ems="10"
+        android:hint="Age"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Text_builder_name" />
+
+    <EditText
+        android:id="@+id/Text_builder_name"
+        android:layout_width="290dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="94dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="27dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_builder_num"
+        android:layout_width="61dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="17dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/Text_builder_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:layout_width="285dp"
+        android:layout_height="122dp"
+        android:layout_marginStart="97dp"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Textview_builder_age">
+
+        <RadioButton
+            android:id="@+id/radioButton_builder_female"
+            android:layout_width="149dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right"
+            android:foregroundGravity="right"
+            android:text="Female" />
+
+        <RadioButton
+            android:id="@+id/radioButton_builder_male"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Male" />
+
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

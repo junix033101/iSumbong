@@ -1,29 +1,38 @@
 package com.example.isumbong;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+
+import java.util.ArrayList;
 
 public class fragment_victim_details extends Fragment {
 
     ListView mListView;
     String repeat = fragment_novictims.vnum;
     CardView cardView;
+    static ArrayList<String> inputAge = new ArrayList<String>();
+    static ArrayList<Victim> victims;
+    Victim victim;
+    String gender;
 //    EditText [] victim_name;
 //    EditText [] victim_age;
 //    RadioButton male;
 //    RadioButton female;
+EditText et;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,16 +43,19 @@ public class fragment_victim_details extends Fragment {
         mListView = view.findViewById(R.id.list_view);
         cardView = view.findViewById(R.id.card_view);
       //  victim_name = new EditText[Integer.parseInt(repeat)];
-
-
+        victims = new ArrayList<Victim>(Integer.parseInt(fragment_novictims.vnum));
+        for(int i=0;i<Integer.parseInt(repeat);i++){
+            victims.add(new Victim("Name","Age","Gender"));
+        }
         MyAdapter adapter = new MyAdapter();
-        mListView.setAdapter(adapter);
-        getActivity().getIntent();
+        mListView.setAdapter( adapter);
+
+
 
         return view;
 
     }
-    public class MyAdapter extends BaseAdapter{
+    public class MyAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -65,11 +77,89 @@ public class fragment_victim_details extends Fragment {
             convertView = getLayoutInflater().inflate(R.layout.card_view, viewGroup, false );
             //initialization
             TextView num = convertView.findViewById(R.id.view_num);
+            EditText et =convertView.findViewById(R.id.Text_victim_age);
+            EditText name =convertView.findViewById(R.id.Text_victim_name);
+            et.setText(victims.get(i).getAge());
+            name.setText(victims.get(i).getName());
+            et.setEnabled(false);
+            name.setEnabled(false);
+            //set victim numbers
             if (String.valueOf(i+1) != repeat){
                 num.setText(String.valueOf(i+1));
             }
+//            Toast.makeText(getActivity(), et.getText().toString(), Toast.LENGTH_SHORT).show();
+            inputAge.add(et.getText().toString());
+
+
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    TextView num = view.findViewById(R.id.view_num);
+                    Toast.makeText(getActivity(), num.getText().toString(), Toast.LENGTH_SHORT).show();
+
+                    //dialog pop up
+                    LayoutInflater inflater = requireActivity().getLayoutInflater();
+                    View view1 = inflater.inflate(R.layout.builder_victim_info,null);
+                    TextView b_num = view1.findViewById(R.id.textview_builder_num);
+                    EditText b_name = view1.findViewById(R.id.Text_builder_name);
+                    EditText b_age = view1.findViewById(R.id.Textview_builder_age);
+                    RadioButton b_female = view1.findViewById(R.id.radioButton_builder_female);
+                    RadioButton b_male = view1.findViewById(R.id.radioButton_builder_male);
+                    String bnum = num.getText().toString();
+
+
+                    b_male.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                            if(b_male.isChecked()){
+                                gender = "male";
+                            }
+                        }
+                    });
+                    b_female.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                            if(b_female.isChecked()){
+                                gender = "female";
+                            }
+                        }
+                    });
+
+
+
+
+                    b_num.setText(bnum);
+
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(requireActivity());
+                    builder1.setView(view1)
+                            .setTitle("INPUT DETAILS")
+                            .setCancelable(false);
+
+                    builder1.setNegativeButton("EDIT", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //enable edit text
+                        }
+                    });
+                    builder1.setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            victim= new Victim(b_name.getText().toString(),b_age.getText().toString(),gender);
+                            victims.set(Integer.parseInt(num.getText().toString())-1,victim);
+//                            Toast.makeText(getActivity(), victims.get(Integer.parseInt(num.getText().toString())-1).toString(), Toast.LENGTH_SHORT).show(); pang debug
+                            MyAdapter adapter = new MyAdapter();
+                            mListView.setAdapter(adapter);
+
+
+                        }
+                    });
+                    AlertDialog alertDialog = builder1.create();
+                    alertDialog.show();
+                }
+            });
 
             return convertView;
+
         }
     }
 }
