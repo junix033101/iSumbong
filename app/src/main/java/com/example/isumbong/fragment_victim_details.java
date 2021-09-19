@@ -28,6 +28,8 @@ public class fragment_victim_details extends Fragment {
     static ArrayList<Victim> victims;
     Victim victim;
     String gender;
+
+    public static EditText b_name;
 //    EditText [] victim_name;
 //    EditText [] victim_age;
 //    RadioButton male;
@@ -79,10 +81,28 @@ EditText et;
             TextView num = convertView.findViewById(R.id.view_num);
             EditText et =convertView.findViewById(R.id.Text_victim_age);
             EditText name =convertView.findViewById(R.id.Text_victim_name);
+            RadioButton rbtn_male = convertView.findViewById(R.id.radioButton_male);
+            RadioButton rbtn_female = convertView.findViewById(R.id.radioButton_female);
+
+            //set text
             et.setText(victims.get(i).getAge());
             name.setText(victims.get(i).getName());
+
+            //set radio button
+            if(victims.get(i).getGender() == "male")
+                rbtn_male.setChecked(true);
+            else if(victims.get(i).getGender() == "female")
+                rbtn_female.setChecked(true);
+
+
+            //set to unclickable
             et.setEnabled(false);
             name.setEnabled(false);
+            rbtn_male.setEnabled(false);
+            rbtn_female.setEnabled(false);
+
+
+
             //set victim numbers
             if (String.valueOf(i+1) != repeat){
                 num.setText(String.valueOf(i+1));
@@ -101,7 +121,7 @@ EditText et;
                     LayoutInflater inflater = requireActivity().getLayoutInflater();
                     View view1 = inflater.inflate(R.layout.builder_victim_info,null);
                     TextView b_num = view1.findViewById(R.id.textview_builder_num);
-                    EditText b_name = view1.findViewById(R.id.Text_builder_name);
+                    b_name = view1.findViewById(R.id.Text_builder_name);
                     EditText b_age = view1.findViewById(R.id.Textview_builder_age);
                     RadioButton b_female = view1.findViewById(R.id.radioButton_builder_female);
                     RadioButton b_male = view1.findViewById(R.id.radioButton_builder_male);
@@ -126,8 +146,6 @@ EditText et;
                     });
 
 
-
-
                     b_num.setText(bnum);
 
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(requireActivity());
@@ -146,9 +164,11 @@ EditText et;
                         public void onClick(DialogInterface dialogInterface, int i) {
                             victim= new Victim(b_name.getText().toString(),b_age.getText().toString(),gender);
                             victims.set(Integer.parseInt(num.getText().toString())-1,victim);
-//                            Toast.makeText(getActivity(), victims.get(Integer.parseInt(num.getText().toString())-1).toString(), Toast.LENGTH_SHORT).show(); pang debug
+//                          Toast.makeText(getActivity(), victims.get(Integer.parseInt(num.getText().toString())-1).toString(), Toast.LENGTH_SHORT).show(); pang debug
+
                             MyAdapter adapter = new MyAdapter();
                             mListView.setAdapter(adapter);
+
 
 
                         }

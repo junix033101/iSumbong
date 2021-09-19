@@ -81,7 +81,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     String apikey;
     PlacesClient placesClient;
     String address;
-    String address1;
+    public static String getLocation;
+    public static double getCoordinatesLat;
+    public static double getCoordinatesLng;
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
@@ -138,7 +140,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
     private void init(){
 
-
+        //autocomplete text
         if(!Places.isInitialized()){
             Places.initialize(requireContext(),apikey);
         }
@@ -246,6 +248,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         Log.d(TAG, "movecamera:moving camera to lat:  "+latLng.latitude +" long: "+ latLng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
+        mMap.clear();
+
 //        if(!title.equals("My location")){
             //search marker
             MarkerOptions options = new MarkerOptions()
@@ -253,6 +257,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                     .title(title);
             mMap.addMarker(options);
 //        }
+        getLocation = title;
+        getCoordinatesLat = latLng.latitude;
+        getCoordinatesLng = latLng.longitude;
         hideSoftKeyboard();
 
     }

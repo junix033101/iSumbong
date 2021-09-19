@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -96,14 +96,15 @@ public class public_report_now extends AppCompatActivity {
                             else
                                 fragment = new fragment_accident_info(input.getText_license());
                         }
+
 //                    } else if (state == 3) {
                         else if (fragment instanceof fragment_accident_info){
                             input.setText_license(text_license.getText().toString());
                             fragment = new fragment_vehicle_info();
-                            ArrayList<String> age = fragment_victim_details.inputAge;
-                            for(String ag:age){
-                                Toast.makeText(public_report_now.this, ag, Toast.LENGTH_SHORT).show();
-                            }
+//                            ArrayList<String> age = fragment_victim_details.inputAge;
+//                            for(String ag:age){
+//                                Toast.makeText(public_report_now.this, ag, Toast.LENGTH_SHORT).show();
+//                            }
                         }
 
 //                    } else if (state == 4) {
@@ -113,26 +114,36 @@ public class public_report_now extends AppCompatActivity {
 
                         else if(fragment instanceof MapsFragment){
                             fragment = new fragment_statement();
+//                            Toast.makeText(public_report_now.this, ""+getLocation+"\n "+getCoordinatesLat+
+//                                    "\n "+getCoordinatesLng, Toast.LENGTH_SHORT).show();
                         }
 
                         else if(fragment instanceof fragment_statement){
                             fragment = new fragment_confirm();
+                            View viewC = getLayoutInflater().inflate(R.layout.builder_confirmation,null);
+
+                            //insert inputs
+                            getvictimdetails(viewC);
+
+
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(public_report_now.this);
                         builder1.setTitle("CONFRIMATION")
-                                .setCancelable(false)
-                                .setMessage("Please confirm all inputted data");
+                                .setView(viewC)
+                                .setCancelable(false);
+
                         builder1.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                //stepper
                                 state -=1;
                                 stpi.setCurrentStep(state);
                                 getSupportFragmentManager().popBackStack();
-
                             }
                         });
                         builder1.setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                //stepper and redirect
                                 if(fragment !=null){
                                     fragment = new fragment_serial();
                                     ft = getSupportFragmentManager().beginTransaction();
@@ -155,14 +166,10 @@ public class public_report_now extends AppCompatActivity {
                                                 break;
                                         }
                                     }
-
-
-
-
                                 }
+                            }
+                        });
 
-                                    }
-                                });
                         AlertDialog alertDialog = builder1.create();
                         alertDialog.show();
                     }
@@ -226,6 +233,17 @@ public class public_report_now extends AppCompatActivity {
         ft.commit();
         next.hide();
         prev.hide();
+
+    }
+
+    private void getvictimdetails(View viewC){
+        ArrayList<Victim> victim = fragment_victim_details.victims;
+        String name1 ="";
+        for(Victim v : victim){
+            name1 += v.toString() + "\n";
+        }
+        TextView name = viewC.findViewById(R.id.textView_info);
+        name.setText(name1);
 
     }
 

@@ -40,10 +40,12 @@ public class Victim {
 
     @Override
     public String toString() {
-        return "Victim{" +
-                "name='" + name + '\'' +
-                ", age='" + age + '\'' +
-                ", gender='" + gender + '\'' +
-                '}';
+        return "Name:    "+name+"\n" +"Age:     "+age+"\n"+ "Gender:  "+gender+"\n\n";
+
+//        return "Victim{" +
+//                "name='" + name + '\'' +
+//                ", age='" + age + '\'' +
+//                ", gender='" + gender + '\'' +
+//                '}';
     }
 }

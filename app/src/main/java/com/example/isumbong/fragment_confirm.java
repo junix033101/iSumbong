@@ -1,14 +1,11 @@
 package com.example.isumbong;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 
 public class fragment_confirm extends Fragment {
@@ -24,6 +21,7 @@ public class fragment_confirm extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_confirm, container, false);
+
 
 //        AlertDialog.Builder builder1 = new AlertDialog.Builder(public_report_now.this);
 //                        builder1.setTitle("CONFRIMATION")
