@@ -1,7 +1,5 @@
 package com.example.isumbong;
 
-import android.widget.EditText;
-
 public class INPUTS {
 
     private String vnum;
@@ -50,4 +48,5 @@ public class INPUTS {
     public void setStatement(String statement) {
         Statement = statement;
     }
+
 }

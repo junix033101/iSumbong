@@ -30,6 +30,14 @@ public class database extends SQLiteOpenHelper {
     private static final String VICTIMS_TABLE = "VICTIMS_TABLE";
     private static final String  NUMBER_OF_VICTIMS = "NUMBER_OF_VICTIMS";
 
+    private static final String ACCIDENT_INFO_TABLE= "ACCIDENT_INFO_TABLE";
+    private static final String ACCIDENT_IMG= "ACCIDENT_IMG";
+    private static final String ACCIDENT_INFO_ID= "ACCIDENT_INFO_ID";
+    private static final String LICENSE_NUMBER = "LICENSE_NUMBER";
+    private static final String LICENSE_IMG= "LICENSE_IMG";
+
+
+
 
 
 
@@ -57,7 +65,8 @@ public class database extends SQLiteOpenHelper {
         String createVictims = "CREATE TABLE " + VICTIMS_TABLE + " (" + VICTIMS_ID + " INTEGER PRIMARY KEY, " + NUMBER_OF_VICTIMS + " TEXT)";
         db.execSQL(createVictims);
 
-
+        String createAccidentInfo = "CREATE TABLE " + ACCIDENT_INFO_TABLE+ " (" + ACCIDENT_INFO_ID + " INTEGER PRIMARY KEY, " + VICTIMS_ID + " INT,"+ ACCIDENT_IMG+", "+ LICENSE_NUMBER+"TEXT," +LICENSE_IMG+")";
+        db.execSQL(createAccidentInfo);
     }
 
     @Override
@@ -152,6 +161,38 @@ public class database extends SQLiteOpenHelper {
         }
         return retval;
     }
+    public boolean InstertAccidentInfo(String img, String l_img, int id, int victims_id, String license_num ) {
+        boolean check = false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(ACCIDENT_INFO_ID, id);
+        cv.put(VICTIMS_ID, victims_id);
+        cv.put(ACCIDENT_IMG, img);
+        cv.put(LICENSE_NUMBER, license_num);
+        cv.put(LICENSE_IMG, l_img);
+        long insert = db.insert(ACCIDENT_INFO_TABLE, null, cv);
+        if (insert == -1) {
+            check = false;
+        } else
+            check = true;
+        return check;
+
+    }
+
+            public String setImage(){
+            String img = "";
+            String queryString = "SELECT * FROM " + ACCIDENT_INFO_TABLE;
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.rawQuery(queryString, null);
+            if (cursor.moveToFirst()) {
+                    img = cursor.getString(0);
+
+            }
+            cursor.close();
+            db.close();
+            return img;
+        }
+
 
 
 

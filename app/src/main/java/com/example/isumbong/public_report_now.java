@@ -2,6 +2,7 @@ package com.example.isumbong;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static com.example.isumbong.fragment_accident_info.text_license;
+import static com.example.isumbong.fragment_vehicle_info.plate;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,16 +41,7 @@ public class public_report_now extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_public_report_now);
-//        //shared preferences
-//        prefs = getSharedPreferences("mypref",0);
-//
-//        try {
-//            if(prefs.contains("plate")){
-//                plate.setText(prefs.getString("plate",""),TextView.BufferType.EDITABLE);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+
 
         input = new INPUTS();
         db = new database(this);
@@ -72,7 +64,6 @@ public class public_report_now extends AppCompatActivity {
         prev = findViewById(R.id.button_prev);
 
         //DEFAULT FRAG
-
         numvitims();
 
         next.setOnClickListener(new View.OnClickListener() {
@@ -87,91 +78,48 @@ public class public_report_now extends AppCompatActivity {
                     stpi.setCurrentStep(state);
                     //    Toast.makeText(public_report_now.this, "STATE"+state, Toast.LENGTH_SHORT).show();
 
-//                    if (state == 2) {
+//                    if (state == 2) { VICTIM DETAILS
                         if (fragment instanceof fragment_victim_details){
 //                            Toast.makeText(public_report_now.this, ""+input.getText_license(), Toast.LENGTH_SHORT).show();
-                            if(input.getText_license()==null || input.getText_license() == ""){
+                            if(input.getText_license()==null || input.getText_license().equals(""))
                                 fragment = new fragment_accident_info();
-                            }
                             else
                                 fragment = new fragment_accident_info(input.getText_license());
                         }
 
-//                    } else if (state == 3) {
+//                    } else if (state == 3) { ACCIDENT INFO
                         else if (fragment instanceof fragment_accident_info){
+                            //get text license
                             input.setText_license(text_license.getText().toString());
-                            fragment = new fragment_vehicle_info();
-//                            ArrayList<String> age = fragment_victim_details.inputAge;
-//                            for(String ag:age){
-//                                Toast.makeText(public_report_now.this, ag, Toast.LENGTH_SHORT).show();
-//                            }
+
+                            //set Vehicle info inputs
+                            if(input.getPlate()==null || input.getPlate().equals(""))
+                                fragment = new fragment_vehicle_info();
+                            else
+                                fragment = new fragment_vehicle_info(input.getPlate());
                         }
 
-//                    } else if (state == 4) {
+//                    } else if (state == 4) { VEHICLE INFO
                         else if (fragment instanceof fragment_vehicle_info){
+                            //get text plate num
+                            input.setPlate(plate.getText().toString());
+
+                            //open maps
                             fragment = new MapsFragment();
                         }
 
+                        //sate == 5 MAPS
                         else if(fragment instanceof MapsFragment){
                             fragment = new fragment_statement();
 //                            Toast.makeText(public_report_now.this, ""+getLocation+"\n "+getCoordinatesLat+
 //                                    "\n "+getCoordinatesLng, Toast.LENGTH_SHORT).show();
                         }
 
+                        //STATEMENT X CONFIRMATION
                         else if(fragment instanceof fragment_statement){
                             fragment = new fragment_confirm();
-                            View viewC = getLayoutInflater().inflate(R.layout.builder_confirmation,null);
-
-                            //insert inputs
-                            getvictimdetails(viewC);
-
-
-                            AlertDialog.Builder builder1 = new AlertDialog.Builder(public_report_now.this);
-                        builder1.setTitle("CONFRIMATION")
-                                .setView(viewC)
-                                .setCancelable(false);
-
-                        builder1.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //stepper
-                                state -=1;
-                                stpi.setCurrentStep(state);
-                                getSupportFragmentManager().popBackStack();
-                            }
-                        });
-                        builder1.setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //stepper and redirect
-                                if(fragment !=null){
-                                    fragment = new fragment_serial();
-                                    ft = getSupportFragmentManager().beginTransaction();
-                                    ft.add(R.id.fragment_container, fragment)
-                                            .addToBackStack(null)
-                                            .commit();
-                                    //state+=1;
-                                    stpi.setCurrentStep(state+1);
-                                    next.hide();
-                                    prev.hide();
-
-                                    boolean check =db.InsertVictims(Integer.parseInt(fragment_novictims.vnum));
-                                    if (check){
-                                        int id = db.victimsID();
-                                        ArrayList<Victim> victims = fragment_victim_details.victims;
-                                        for(int j=0;j<victims.size();j++){
-                                            if(check)
-                                                check = db.InsertVictimInfo(victims.get(j),id);
-                                            else
-                                                break;
-                                        }
-                                    }
-                                }
-                            }
-                        });
-
-                        AlertDialog alertDialog = builder1.create();
-                        alertDialog.show();
+                            //ALERT DIALOG FOR CONFIRMATION
+                            confirmation(stpi);
                     }
 
                     ft = getSupportFragmentManager().beginTransaction();
@@ -225,6 +173,7 @@ public class public_report_now extends AppCompatActivity {
             super.onBackPressed();
     }
 
+    //state == 1 NUMBER OF VICTIMS
     public void numvitims(){
         ft = getSupportFragmentManager().beginTransaction();
         fragment_novictims fnum = new fragment_novictims();
@@ -246,6 +195,64 @@ public class public_report_now extends AppCompatActivity {
         name.setText(name1);
 
     }
+    public void confirmation(StepperIndicator stpi)
+    {
+        View viewC = getLayoutInflater().inflate(R.layout.builder_confirmation,null);
 
+        //insert inputs
+        getvictimdetails(viewC);
+
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(public_report_now.this);
+        builder1.setTitle("CONFRIMATION")
+                .setView(viewC)
+                .setCancelable(false);
+
+        builder1.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //stepper
+                state -=1;
+                stpi.setCurrentStep(state);
+                getSupportFragmentManager().popBackStack();
+            }
+        });
+        builder1.setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //stepper and redirect
+                if(fragment !=null){
+                    fragment = new fragment_serial();
+                    ft = getSupportFragmentManager().beginTransaction();
+                    ft.add(R.id.fragment_container, fragment)
+                            .addToBackStack(null)
+                            .commit();
+                    //state+=1;
+                    stpi.setCurrentStep(state+1);
+                    next.hide();
+                    prev.hide();
+
+                    //add to database victims details
+                    boolean check =db.InsertVictims(Integer.parseInt(fragment_novictims.vnum));
+                    if (check){
+                        int id = db.victimsID();
+                        ArrayList<Victim> victims = fragment_victim_details.victims;
+                        for(int j=0;j<victims.size();j++){
+                            if(check)
+                                check = db.InsertVictimInfo(victims.get(j),id);
+                            else
+                                break;
+                        }
+                    }
+
+                    //add to database accident info
+
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder1.create();
+        alertDialog.show();
+    }
 
 }

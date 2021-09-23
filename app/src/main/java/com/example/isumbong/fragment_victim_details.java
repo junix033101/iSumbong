@@ -103,6 +103,7 @@ EditText et;
 
 
 
+
             //set victim numbers
             if (String.valueOf(i+1) != repeat){
                 num.setText(String.valueOf(i+1));
@@ -126,6 +127,18 @@ EditText et;
                     RadioButton b_female = view1.findViewById(R.id.radioButton_builder_female);
                     RadioButton b_male = view1.findViewById(R.id.radioButton_builder_male);
                     String bnum = num.getText().toString();
+
+                    //set edit text to input
+                    if(!name.getText().toString().matches("Name")&&
+                            !et.getText().toString().matches("Age")){
+                        b_name.setText((victims.get(i).getName()));
+                        b_age.setText((victims.get(i).getAge()));
+                    }
+                    //set radio button
+                    if(victims.get(i).getGender() == "male")
+                        b_male.setChecked(true);
+                    else if(victims.get(i).getGender() == "female")
+                        b_female.setChecked(true);
 
 
                     b_male.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -153,28 +166,39 @@ EditText et;
                             .setTitle("INPUT DETAILS")
                             .setCancelable(false);
 
-                    builder1.setNegativeButton("EDIT", new DialogInterface.OnClickListener() {
+                    builder1.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            //enable edit text
+
                         }
                     });
                     builder1.setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            victim= new Victim(b_name.getText().toString(),b_age.getText().toString(),gender);
-                            victims.set(Integer.parseInt(num.getText().toString())-1,victim);
-//                          Toast.makeText(getActivity(), victims.get(Integer.parseInt(num.getText().toString())-1).toString(), Toast.LENGTH_SHORT).show(); pang debug
-
-                            MyAdapter adapter = new MyAdapter();
-                            mListView.setAdapter(adapter);
-
-
-
                         }
                     });
                     AlertDialog alertDialog = builder1.create();
                     alertDialog.show();
+                    //to not close the dialog
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            victim= new Victim(b_name.getText().toString(),b_age.getText().toString(),gender);
+                            victims.set(Integer.parseInt(num.getText().toString())-1,victim);
+//                          Toast.makeText(getActivity(), victims.get(Integer.parseInt(num.getText().toString())-1).toString(), Toast.LENGTH_SHORT).show(); pang debug
+
+                            if(b_name.getText().toString().matches("")||b_age.getText().toString().matches("")|| b_male.getText().toString().matches("")
+                            || b_male.getText().toString().matches("")){
+                                Toast.makeText(getActivity(), "There is an empty field!", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                                alertDialog.dismiss();
+
+                            MyAdapter adapter = new MyAdapter();
+                            mListView.setAdapter(adapter);
+
+                        }
+                    });
                 }
             });
 
