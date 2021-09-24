@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class fragment_victim_details extends Fragment {
 
     ListView mListView;
-    String repeat = fragment_novictims.vnum;
+    String repeat = com.example.isumbong.fragment_novictims.vnum;
     CardView cardView;
     static ArrayList<String> inputAge = new ArrayList<String>();
     static ArrayList<Victim> victims;

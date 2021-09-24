@@ -2,16 +2,22 @@ package com.example.isumbong;
 
 public class INPUTS {
 
-    private String vnum;
-    private String Text_license;
+    private String vnum;//victim info
+    private String Img_accident;//accident info
+    private String Text_license;//accident info
+    private String Img_license; //accident info
     private String Plate;
     private String Statement;
 
-    public INPUTS(String vnum, String text_license, String plate, String statement) {
+
+    public INPUTS(String vnum, String text_license, String img_accident, String img_license, String plate, String statement) {
         this.vnum = vnum;
-        Text_license = text_license;
-        Plate = plate;
-        Statement = statement;
+        this.Img_accident = img_accident;
+        this.Text_license = text_license;
+        this.Img_license = img_license;
+        this.Plate = plate;
+        this.Statement = statement;
+
     }
     public INPUTS(){
 
@@ -25,6 +31,8 @@ public class INPUTS {
         this.vnum = vnum;
     }
 
+
+
     public String getText_license() {
         return Text_license;
     }
@@ -33,6 +41,28 @@ public class INPUTS {
         Text_license = text_license;
     }
 
+
+
+    public String getImg_accident() {
+        return Img_accident;
+    }
+
+    public void setImg_accident(String img_accident) {
+        Img_accident = img_accident;
+    }
+
+
+    public String getImg_license() {
+        return Img_license;
+    }
+
+    public void setImg_license(String img_license) {
+        Img_license = img_license;
+    }
+
+
+
+
     public String getPlate() {
         return Plate;
     }
@@ -40,6 +70,8 @@ public class INPUTS {
     public void setPlate(String plate) {
         Plate = plate;
     }
+
+
 
     public String getStatement() {
         return Statement;

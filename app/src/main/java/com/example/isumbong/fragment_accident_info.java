@@ -44,6 +44,10 @@ public class fragment_accident_info extends Fragment {
     static EditText text_license;
     static String Text_license;
 
+    static String strUriAccident;
+    static String strUriLicense;
+
+     static INPUTS inputs;
 
     public fragment_accident_info() {
         // Required empty public constructor
@@ -53,6 +57,10 @@ public class fragment_accident_info extends Fragment {
 
         this.Text_license = Text_license;
     }
+//    public fragment_accident_info(String img_accident, String img_license){
+//        this.img_accident = img_accident;
+//        this.img_license = img_license;
+//    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -84,6 +92,8 @@ public class fragment_accident_info extends Fragment {
                     if (result.getResultCode() == RESULT_OK) {
                          img_accident = result.getData().getData();
                          accident.setImageURI(img_accident);
+                         //set img uri to string
+                        strUriAccident = img_accident.toString();
                     }
                     else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
                         // Use ImagePicker.Companion.getError(result.getData()) to show an error
@@ -91,7 +101,7 @@ public class fragment_accident_info extends Fragment {
                 });
 //sample uri
 //        database db = new database(requireContext());
-//        license.setImageURI(Uri.parse(db.setImage()));
+//        license.setImageURI(Uri.parse(inputs.setImg_accident()));
 
 
 
@@ -101,6 +111,7 @@ public class fragment_accident_info extends Fragment {
                     if (result.getResultCode() == RESULT_OK) {
                         img_license = result.getData().getData();
                         license.setImageURI(img_license);
+                        strUriLicense = img_license.toString();
                         // Use the uri to load the image
                     } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
                         // Use ImagePicker.Companion.getError(result.getData()) to show an error
@@ -158,16 +169,4 @@ public class fragment_accident_info extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-//    public void AddToDatabase(){
-//        //convert uri to string
-//        String strUri = img_accident.toString();
-//        //store to database
-//        database db = new database(requireContext());
-////                        Toast.makeText(requireContext(),strUri, Toast.LENGTH_SHORT).show();   DEBUG
-//        boolean check = db.InstertAccidentInfo(strUri);
-//        if(check)
-//            Toast.makeText(requireContext(),"Registered", Toast.LENGTH_SHORT).show();
-//        else
-//            Toast.makeText(requireContext(),"Username Taken", Toast.LENGTH_SHORT).show();
-//    }
 }

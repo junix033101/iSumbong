@@ -1,15 +1,21 @@
 package com.example.isumbong;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+import static com.example.isumbong.fragment_accident_info.Text_license;
+import static com.example.isumbong.fragment_accident_info.strUriAccident;
+import static com.example.isumbong.fragment_accident_info.strUriLicense;
 import static com.example.isumbong.fragment_accident_info.text_license;
 import static com.example.isumbong.fragment_vehicle_info.plate;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +41,8 @@ public class public_report_now extends AppCompatActivity {
     static FloatingActionButton prev;
     database db;
     INPUTS input;
+
+    int victimsid;
 
 
     @Override
@@ -199,8 +207,9 @@ public class public_report_now extends AppCompatActivity {
     {
         View viewC = getLayoutInflater().inflate(R.layout.builder_confirmation,null);
 
-        //insert inputs
+        //insert info input
         getvictimdetails(viewC);
+        getAccidentInfo(viewC);
 
 
         AlertDialog.Builder builder1 = new AlertDialog.Builder(public_report_now.this);
@@ -232,20 +241,10 @@ public class public_report_now extends AppCompatActivity {
                     next.hide();
                     prev.hide();
 
-                    //add to database victims details
-                    boolean check =db.InsertVictims(Integer.parseInt(fragment_novictims.vnum));
-                    if (check){
-                        int id = db.victimsID();
-                        ArrayList<Victim> victims = fragment_victim_details.victims;
-                        for(int j=0;j<victims.size();j++){
-                            if(check)
-                                check = db.InsertVictimInfo(victims.get(j),id);
-                            else
-                                break;
-                        }
-                    }
+                    //add to database
+                    VictimDetailsDB();
+                    AccidentInfoDB();
 
-                    //add to database accident info
 
                 }
             }
@@ -254,5 +253,43 @@ public class public_report_now extends AppCompatActivity {
         AlertDialog alertDialog = builder1.create();
         alertDialog.show();
     }
+
+    public void VictimDetailsDB(){
+
+        //add to database victims details
+        boolean check =db.InsertVictims(Integer.parseInt(fragment_novictims.vnum));
+        if (check){
+            victimsid = db.victimsID();
+            ArrayList<Victim> victims = fragment_victim_details.victims;
+            for(int j=0;j<victims.size();j++){
+                if(check)
+                    check = db.InsertVictimInfo(victims.get(j),victimsid);
+                else
+                    break;
+            }
+        }
+    }
+
+    public void AccidentInfoDB(){
+        boolean check = db.InsertAccidentInfo(strUriAccident,strUriLicense,victimsid,input.getText_license());
+        if(check){
+            Toast.makeText(this,"" +strUriAccident+""+strUriLicense+""+victimsid+""+Text_license, Toast.LENGTH_SHORT).show();
+        }
+        else
+            Toast.makeText(this,"ERROR", Toast.LENGTH_SHORT).show();
+    }
+
+    private void getAccidentInfo(View viewC){
+        //intialize
+        ImageView img_a = viewC.findViewById(R.id.imageView_confirm_accident);
+        ImageView img_l = viewC.findViewById(R.id.imageView_confirm_license);
+        TextView license = viewC.findViewById(R.id.textView_confirm_licensenum);
+        //set
+        img_a.setImageURI(Uri.parse(strUriAccident));
+        license.setText(input.getText_license());
+        img_l.setImageURI(Uri.parse(strUriLicense));
+    }
+//    license.setImageURI(Uri.parse(inputs.setImg_accident()));
+
 
 }

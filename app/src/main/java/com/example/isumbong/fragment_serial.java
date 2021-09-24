@@ -1,15 +1,16 @@
 package com.example.isumbong;
 
+import static com.example.isumbong.fragment_accident_info.img_accident;
+import static com.example.isumbong.fragment_accident_info.img_license;
+
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import androidx.fragment.app.Fragment;
 
 
 public class fragment_serial extends Fragment {
@@ -34,7 +35,11 @@ public class fragment_serial extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent( getActivity(), public_homepage.class);
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                requireActivity().finish();
+                //reset
                 public_report_now.state =  0;
+                img_accident = null;
+                img_license = null;
 
             }
         });
