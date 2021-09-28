@@ -33,18 +33,26 @@ public class fragment_serial extends Fragment {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //redirect
                 Intent intent = new Intent( getActivity(), public_homepage.class);
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 requireActivity().finish();
-                //reset
-                public_report_now.state =  0;
-                img_accident = null;
-                img_license = null;
+
+                reset();
+
 
             }
         });
 
-
         return view;
+    }
+    private void reset(){
+        public_report_now.state =  0;
+        img_accident = null;
+        img_license = null;
+        fragment_vehicle_info.img_vehicle = null;
+        fragment_vehicle_info.img_or = null;
+//        img_vehicle = null;
+//        img_or = null;
     }
 }

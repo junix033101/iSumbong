@@ -36,6 +36,17 @@ public class database extends SQLiteOpenHelper {
     private static final String LICENSE_NUMBER = "LICENSE_NUMBER";
     private static final String LICENSE_IMG= "LICENSE_IMG";
 
+    private static final String VEHICLE_INFO_TABLE= "VEHICLE_INFO_TABLE";
+    private static final String VEHICLE_IMG= "VEHICLE_IMG";
+    private static final String VEHICLE_INFO_ID= "VEHICLE_INFO_ID";
+    private static final String PLATE_NUMBER = "PLATE_NUMBER";
+    private static final String OR_IMG= "OR_IMG";
+    private static final String VEHICLE_TYPE= "VEHICLE_TYPE";
+
+    private static final String STATEMENT_TABLE = "STATEMENT_TABLE";
+    static final String STATEMENT_ID = "STATEMENT_ID";
+    private static final String  STATEMENT = "STATEMENT";
+
 
 
 
@@ -67,6 +78,12 @@ public class database extends SQLiteOpenHelper {
 
         String createAccidentInfo = "CREATE TABLE " + ACCIDENT_INFO_TABLE+ " (" + ACCIDENT_INFO_ID + " INTEGER PRIMARY KEY, " + VICTIMS_ID + " INT, " + ACCIDENT_IMG+ ", " + LICENSE_NUMBER+ " TEXT, " +LICENSE_IMG+ " )";
         db.execSQL(createAccidentInfo);
+
+        String createVehicleInfo = "CREATE TABLE " + VEHICLE_INFO_TABLE+ " (" + VEHICLE_INFO_ID + " INTEGER PRIMARY KEY, " + VICTIMS_ID + " INT, " + PLATE_NUMBER + " TEXT," + VEHICLE_TYPE+ " TEXT," + VEHICLE_IMG+ ", " +OR_IMG+ " )";
+        db.execSQL(createVehicleInfo);
+
+        String createStatement = "CREATE TABLE " + STATEMENT_TABLE + " (" + STATEMENT_ID + " INTEGER PRIMARY KEY," + VICTIMS_ID + " INT, " + STATEMENT + " TEXT)";
+        db.execSQL(createStatement);
     }
 
     @Override
@@ -177,6 +194,41 @@ public class database extends SQLiteOpenHelper {
         return check;
 
     }
+    public boolean InsertVehicleInfo(String vehicle_img, String or_img, int victims_id, String plate_num, String vehicle_type ) {
+        boolean check = false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(VICTIMS_ID, victims_id);
+        cv.put(PLATE_NUMBER, plate_num);
+        cv.put(VEHICLE_TYPE, vehicle_type);
+        cv.put(VEHICLE_IMG, vehicle_img);
+        cv.put(OR_IMG, or_img);
+        long insert = db.insert(VEHICLE_INFO_TABLE, null, cv);
+        if (insert == -1) {
+            check = false;
+        } else
+            check = true;
+        return check;
+    }
+
+    public boolean InsertStatement(int victims_id, String statement ) {
+        boolean check = false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(VICTIMS_ID, victims_id);
+        cv.put(STATEMENT, statement);
+        long insert = db.insert(STATEMENT_TABLE, null, cv);
+        if (insert == -1) {
+            check = false;
+        } else
+            check = true;
+        return check;
+    }
+
+
+
+
+
     public String getAccidentImg(int victims_id){
         String img_a = "";
         String queryString = "SELECT * FROM " + ACCIDENT_INFO_TABLE + "WHERE VICTIMS_ID = '"+victims_id+"'" ;

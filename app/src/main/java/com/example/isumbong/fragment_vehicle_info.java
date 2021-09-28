@@ -2,7 +2,9 @@ package com.example.isumbong;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,14 +33,24 @@ import kotlin.jvm.internal.Intrinsics;
 public class fragment_vehicle_info extends Fragment {
 
     Button btn_vehicle;
+    Button btn_or;
 
     ImageView vehicle;
-    static Uri img_vehicle  ;
+    ImageView or;
+    static Uri img_vehicle;
+    static Uri img_or;
 
-    Spinner spnr_vehicle;
+    static Spinner spnr_vehicle;
 
     static EditText plate;
     static String Plate;
+
+    static String strUriVehicle;
+    static String strUriOr;
+
+    static String VehicleType;
+
+
 
     public fragment_vehicle_info() {
         // Required empty public constructor
@@ -56,7 +68,9 @@ public class fragment_vehicle_info extends Fragment {
 
 
         btn_vehicle = view.findViewById(R.id.button_vehicle);
+        btn_or = view.findViewById(R.id.button_OR);
         vehicle = view.findViewById(R.id.imageView_vehicle);
+        or = view.findViewById(R.id.imageView_OR);
         plate = view.findViewById(R.id.Text_plate);
 
         plate.setText(Plate);
@@ -66,6 +80,9 @@ public class fragment_vehicle_info extends Fragment {
             vehicle.setImageURI(img_vehicle);
 
         }
+        if(img_or != null){
+            or.setImageURI(img_or);
+        }
 
         String[] type = {"Select Vehicle Type","3 WHEELER", "4 WHEELER", "MOTORCYCLE", "BUS", "TRUCK"};
 
@@ -74,11 +91,31 @@ public class fragment_vehicle_info extends Fragment {
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnr_vehicle.setAdapter(myAdapter);
 
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("FileName", Context.MODE_PRIVATE);
+        int spinnerValue = sharedPref.getInt("userChoiceSpinner",-1);
+        if(spinnerValue != -1) {
+            // set the selected value of the spinner
+            spnr_vehicle.setSelection(spinnerValue);
+        }
+
         spnr_vehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     String selecteditem = adapterView.getItemAtPosition(i).toString();
-                   // Toast.makeText(getActivity().getBaseContext(), ""+selecteditem, Toast.LENGTH_SHORT).show();
+
+                    int SpinnerPos = spnr_vehicle.getSelectedItemPosition();
+                    SharedPreferences.Editor prefEditor = sharedPref.edit();
+                    prefEditor.putInt("userChoiceSpinner",SpinnerPos);
+                    prefEditor.apply();
+
+                   if(selecteditem.matches("Select Vehicle Type")){
+                       selecteditem = "";
+                   }
+                   else{
+                       VehicleType = selecteditem;
+                   }
+
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -91,6 +128,7 @@ public class fragment_vehicle_info extends Fragment {
                     if (result.getResultCode() == RESULT_OK) {
                         img_vehicle = result.getData().getData();
                         vehicle.setImageURI(img_vehicle);
+                        strUriVehicle = img_vehicle.toString();
                         // Use the uri to load the image
                     } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
                         // Use ImagePicker.Companion.getError(result.getData()) to show an error
@@ -116,6 +154,40 @@ public class fragment_vehicle_info extends Fragment {
                                 launcher_v.launch(it);
                         }
                 });
+            }
+        });
+
+        ActivityResultLauncher<Intent> launcher_or =
+                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        img_or = result.getData().getData();
+                        or.setImageURI(img_or);
+                        strUriOr = img_or.toString();
+                        // Use the uri to load the image
+                    } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
+                        // Use ImagePicker.Companion.getError(result.getData()) to show an error
+                    }
+                });
+
+
+        btn_or.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImagePicker.Companion.with(requireActivity())
+                        .crop()
+                        .cropSquare()
+                        .maxResultSize(512, 512, true)
+                        .createIntentFromDialog(new Function1() {
+                            public Object invoke(Object var1) {
+                                this.invoke((Intent) var1);
+                                return Unit.INSTANCE;
+                            }
+
+                            public final void invoke(@NotNull Intent it) {
+                                Intrinsics.checkNotNullParameter(it, "it");
+                                launcher_or.launch(it);
+                            }
+                        });
             }
         });
 

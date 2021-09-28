@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    tools:context=".fragment_vehicle_info">
+    android:layout_width="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        tools:context=".fragment_vehicle_info">
+
 
     <TextView
         android:id="@+id/textView7"
@@ -99,4 +104,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imageView_OR"
+            android:layout_width="339dp"
+            android:layout_height="252dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="26dp"
+            android:src="@drawable/ic_baseline_image_24"
+            app:layout_constraintBottom_toTopOf="@+id/button_OR"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_vehicle" />
+
+        <Button
+            android:id="@+id/button_OR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="159dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginEnd="158dp"
+            android:text="UPLOAD"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_OR" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

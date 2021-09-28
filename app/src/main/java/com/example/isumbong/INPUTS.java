@@ -73,7 +73,7 @@ public class INPUTS {
 
 
 
-    public String getStatement() {
+    public String getstatement() {
         return Statement;
     }
 

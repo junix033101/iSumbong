@@ -1,9 +1,5 @@
 package com.example.isumbong;
 
-import static com.example.isumbong.MapsFragment.getCoordinatesLat;
-import static com.example.isumbong.MapsFragment.getCoordinatesLng;
-import static com.example.isumbong.MapsFragment.getLocation;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,17 +8,19 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
-import java.text.MessageFormat;
-
 
 public class fragment_statement extends Fragment {
 
-       EditText statement;
-       String Statement;
+       static EditText statement_field;
+       static String Statement;
 
 
     public fragment_statement() {
         // Required empty public constructor
+    }
+    public fragment_statement(String Statement) {
+
+        this.Statement = Statement;
     }
 
 
@@ -32,11 +30,11 @@ public class fragment_statement extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_statement, container, false);
 
-        statement = view.findViewById(R.id.editTextTextMultiLine_statement);
+        statement_field = view.findViewById(R.id.editTextTextMultiLine_statement);
 
-        statement.setText(MessageFormat.format("{0}{1}{2}", getLocation, Double.toString(getCoordinatesLat), Double.toString(getCoordinatesLng)));
+        //statement.setText(MessageFormat.format("{0}{1}{2}", getLocation, Double.toString(getCoordinatesLat), Double.toString(getCoordinatesLng)));
 
-        Statement = statement.getText().toString();
+        statement_field.setText(Statement);
 
         return view;
     }

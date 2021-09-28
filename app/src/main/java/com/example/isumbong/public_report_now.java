@@ -5,7 +5,11 @@ import static com.example.isumbong.fragment_accident_info.Text_license;
 import static com.example.isumbong.fragment_accident_info.strUriAccident;
 import static com.example.isumbong.fragment_accident_info.strUriLicense;
 import static com.example.isumbong.fragment_accident_info.text_license;
+import static com.example.isumbong.fragment_statement.statement_field;
+import static com.example.isumbong.fragment_vehicle_info.VehicleType;
 import static com.example.isumbong.fragment_vehicle_info.plate;
+import static com.example.isumbong.fragment_vehicle_info.strUriOr;
+import static com.example.isumbong.fragment_vehicle_info.strUriVehicle;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -100,7 +104,7 @@ public class public_report_now extends AppCompatActivity {
                             //get text license
                             input.setText_license(text_license.getText().toString());
 
-                            //set Vehicle info inputs
+                            //set Vehicle info plate
                             if(input.getPlate()==null || input.getPlate().equals(""))
                                 fragment = new fragment_vehicle_info();
                             else
@@ -118,13 +122,21 @@ public class public_report_now extends AppCompatActivity {
 
                         //sate == 5 MAPS
                         else if(fragment instanceof MapsFragment){
-                            fragment = new fragment_statement();
+                            if(input.getstatement()==null || input.getstatement().equals(""))
+                                fragment = new fragment_statement();
+                            else
+                                fragment = new fragment_statement(input.getstatement());
+
 //                            Toast.makeText(public_report_now.this, ""+getLocation+"\n "+getCoordinatesLat+
 //                                    "\n "+getCoordinatesLng, Toast.LENGTH_SHORT).show();
                         }
 
                         //STATEMENT X CONFIRMATION
                         else if(fragment instanceof fragment_statement){
+                            //get text statement
+                            input.setStatement(statement_field.getText().toString());
+
+                            //fragment for confirmation
                             fragment = new fragment_confirm();
                             //ALERT DIALOG FOR CONFIRMATION
                             confirmation(stpi);
@@ -210,6 +222,8 @@ public class public_report_now extends AppCompatActivity {
         //insert info input
         getvictimdetails(viewC);
         getAccidentInfo(viewC);
+        getVehicleInfo(viewC);
+        getStatement(viewC);
 
 
         AlertDialog.Builder builder1 = new AlertDialog.Builder(public_report_now.this);
@@ -244,6 +258,8 @@ public class public_report_now extends AppCompatActivity {
                     //add to database
                     VictimDetailsDB();
                     AccidentInfoDB();
+                    VehicleInfoDB();
+                    StatementDB();
 
 
                 }
@@ -291,5 +307,40 @@ public class public_report_now extends AppCompatActivity {
     }
 //    license.setImageURI(Uri.parse(inputs.setImg_accident()));
 
+    private void VehicleInfoDB(){
+        boolean check = db.InsertVehicleInfo(strUriVehicle,strUriOr,victimsid,input.getPlate(),VehicleType);
+        if(check){
+//            Toast.makeText(this,"" +strUriAccident+""+strUriLicense+""+victimsid+""+Text_license, Toast.LENGTH_SHORT).show();
+        }
+        else
+            Toast.makeText(this,"ERROR", Toast.LENGTH_SHORT).show();
+    }
 
+    private void getVehicleInfo(View viewC){
+        //intialize
+        ImageView img_v = viewC.findViewById(R.id.imageView_confirm_vehicle);
+        ImageView img_o = viewC.findViewById(R.id.imageView_confirm_or);
+        TextView plate = viewC.findViewById(R.id.textView_confirm_plate);
+        TextView vtype = viewC.findViewById(R.id.textView_confirm_vehicletype);
+        //set
+        img_v.setImageURI(Uri.parse(strUriVehicle));
+        plate.setText(input.getPlate());
+        img_o.setImageURI(Uri.parse(strUriOr));
+        vtype.setText(VehicleType);
+    }
+
+    private void StatementDB(){
+        boolean check = db.InsertStatement(victimsid,input.getstatement());
+        if(check){
+            Toast.makeText(this,"ohk", Toast.LENGTH_SHORT).show();
+        }
+        else
+            Toast.makeText(this,"ERROR", Toast.LENGTH_SHORT).show();
+    }
+
+    private void getStatement(View viewC){
+        TextView state = viewC.findViewById(R.id.textView_confirm_statement);
+
+        state.setText(input.getstatement());
+    }
 }
