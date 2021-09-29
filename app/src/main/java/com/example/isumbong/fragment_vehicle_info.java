@@ -49,6 +49,7 @@ public class fragment_vehicle_info extends Fragment {
     static String strUriOr;
 
     static String VehicleType;
+    static int SpinnerPos;
 
 
 
@@ -103,7 +104,7 @@ public class fragment_vehicle_info extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     String selecteditem = adapterView.getItemAtPosition(i).toString();
 
-                    int SpinnerPos = spnr_vehicle.getSelectedItemPosition();
+                    SpinnerPos = spnr_vehicle.getSelectedItemPosition();
                     SharedPreferences.Editor prefEditor = sharedPref.edit();
                     prefEditor.putInt("userChoiceSpinner",SpinnerPos);
                     prefEditor.apply();

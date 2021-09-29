@@ -35,7 +35,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -135,8 +134,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         return view;
     }
 
-    private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
-            new LatLng(-40, -168), new LatLng(71, 136));
+//    private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
+//            new LatLng(-40, -168), new LatLng(71, 136));
 
     private void init(){
 
@@ -221,15 +220,18 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
                             //get address
                             Geocoder geocoder = new Geocoder(requireContext());
-                            try{
-                                list = geocoder.getFromLocation(currentLocation.getLatitude(),currentLocation.getLongitude(),1);
-                            }catch (IOException e){
-                                Toast.makeText(getActivity(), "NO INTERNET AVAILABLE", Toast.LENGTH_SHORT).show();
+
+                            if (currentLocation!=null) {
+                                try{
+                                    list = geocoder.getFromLocation(currentLocation.getLatitude(),currentLocation.getLongitude(),1);
+                                }catch (IOException e){
+                                    Toast.makeText(getActivity(), "NO INTERNET AVAILABLE", Toast.LENGTH_SHORT).show();
+                                }
+                                if(list != null && list.size()>0){
+                                    address = list.get(0).getAddressLine(0);
+                                }
+                                moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),DEFAULT_ZOOM,""+address);//minnnneeeeeee
                             }
-                            if(list != null && list.size()>0){
-                                address = list.get(0).getAddressLine(0);
-                            }
-                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),DEFAULT_ZOOM,""+address);//minnnneeeeeee
 
                         }else{
                             Log.d(TAG, "onComplete: nuullll");

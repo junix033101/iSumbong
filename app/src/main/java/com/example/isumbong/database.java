@@ -44,8 +44,18 @@ public class database extends SQLiteOpenHelper {
     private static final String VEHICLE_TYPE= "VEHICLE_TYPE";
 
     private static final String STATEMENT_TABLE = "STATEMENT_TABLE";
-    static final String STATEMENT_ID = "STATEMENT_ID";
+    private static final String STATEMENT_ID = "STATEMENT_ID";
     private static final String  STATEMENT = "STATEMENT";
+
+    private static final String LOCATION_TABLE = "LOCATION_TABLE";
+    private static final String LOCATION_ID = "LOCATION_ID";
+    private static final String  ADDRESS_PIN = "ADDRESS_PIN";
+    private static final String  LATITUDE = "LATITUDE";
+    private static final String  LONGITUDE = "LONGITUDE";
+
+    private static final String SERIAL_TABLE = "SERIAL_TABLE";
+    private static final String SERIAL_ID = "SERIAL_ID";
+    private static final String  SERIAL_NUMBER = "SERIAL_NUMBER";
 
 
 
@@ -84,6 +94,12 @@ public class database extends SQLiteOpenHelper {
 
         String createStatement = "CREATE TABLE " + STATEMENT_TABLE + " (" + STATEMENT_ID + " INTEGER PRIMARY KEY," + VICTIMS_ID + " INT, " + STATEMENT + " TEXT)";
         db.execSQL(createStatement);
+
+        String createLocation = "CREATE TABLE " + LOCATION_TABLE + " (" + LOCATION_ID + " INTEGER PRIMARY KEY," + VICTIMS_ID + " INT, " + ADDRESS_PIN + " TEXT, "+LATITUDE+" DOUBLE, "+LONGITUDE+" DOUBLE)";
+        db.execSQL(createLocation);
+
+        String createSerial = "CREATE TABLE " + SERIAL_TABLE + " (" + SERIAL_ID + " INTEGER PRIMARY KEY," + VICTIMS_ID + " INT, " + SERIAL_NUMBER + " TEXT)";
+        db.execSQL(createSerial);
     }
 
     @Override
@@ -218,6 +234,35 @@ public class database extends SQLiteOpenHelper {
         cv.put(VICTIMS_ID, victims_id);
         cv.put(STATEMENT, statement);
         long insert = db.insert(STATEMENT_TABLE, null, cv);
+        if (insert == -1) {
+            check = false;
+        } else
+            check = true;
+        return check;
+    }
+    public boolean InsertLocation(int victims_id, String address, double lat, double lng){
+        boolean check = false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(VICTIMS_ID, victims_id);
+        cv.put(ADDRESS_PIN, address);
+        cv.put(LATITUDE, lat);
+        cv.put(LONGITUDE, lng);
+        long insert = db.insert(LOCATION_TABLE, null, cv);
+        if (insert == -1) {
+            check = false;
+        } else
+            check = true;
+        return check;
+    }
+
+    public boolean InsertSerial(int victims_id, String serial){
+        boolean check = false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(VICTIMS_ID, victims_id);
+        cv.put(SERIAL_NUMBER, serial);
+        long insert = db.insert(SERIAL_TABLE, null, cv);
         if (insert == -1) {
             check = false;
         } else

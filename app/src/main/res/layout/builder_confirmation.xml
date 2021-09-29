@@ -33,15 +33,12 @@
             android:layout_width="270dp"
             android:layout_height="252dp"
             android:layout_marginStart="70dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="18dp"
             android:layout_marginEnd="71dp"
             android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mapView2"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
         <TextView
             android:id="@+id/textView_number"
@@ -50,7 +47,7 @@
             android:layout_marginStart="176dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="177dp"
-            android:text="TextView"
+            android:text="Textview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -64,6 +61,7 @@
             android:layout_marginEnd="131dp"
             android:layout_marginBottom="13dp"
             android:text="VICTIMS INFORMATION"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/textView12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +74,7 @@
             android:layout_marginStart="178dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="175dp"
-            android:text="TextView"
+            android:text="informations"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_number" />
@@ -85,35 +83,37 @@
             android:id="@+id/imageView_confirm_accident"
             android:layout_width="146dp"
             android:layout_height="129dp"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="23dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.516"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_info"
+            app:layout_constraintTop_toBottomOf="@+id/textView13"
             app:srcCompat="@drawable/ic_baseline_image_24" />
 
         <ImageView
             android:id="@+id/imageView_confirm_license"
             android:layout_width="150dp"
             android:layout_height="121dp"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="19dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_confirm_licensenum"
+            app:layout_constraintTop_toBottomOf="@+id/textView16"
             app:srcCompat="@drawable/ic_baseline_image_24" />
 
         <TextView
             android:id="@+id/textView_confirm_licensenum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="31dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/imageView_confirm_license"
+            android:layout_marginStart="177dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="178dp"
+            android:layout_marginBottom="19dp"
+            android:text="Textview"
+            app:layout_constraintBottom_toTopOf="@+id/textView16"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView_confirm_accident"
-            app:layout_constraintVertical_bias="0.083" />
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
         <TextView
             android:id="@+id/textView_confirm_plate"
@@ -122,33 +122,40 @@
             android:layout_marginStart="176dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="177dp"
+            android:layout_marginBottom="20dp"
             android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/textView19"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView_confirm_license" />
+            app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
         <TextView
             android:id="@+id/textView_confirm_vehicletype"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="178dp"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="175dp"
+            android:layout_marginBottom="26dp"
             android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/textView20"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_confirm_plate" />
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
         <ImageView
             android:id="@+id/imageView_confirm_vehicle"
             android:layout_width="152dp"
             android:layout_height="150dp"
             android:layout_marginStart="127dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="132dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_confirm_vehicletype"
+            app:layout_constraintTop_toBottomOf="@+id/textView20"
             app:srcCompat="@drawable/ic_baseline_image_24" />
 
         <ImageView
@@ -156,23 +163,160 @@
             android:layout_width="159dp"
             android:layout_height="167dp"
             android:layout_marginStart="120dp"
-            android:layout_marginTop="42dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="132dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView_confirm_vehicle"
+            app:layout_constraintTop_toBottomOf="@+id/textView21"
             app:srcCompat="@drawable/ic_baseline_image_24" />
 
         <com.google.android.gms.maps.MapView
-            android:id="@+id/mapView2"
+            android:id="@+id/mapView_confirm"
             android:layout_width="288dp"
             android:layout_height="241dp"
             android:layout_marginStart="61dp"
-            android:layout_marginTop="54dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="62dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="125dp"
+            android:text="ACCIDENT INFORMATION"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_info" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="145dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="147dp"
+            android:text="Picture of Accident"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="159dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginEnd="159dp"
+            android:text="Diver's License"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_confirm_accident" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="125dp"
+            android:text="Picture of Driver's License"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_confirm_licensenum" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="129dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="128dp"
+            android:text="VEHICLE INFORMATION"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_confirm_license" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="162dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="163dp"
+            android:text="Plate Number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="176dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="177dp"
+            android:text="Vehicle Type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_confirm_plate" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="151dp"
+            android:text="Picture of Vehicle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_confirm_vehicletype" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="161dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="161dp"
+            android:text="Picture of O.R."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_confirm_vehicle" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="171dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginEnd="172dp"
+            android:text="LOCATION"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView_confirm_or" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="164dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="166dp"
+            android:text="STATEMENT"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mapView_confirm" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
