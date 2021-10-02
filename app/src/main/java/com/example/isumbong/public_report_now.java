@@ -39,7 +39,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rakshakhegde.stepperindicator.StepperIndicator;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 //import com.anton46.stepsview.StepsView;
 
@@ -248,6 +251,7 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
         getAccidentInfo(viewC);
         getVehicleInfo(viewC);
         getStatement(viewC);
+        getDate(viewC);
 //        MapView(viewC);
 
 
@@ -388,10 +392,6 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
         getDeviceLocation();
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            mMap.setMyLocationEnabled(true);
-//            return;
-//        }
     }
     private void getDeviceLocation(){
         float DEFAULT_ZOOM = 15f;
@@ -415,6 +415,14 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
             Toast.makeText(this, "ohk", Toast.LENGTH_SHORT).show();
         } else
             Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
+    }
+    private void getDate(View viewC){
+        TextView date_field = viewC.findViewById(R.id.textView_date);
+        SimpleDateFormat dateN = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
+        String date = dateN.format(Calendar.getInstance().getTime());
+
+        date_field.setText(date);
+
     }
 
 

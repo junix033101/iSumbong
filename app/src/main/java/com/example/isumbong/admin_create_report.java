@@ -13,11 +13,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.ArrayList;
 
-public class admin_homepage extends AppCompatActivity {
+public class admin_create_report extends AppCompatActivity {
 
     MenuItem menuItem;
     SearchView searchView;
@@ -28,26 +26,13 @@ public class admin_homepage extends AppCompatActivity {
 
     database db;
 
-    FloatingActionButton add;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_homepage);
-
-        add = findViewById(R.id.button_admin_create);
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openAddReport();
-            }
-        });
-
-
+        setContentView(R.layout.activity_admin_create_report);
 
     }
 
-        //here lies search bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -61,7 +46,7 @@ public class admin_homepage extends AppCompatActivity {
 
         //set suggestions
         db = new database(this);
-        serials = db.getSerial();
+        serials = db.getVerifiedSerial();
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line,serials);
         searchAutoComplete.setAdapter(arrayAdapter);
         searchView.setQueryHint("Search Serial Code");
@@ -73,18 +58,17 @@ public class admin_homepage extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long id) {
                 String queryString=(String)adapterView.getItemAtPosition(itemIndex);
                 searchAutoComplete.setText("" + queryString);
-                Toast.makeText(admin_homepage.this, "you clicked " + queryString, Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(admin_homepage.this, admin_view_serial.class);
+                Toast.makeText(admin_create_report.this, "you clicked " + queryString, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(admin_create_report.this, admin_view_serial.class);
                 intent.putExtra("clicked_serial", queryString);
                 startActivity(intent);
-
             }
         });
         // Below event is triggered when submit search query.
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                AlertDialog alertDialog = new AlertDialog.Builder(admin_homepage.this).create();
+                AlertDialog alertDialog = new AlertDialog.Builder(admin_create_report.this).create();
                 alertDialog.setMessage("Search keyword is " + query);
                 alertDialog.show();
                 return false;
@@ -97,12 +81,4 @@ public class admin_homepage extends AppCompatActivity {
 
         return true;
     }
-
-    private void openAddReport(){
-        Intent intent = new Intent(this, admin_create_report.class);
-        startActivity(intent);
-    }
-
-
-
 }

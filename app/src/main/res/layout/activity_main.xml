@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffff"
     tools:context=".MainActivity">
 
     <Button
@@ -14,7 +15,10 @@
         android:layout_marginTop="300dp"
         android:layout_marginEnd="162dp"
         android:layout_marginBottom="44dp"
+        android:background="#DA0F0F"
+        android:backgroundTint="#FFFFFF"
         android:text="PUBLIC"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/button_admin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

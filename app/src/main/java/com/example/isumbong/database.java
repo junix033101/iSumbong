@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 public class database extends SQLiteOpenHelper {
     private static final String CODE_TABLE = "CODE_TABLE";
     private static final String ID = "ID";
@@ -57,6 +59,9 @@ public class database extends SQLiteOpenHelper {
     private static final String SERIAL_ID = "SERIAL_ID";
     private static final String  SERIAL_NUMBER = "SERIAL_NUMBER";
 
+    private static final String VERIFIED_SERIAL_TABLE= "VERIFIED_SERIAL_TABLE";
+    private static final String VERIFIED_SERIAL_ID = "VERIFIED_SERIAL_ID";
+
 
 
 
@@ -100,6 +105,9 @@ public class database extends SQLiteOpenHelper {
 
         String createSerial = "CREATE TABLE " + SERIAL_TABLE + " (" + SERIAL_ID + " INTEGER PRIMARY KEY," + VICTIMS_ID + " INT, " + SERIAL_NUMBER + " TEXT)";
         db.execSQL(createSerial);
+
+        String createVerifiedSerial = "CREATE TABLE " + VERIFIED_SERIAL_TABLE + " (" + VERIFIED_SERIAL_ID + " INTEGER PRIMARY KEY," + VICTIMS_ID + " INT, "+ SERIAL_NUMBER + " TEXT)";
+        db.execSQL(createVerifiedSerial);
     }
 
     @Override
@@ -270,13 +278,102 @@ public class database extends SQLiteOpenHelper {
         return check;
     }
 
+    public boolean InsertVerifiedSerial(int victims_id, String serial){
+        boolean check = false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(VICTIMS_ID, victims_id);
+        cv.put(SERIAL_NUMBER, serial);
+        long insert = db.insert(VERIFIED_SERIAL_TABLE, null, cv);
+        if (insert == -1) {
+            check = false;
+        } else
+            check = true;
+        return check;
+    }
 
+    public int getSerialID(String serial){
+        int serial_id = 0;
+        String queryString = "SELECT * FROM " + SERIAL_TABLE + " WHERE SERIAL_NUMBER = '"+serial+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            serial_id = cursor.getInt(2);
+        }
+        cursor.close();
+        db.close();
+        return serial_id;
+    }
 
+    public ArrayList<String> getSerial(){
+        ArrayList<String> serial = new ArrayList<>();
+        String query = "SELECT SERIAL_NUMBER FROM SERIAL_TABLE ORDER BY SERIAL_NUMBER asc";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            do{
+                serial.add(cursor.getString(0));
+            }while(cursor.moveToNext());
+        }
+        return serial;
+    }
+    public ArrayList<String> getVerifiedSerial(){
+        ArrayList<String> serial = new ArrayList<>();
+        String query = "SELECT SERIAL_NUMBER FROM VERIFIED_SERIAL_TABLE ORDER BY SERIAL_NUMBER asc";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            do{
+                serial.add(cursor.getString(0));
+            }while(cursor.moveToNext());
+        }
+        return serial;
+    }
 
+    //get id based on serial
+    public int getVictimxSerial(String serial){
+        int victims_id = 0;
+        String queryString = "SELECT * FROM " + SERIAL_TABLE + " WHERE SERIAL_NUMBER = '"+serial+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            victims_id = cursor.getInt(1);
+        }
+        cursor.close();
+        db.close();
+        return victims_id;
+    }
+    public String getNumVictims(int victims_id){
+        String num = "";
+        String queryString = "SELECT * FROM " + VICTIMS_TABLE + " WHERE VICTIMS_ID = '"+victims_id+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            num = cursor.getString(1);
+        }
+        cursor.close();
+        db.close();
+        return num;
+    }
+
+    public ArrayList<Victim> getVictimsInfo(int victims_id){
+        ArrayList<Victim> info = new ArrayList<>();
+        String queryString = "SELECT * FROM " + LIST_OF_VICTIMS_TABLE + " WHERE VICTIMS_ID = '"+victims_id+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            do{
+                info.add(new Victim(cursor.getString(1),cursor.getString(2),cursor.getString(3)));
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return info;
+    }
 
     public String getAccidentImg(int victims_id){
         String img_a = "";
-        String queryString = "SELECT * FROM " + ACCIDENT_INFO_TABLE + "WHERE VICTIMS_ID = '"+victims_id+"'" ;
+        String queryString = "SELECT * FROM " + ACCIDENT_INFO_TABLE + " WHERE VICTIMS_ID = '"+victims_id+"'" ;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
         if (cursor.moveToFirst()) {
@@ -286,10 +383,22 @@ public class database extends SQLiteOpenHelper {
         db.close();
         return img_a;
     }
+    public String getLicenseImg(int victims_id){
+        String img_l = "";
+        String queryString = "SELECT * FROM " + ACCIDENT_INFO_TABLE + " WHERE VICTIMS_ID = '"+victims_id+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            img_l = cursor.getString(4);
+        }
+        cursor.close();
+        db.close();
+        return img_l;
+    }
 
     public String getLicenseNumber(int victims_id){
         String license = "";
-        String queryString = "SELECT * FROM " + ACCIDENT_INFO_TABLE + "WHERE VICTIMS_ID = '"+victims_id+"'" ;
+        String queryString = "SELECT * FROM " + ACCIDENT_INFO_TABLE + " WHERE VICTIMS_ID = '"+victims_id+"'" ;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
         if (cursor.moveToFirst()) {
@@ -300,17 +409,108 @@ public class database extends SQLiteOpenHelper {
         return license;
     }
 
-    public String getLicenseImg(int victims_id){
-        String img_l = "";
-        String queryString = "SELECT * FROM " + ACCIDENT_INFO_TABLE + "WHERE VICTIMS_ID = '"+victims_id+"'" ;
+    public String getVehicleImg(int victims_id){
+        String img_v = "";
+        String queryString = "SELECT * FROM " + VEHICLE_INFO_TABLE + " WHERE VICTIMS_ID = '"+victims_id+"'" ;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
         if (cursor.moveToFirst()) {
-            img_l = cursor.getString(4);
+            img_v = cursor.getString(4);
         }
         cursor.close();
         db.close();
-        return img_l;
+        return img_v;
     }
+    public String getOrImg(int victims_id){
+        String img_o = "";
+        String queryString = "SELECT * FROM " + VEHICLE_INFO_TABLE + " WHERE VICTIMS_ID = '"+victims_id+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            img_o = cursor.getString(5);
+        }
+        cursor.close();
+        db.close();
+        return img_o;
+    }
+
+    public String getPlateNumber(int victims_id){
+        String license = "";
+        String queryString = "SELECT * FROM " + VEHICLE_INFO_TABLE + " WHERE VICTIMS_ID = '"+victims_id+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            license = cursor.getString(2);
+        }
+        cursor.close();
+        db.close();
+        return license;
+    }
+    public String getVehicleType(int victims_id){
+        String license = "";
+        String queryString = "SELECT * FROM " +VEHICLE_INFO_TABLE + " WHERE VICTIMS_ID = '"+victims_id+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            license = cursor.getString(3);
+        }
+        cursor.close();
+        db.close();
+        return license;
+    }
+    public String getStatement(int victims_id){
+        String license = "";
+        String queryString = "SELECT * FROM " + STATEMENT_TABLE + " WHERE VICTIMS_ID = '"+victims_id+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            license = cursor.getString(2);
+        }
+        cursor.close();
+        db.close();
+        return license;
+    }
+
+    public double getLatitude(int victims_id){
+        double lat = 0.0;
+        String queryString = "SELECT * FROM " + LOCATION_TABLE + " WHERE VICTIMS_ID = '"+victims_id+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            lat = cursor.getDouble(3);
+        }
+        cursor.close();
+        db.close();
+        return lat;
+    }
+
+    public double getLongitude(int victims_id){
+        double lng = 0.0;
+        String queryString = "SELECT * FROM " + LOCATION_TABLE + " WHERE VICTIMS_ID = '"+victims_id+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            lng = cursor.getDouble(4);
+        }
+        cursor.close();
+        db.close();
+        return lng;
+    }
+    public String getLocation(int victims_id){
+        String loc = "";
+        String queryString = "SELECT * FROM " + LOCATION_TABLE + " WHERE VICTIMS_ID = '"+victims_id+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            loc = cursor.getString(2);
+        }
+        cursor.close();
+        db.close();
+        return loc;
+    }
+
+
+
+
 
 }

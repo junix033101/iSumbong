@@ -39,8 +39,9 @@ public class fragment_serial extends Fragment {
 
         home = view.findViewById(R.id.imageButton_home);
         serial = view.findViewById(R.id.textView_serial);
-        serial.setText(Serial());
-        SerialDB();
+        String Serial = Serial();
+        serial.setText(Serial);
+        SerialDB(Serial);
 
 
 
@@ -83,9 +84,10 @@ public class fragment_serial extends Fragment {
         s = zeros.substring(s.length()) + s;
         return s;
     }
-    private void SerialDB(){
+
+    private void SerialDB(String Serial){
         db = new database(requireContext());
-        boolean check = db.InsertSerial(victimsid, Serial());
+        boolean check = db.InsertSerial(victimsid, Serial);
         if (check) {
             Toast.makeText(requireContext(), "asdasdasda", Toast.LENGTH_SHORT).show();
         } else
