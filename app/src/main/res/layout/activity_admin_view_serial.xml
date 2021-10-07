@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FAFAFA"
+        android:background="#EDEBD7"
         android:orientation="vertical"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbars="vertical">
@@ -352,9 +352,12 @@
             android:id="@+id/button_edit"
             android:layout_width="83dp"
             android:layout_height="46dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginStart="164dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="164dp"
+            android:background="@drawable/button_stroke"
             android:text="EDIT"
-            app:layout_constraintEnd_toStartOf="@+id/button_verify"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_confirm_statement" />
 
@@ -362,11 +365,14 @@
             android:id="@+id/button_verify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="47dp"
+            android:layout_marginStart="161dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginEnd="162dp"
+            android:background="@drawable/button_background"
             android:text="VERIFY"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button_edit"
-            app:layout_constraintTop_toBottomOf="@+id/textView_confirm_statement" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_edit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
