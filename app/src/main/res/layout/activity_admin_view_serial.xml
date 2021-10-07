@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#EDEBD7"
+        android:background="#FAFAFA"
         android:orientation="vertical"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbars="vertical">
@@ -23,6 +23,7 @@
             android:layout_marginStart="70dp"
             android:layout_marginTop="18dp"
             android:layout_marginEnd="71dp"
+            android:gravity="center|top"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,11 +38,8 @@
             android:layout_marginStart="176dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="177dp"
-            android:layout_marginBottom="20dp"
             android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/textView19"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
@@ -49,14 +47,11 @@
             android:id="@+id/textView_confirm_vehicletype"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="178dp"
+            android:layout_marginStart="179dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="175dp"
-            android:layout_marginBottom="26dp"
+            android:layout_marginEnd="174dp"
             android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/textView20"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
@@ -163,12 +158,12 @@
             android:id="@+id/textView_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="61dp"
-            android:layout_marginTop="52dp"
-            android:layout_marginEnd="292dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="21dp"
+            android:gravity="center"
             android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toStartOf="@+id/textView_admin_view_serial"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -189,12 +184,12 @@
             android:id="@+id/textView_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="176dp"
+            android:layout_marginStart="180dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="177dp"
+            android:layout_marginEnd="175dp"
+            android:gravity="center"
             android:text="Textview"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
@@ -216,7 +211,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="130dp"
-            android:layout_marginTop="39dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="131dp"
             android:layout_marginBottom="13dp"
             android:text="VICTIMS INFORMATION"
@@ -224,19 +219,17 @@
             app:layout_constraintBottom_toTopOf="@+id/textView12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_admin_view_serial" />
 
         <TextView
             android:id="@+id/textView_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="178dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="175dp"
+            android:layout_marginStart="165dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="166dp"
             android:text="informations"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.454"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_number" />
 
@@ -309,14 +302,11 @@
             android:id="@+id/textView_confirm_licensenum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="177dp"
+            android:layout_marginStart="178dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="178dp"
-            android:layout_marginBottom="19dp"
+            android:layout_marginEnd="177dp"
             android:text="Textview"
-            app:layout_constraintBottom_toTopOf="@+id/textView16"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -324,14 +314,13 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="176dp"
-            android:layout_marginTop="104dp"
-            android:layout_marginEnd="177dp"
+            android:layout_marginStart="147dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="147dp"
             android:text="Number of Victims"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
         <ImageView
             android:id="@+id/imageView_confirm_license"
@@ -349,30 +338,23 @@
             android:layout_width="189dp"
             android:layout_height="34dp"
             android:layout_marginStart="111dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="64dp"
             android:layout_marginEnd="111dp"
-            android:layout_marginBottom="2dp"
             android:gravity="center"
             android:text="TextView"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/textView_date"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/button_edit"
             android:layout_width="83dp"
             android:layout_height="46dp"
-            android:layout_marginStart="164dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="164dp"
-            android:background="@drawable/button_stroke"
+            android:layout_marginTop="48dp"
             android:text="EDIT"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_verify"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_confirm_statement" />
 
@@ -380,14 +362,11 @@
             android:id="@+id/button_verify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="161dp"
-            android:layout_marginTop="21dp"
-            android:layout_marginEnd="162dp"
-            android:background="@drawable/button_background"
+            android:layout_marginTop="47dp"
             android:text="VERIFY"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_edit" />
+            app:layout_constraintStart_toEndOf="@+id/button_edit"
+            app:layout_constraintTop_toBottomOf="@+id/textView_confirm_statement" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

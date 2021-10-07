@@ -40,6 +40,6 @@ public class Victim {
 
     @Override
     public String toString() {
-        return "Name:    "+name+"\n" +"Age:     "+age+"\n"+ "Gender:  "+gender+"\n\n";
+        return "Name:    "+name+"\n" +"Age:         "+age+"\n"+ "Gender:  "+gender+"\n\n";
     }
 }

@@ -21,7 +21,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class admin_view_serial extends AppCompatActivity implements OnMapReadyCallback {
     database db = new database(this);
@@ -50,7 +53,8 @@ public class admin_view_serial extends AppCompatActivity implements OnMapReadyCa
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                builder(ID, serial);
+                String vdate = setDate();
+                builder(ID, serial, vdate);
             }
         });
 
@@ -104,12 +108,20 @@ public class admin_view_serial extends AppCompatActivity implements OnMapReadyCa
         TextView plate = findViewById(R.id.textView_confirm_plate);
         TextView type = findViewById(R.id. textView_confirm_vehicletype);
         TextView statement = findViewById(R.id.textView_confirm_statement);
+        TextView date = findViewById(R.id.textView_date);
 
         license.setText(db.getLicenseNumber(ID));
         plate.setText(db.getPlateNumber(ID));
         type.setText(db.getVehicleType(ID));
         statement.setText(db.getStatement(ID));
+        date.setText(db.getDate(ID));
     }
+
+    private String setDate(){
+        SimpleDateFormat dateN = new SimpleDateFormat("MMMM dd, yyyy \n HH:mm:ss", Locale.getDefault());
+        return dateN.format(Calendar.getInstance().getTime());
+    }
+
 
     GoogleMap mMap;
 
@@ -134,23 +146,26 @@ public class admin_view_serial extends AppCompatActivity implements OnMapReadyCa
                 .title(title);
         mMap.addMarker(options);
     }
-    private void builder(int ID, String serial){
+    private void builder(int ID, String serial, String vdate){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("VERIFICATION")
                 .setMessage("Are you sure to verify this report?")
                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
-                        boolean check = db.InsertVerifiedSerial(ID,serial);
+                        String user = getIntent().getStringExtra("user");
+                        boolean check = db.InsertVerifiedSerial(ID,serial,vdate,user);
                         if (check) {
                             Toast.makeText(admin_view_serial.this, "Verified", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(admin_view_serial.this, admin_report_files.class);
+                            intent.putExtra("selected",1);
+                            startActivity(intent);
+                            finish();
                         } else
                             Toast.makeText(admin_view_serial.this, "ERROR", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton("NO",null)
                 .show();
-
     }
 }

@@ -16,7 +16,7 @@
         android:layout_marginEnd="37dp"
         android:background="#FFEDEDED"
         android:ems="10"
-        android:gravity="center"
+        android:gravity="center|top"
         android:hint="Input Statement"
         android:inputType="textMultiLine"
         android:textAlignment="center"

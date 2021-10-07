@@ -41,7 +41,7 @@ public class fragment_serial extends Fragment {
         serial = view.findViewById(R.id.textView_serial);
         String Serial = Serial();
         serial.setText(Serial);
-        SerialDB(Serial);
+        SerialDB(Serial,public_report_now.date);
 
 
 
@@ -85,11 +85,11 @@ public class fragment_serial extends Fragment {
         return s;
     }
 
-    private void SerialDB(String Serial){
+    private void SerialDB(String Serial, String date){
         db = new database(requireContext());
-        boolean check = db.InsertSerial(victimsid, Serial);
+        boolean check = db.InsertSerial(victimsid, Serial, date);
         if (check) {
-            Toast.makeText(requireContext(), "asdasdasda", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "SUCCESS", Toast.LENGTH_SHORT).show();
         } else
             Toast.makeText(requireContext(), "ERROR", Toast.LENGTH_SHORT).show();
     }
