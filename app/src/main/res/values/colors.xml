@@ -10,4 +10,6 @@
     <color name="green">#00FF00</color>
     <color name="green1">#00B47C</color>
     <color name="grey">#b3bdc2</color>
+    <color name="button">#423E37</color>
+
 </resources>
