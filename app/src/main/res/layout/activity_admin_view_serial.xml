@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FAFAFA"
+        android:background="#EDEBD7"
         android:orientation="vertical"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbars="vertical">
@@ -370,6 +370,7 @@
             android:layout_marginStart="164dp"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="164dp"
+            android:background="@drawable/button_stroke"
             android:text="EDIT"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -382,6 +383,7 @@
             android:layout_marginStart="161dp"
             android:layout_marginTop="21dp"
             android:layout_marginEnd="162dp"
+            android:background="@drawable/button_background"
             android:text="VERIFY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

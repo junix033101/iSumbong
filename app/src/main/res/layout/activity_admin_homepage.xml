@@ -14,14 +14,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/main_bg">
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:backgroundTint="@color/design_default_color_primary"
+            app:backgroundTint="#E3B23C"
             app:fabCradleMargin="8dp"
             app:fabCradleRoundedCornerRadius="32dp">
 
@@ -91,6 +92,8 @@
             android:id="@+id/button_admin_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+            app:backgroundTint="#423E37"
             app:layout_anchor="@id/appBar"
             app:srcCompat="@drawable/ic_baseline_add_24" />
 
