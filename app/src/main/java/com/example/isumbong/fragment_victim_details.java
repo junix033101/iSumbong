@@ -53,7 +53,6 @@ EditText et;
         mListView.setAdapter( adapter);
 
 
-
         return view;
 
     }
@@ -116,7 +115,7 @@ EditText et;
                 @Override
                 public void onClick(View view) {
                     TextView num = view.findViewById(R.id.view_num);
-                    Toast.makeText(getActivity(), num.getText().toString(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), num.getText().toString(), Toast.LENGTH_SHORT).show();
 
                     //dialog pop up
                     LayoutInflater inflater = requireActivity().getLayoutInflater();

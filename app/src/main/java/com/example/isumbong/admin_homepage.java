@@ -7,9 +7,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
+import android.widget.ImageButton;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
@@ -43,7 +42,9 @@ public class admin_homepage extends AppCompatActivity {
             }
         });
 
-
+        openReportFiles();
+        openAccount();
+        openFiles();
 
     }
 
@@ -73,9 +74,10 @@ public class admin_homepage extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long id) {
                 String queryString=(String)adapterView.getItemAtPosition(itemIndex);
                 searchAutoComplete.setText("" + queryString);
-                Toast.makeText(admin_homepage.this, "you clicked " + queryString, Toast.LENGTH_LONG).show();
+//                Toast.makeText(admin_homepage.this, "you clicked " + queryString, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(admin_homepage.this, admin_view_serial.class);
                 intent.putExtra("clicked_serial", queryString);
+                intent.putExtras(getIntent());
                 startActivity(intent);
 
             }
@@ -84,11 +86,12 @@ public class admin_homepage extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                AlertDialog alertDialog = new AlertDialog.Builder(admin_homepage.this).create();
-                alertDialog.setMessage("Search keyword is " + query);
-                alertDialog.show();
+//                AlertDialog alertDialog = new AlertDialog.Builder(admin_homepage.this).create();
+//                alertDialog.setMessage("Search keyword is " + query);
+//                alertDialog.show();
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
@@ -100,8 +103,46 @@ public class admin_homepage extends AppCompatActivity {
 
     private void openAddReport(){
         Intent intent = new Intent(this, admin_create_report.class);
+        intent.putExtras(getIntent());
         startActivity(intent);
     }
+
+    private void openReportFiles(){
+        ImageButton report = findViewById(R.id.imageButton_reports);
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(admin_homepage.this, admin_report_files.class);
+                intent.putExtras(getIntent());
+                startActivity(intent);
+            }
+        });
+    }
+    private void openAccount(){
+        ImageButton acc = findViewById(R.id.imageButton_account);
+        acc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(admin_homepage.this, admin_account.class);
+                intent.putExtras(getIntent());
+                startActivity(intent);
+            }
+        });
+
+    }
+    private void openFiles(){
+        ImageButton files = findViewById(R.id.imageButton_files);
+        files.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(admin_homepage.this, admin_dl_files.class);
+                intent.putExtras(getIntent());
+                startActivity(intent);
+            }
+        });
+
+    }
+
 
 
 

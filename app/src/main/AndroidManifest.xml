@@ -22,6 +22,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ISumbong">
         <activity
+            android:name=".admin_account"
+            android:exported="true" />
+        <activity
+            android:name=".admin_dl_files"
+            android:exported="true" />
+        <activity
+            android:name=".admin_report_files"
+            android:exported="true" />
+        <activity
             android:name=".admin_create_report"
             android:exported="true" />
         <activity

@@ -1,8 +1,5 @@
 package com.example.isumbong;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +10,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 public class admin_login extends AppCompatActivity {
+
+    static String admin_code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class admin_login extends AppCompatActivity {
                 database db = new database(admin_login.this);
                 boolean check = db.setCode(code.getText().toString());
                 if(check){
+                    admin_code = code.getText().toString();
                     Toast.makeText(admin_login.this, "SUCCESS", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
@@ -89,7 +92,7 @@ public class admin_login extends AppCompatActivity {
                 boolean check = db.setLogin(username,password);
                 if(check){
                     Intent intent = new Intent(admin_login.this, admin_homepage.class);
-                    intent.putExtra("user",username);
+                    intent.putExtra("user", username);
                     startActivity(intent);
                 }
                 else{

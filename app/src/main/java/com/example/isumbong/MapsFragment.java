@@ -92,7 +92,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        Toast.makeText(getActivity(), "MAP IS READY", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "MAP IS READY", Toast.LENGTH_SHORT).show();
         mMap = googleMap;
 
 
@@ -153,7 +153,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
             public void onPlaceSelected(@NonNull Place place) {
                 final LatLng latLng = place.getLatLng();
                 //for debug
-                Toast.makeText(getActivity(), ""+latLng.latitude+latLng.longitude, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), ""+latLng.latitude+latLng.longitude, Toast.LENGTH_SHORT).show();
 
                 //insert geolocation
                 moveCamera(new LatLng(latLng.latitude, latLng.longitude),DEFAULT_ZOOM,""+place.getAddress());
@@ -215,7 +215,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
 
                             Log.d(TAG, "onComplete: found location!");
-                            Toast.makeText(getActivity(), "FOUND", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity(), "FOUND", Toast.LENGTH_SHORT).show();
                             Location currentLocation = (Location) task.getResult();
 
                             //get address

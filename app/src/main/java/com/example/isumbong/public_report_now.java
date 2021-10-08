@@ -1,7 +1,6 @@
 package com.example.isumbong;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-import static com.example.isumbong.fragment_accident_info.Text_license;
 import static com.example.isumbong.fragment_accident_info.img_accident;
 import static com.example.isumbong.fragment_accident_info.img_license;
 import static com.example.isumbong.fragment_accident_info.strUriAccident;
@@ -320,7 +319,7 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
     public void AccidentInfoDB() {
         boolean check = db.InsertAccidentInfo(strUriAccident, strUriLicense, victimsid, input.getText_license());
         if (check) {
-            Toast.makeText(this, "" + strUriAccident + "" + strUriLicense + "" + victimsid + "" + Text_license, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "" + strUriAccident + "" + strUriLicense + "" + victimsid + "" + Text_license, Toast.LENGTH_SHORT).show();
         } else
             Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
     }
@@ -370,7 +369,7 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
     private void StatementDB() {
         boolean check = db.InsertStatement(victimsid, input.getstatement());
         if (check) {
-            Toast.makeText(this, "ohk", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "ohk", Toast.LENGTH_SHORT).show();
         } else
             Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
     }
@@ -412,18 +411,21 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
     private void LocationDB(){
         boolean check = db.InsertLocation(victimsid,MapsFragment.getLocation, MapsFragment.getCoordinatesLat,MapsFragment.getCoordinatesLng);
         if (check) {
-            Toast.makeText(this, "ohk", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "ohk", Toast.LENGTH_SHORT).show();
         } else
             Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
     }
+
+    static String date;
     private void getDate(View viewC){
         TextView date_field = viewC.findViewById(R.id.textView_date);
-        SimpleDateFormat dateN = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
-        String date = dateN.format(Calendar.getInstance().getTime());
+        SimpleDateFormat dateN = new SimpleDateFormat("MMMM dd, yyyy \n HH:mm:ss", Locale.getDefault());
+        date = dateN.format(Calendar.getInstance().getTime());
 
         date_field.setText(date);
 
     }
+
 
 
 }

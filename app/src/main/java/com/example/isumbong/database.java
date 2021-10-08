@@ -58,10 +58,18 @@ public class database extends SQLiteOpenHelper {
     private static final String SERIAL_TABLE = "SERIAL_TABLE";
     private static final String SERIAL_ID = "SERIAL_ID";
     private static final String  SERIAL_NUMBER = "SERIAL_NUMBER";
+    private static final String DATE = "DATE";
 
     private static final String VERIFIED_SERIAL_TABLE= "VERIFIED_SERIAL_TABLE";
     private static final String VERIFIED_SERIAL_ID = "VERIFIED_SERIAL_ID";
+    private static final String DATE_VERIFIED = "DATE_VERIFIED";
 
+    private static final String INCIDENT_REPORT_TABLE= "INCIDENT_REPORT_TABLE";
+    private static final String INCIDENT_TYPE = "INCIDENT_TYPE";
+    private static final String REPORT_ID = "REPORT_ID";
+    private static final String OFFICER= "OFFICER";
+    private static final String ATTACHED_SERIAL = "ATTACHED_SERIAL";
+    private static final String REPORT_SERIAL = "REPORT_SERIAL";
 
 
 
@@ -103,11 +111,15 @@ public class database extends SQLiteOpenHelper {
         String createLocation = "CREATE TABLE " + LOCATION_TABLE + " (" + LOCATION_ID + " INTEGER PRIMARY KEY," + VICTIMS_ID + " INT, " + ADDRESS_PIN + " TEXT, "+LATITUDE+" DOUBLE, "+LONGITUDE+" DOUBLE)";
         db.execSQL(createLocation);
 
-        String createSerial = "CREATE TABLE " + SERIAL_TABLE + " (" + SERIAL_ID + " INTEGER PRIMARY KEY," + VICTIMS_ID + " INT, " + SERIAL_NUMBER + " TEXT)";
+        String createSerial = "CREATE TABLE " + SERIAL_TABLE + " (" + SERIAL_ID + " INTEGER PRIMARY KEY," + VICTIMS_ID + " INT, " + SERIAL_NUMBER + " TEXT,"+DATE+" TEXT)";
         db.execSQL(createSerial);
 
-        String createVerifiedSerial = "CREATE TABLE " + VERIFIED_SERIAL_TABLE + " (" + VERIFIED_SERIAL_ID + " INTEGER PRIMARY KEY," + VICTIMS_ID + " INT, "+ SERIAL_NUMBER + " TEXT)";
+        String createVerifiedSerial = "CREATE TABLE " + VERIFIED_SERIAL_TABLE + " (" + VERIFIED_SERIAL_ID + " INTEGER PRIMARY KEY," + VICTIMS_ID + " INT, "+ SERIAL_NUMBER + " TEXT,"+DATE_VERIFIED+" TEXT, "+USER+" TEXT)";
         db.execSQL(createVerifiedSerial);
+
+        String createIncidentReport = "CREATE TABLE " + INCIDENT_REPORT_TABLE + " (" + REPORT_ID + " INTEGER PRIMARY KEY," + REPORT_SERIAL + " TEXT," + INCIDENT_TYPE + " TEXT, "+ OFFICER + " TEXT,"+ EMAIL + " TEXT,"+PNP_SECTOR+" TEXT, "+DATE+" TEXT, "+STATEMENT+" TEXT,"+
+        ATTACHED_SERIAL+" TEXT)";
+        db.execSQL(createIncidentReport);
     }
 
     @Override
@@ -264,12 +276,13 @@ public class database extends SQLiteOpenHelper {
         return check;
     }
 
-    public boolean InsertSerial(int victims_id, String serial){
+    public boolean InsertSerial(int victims_id, String serial, String date){
         boolean check = false;
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(VICTIMS_ID, victims_id);
         cv.put(SERIAL_NUMBER, serial);
+        cv.put(DATE, date);
         long insert = db.insert(SERIAL_TABLE, null, cv);
         if (insert == -1) {
             check = false;
@@ -278,17 +291,41 @@ public class database extends SQLiteOpenHelper {
         return check;
     }
 
-    public boolean InsertVerifiedSerial(int victims_id, String serial){
+    public boolean InsertVerifiedSerial(int victims_id, String serial, String date,String user){
         boolean check = false;
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(VICTIMS_ID, victims_id);
         cv.put(SERIAL_NUMBER, serial);
+        cv.put(DATE_VERIFIED,date);
+        cv.put(USER,user);
         long insert = db.insert(VERIFIED_SERIAL_TABLE, null, cv);
         if (insert == -1) {
             check = false;
         } else
             check = true;
+        return check;
+    }
+
+    public boolean InsertIncidentReport(String type, String officer, String email, String sector,
+    String date, String statement, String serial, String reportS){
+        boolean check = false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(INCIDENT_TYPE, type);
+        cv.put(OFFICER, officer);
+        cv.put(EMAIL, email);
+        cv.put(PNP_SECTOR, sector);
+        cv.put(DATE , date);
+        cv.put(STATEMENT, statement);
+        cv.put(ATTACHED_SERIAL, serial);
+        cv.put(REPORT_SERIAL, reportS);
+        long insert = db.insert(INCIDENT_REPORT_TABLE, null, cv);
+        if (insert == -1) {
+            check = false;
+        } else
+            check = true;
+
         return check;
     }
 
@@ -317,6 +354,7 @@ public class database extends SQLiteOpenHelper {
         }
         return serial;
     }
+
     public ArrayList<String> getVerifiedSerial(){
         ArrayList<String> serial = new ArrayList<>();
         String query = "SELECT SERIAL_NUMBER FROM VERIFIED_SERIAL_TABLE ORDER BY SERIAL_NUMBER asc";
@@ -328,6 +366,18 @@ public class database extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
         }
         return serial;
+    }
+    public int getIDxVserial(String vserial){
+        int victims_id = 0;
+        String queryString = "SELECT * FROM " + VERIFIED_SERIAL_TABLE + " WHERE SERIAL_NUMBER = '"+vserial+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            victims_id = cursor.getInt(1);
+        }
+        cursor.close();
+        db.close();
+        return victims_id;
     }
 
     //get id based on serial
@@ -507,6 +557,93 @@ public class database extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return loc;
+    }
+    public String getDate(int victims_id){
+        String date = "";
+        String queryString = "SELECT * FROM " + SERIAL_TABLE + " WHERE VICTIMS_ID = '"+victims_id+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            date = cursor.getString(3);
+        }
+        cursor.close();
+        db.close();
+        return date;
+    }
+
+    public String getName(String user){
+        String name = "";
+        String queryString = "SELECT * FROM " + ADMIN_TABLE + " WHERE USERNAME = '"+user+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            name = cursor.getString(2);
+        }
+        cursor.close();
+        db.close();
+        return name;
+
+    }
+    public String getPnpSector(String code){
+        String sector = "";
+        String queryString = "SELECT * FROM " + CODE_TABLE + " WHERE CODE = '"+code+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            sector = cursor.getString(1);
+        }
+        cursor.close();
+        db.close();
+        return sector;
+    }
+
+    public String getVdate(int id){
+        String vdate = "";
+        String queryString = "SELECT * FROM " + VERIFIED_SERIAL_TABLE + " WHERE VICTIMS_ID = '"+id+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            vdate = cursor.getString(3);
+        }
+        cursor.close();
+        db.close();
+        return vdate;
+    }
+    public String getIdNo(String user){
+        String id = "";
+        String queryString = "SELECT * FROM " + ADMIN_TABLE + " WHERE USERNAME = '"+user+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            id = cursor.getString(3);
+        }
+        cursor.close();
+        db.close();
+        return id;
+    }
+    public String getUser(int id){
+        String user = "";
+        String queryString = "SELECT * FROM " + VERIFIED_SERIAL_TABLE + " WHERE VICTIMS_ID = '"+id+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            user = cursor.getString(4);
+        }
+        cursor.close();
+        db.close();
+        return user;
+    }
+    public String getEmail(String user){
+        String email = "";
+        String queryString = "SELECT * FROM " + ADMIN_TABLE + " WHERE USERNAME = '"+user+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            email = cursor.getString(4);
+        }
+        cursor.close();
+        db.close();
+        return email;
     }
 
 
