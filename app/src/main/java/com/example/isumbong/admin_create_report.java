@@ -78,7 +78,7 @@ public class admin_create_report extends AppCompatActivity implements OnMapReady
         });
 
     }
-    private void setInfo(){
+    public void setInfo(){
         TextView officer = findViewById(R.id.textView_create_officer);
         TextView sector = findViewById(R.id.textView_create_sector);
         TextView date = findViewById(R.id.textView_create_date);
@@ -98,7 +98,7 @@ public class admin_create_report extends AppCompatActivity implements OnMapReady
         return dateN.format(Calendar.getInstance().getTime());
     }
 
-    private void dialog(){
+    public void dialog(){
         db = new database(this);
         ArrayList<String> vserial = new ArrayList<>();
         vserial = db.getVerifiedSerial();
@@ -176,11 +176,11 @@ public class admin_create_report extends AppCompatActivity implements OnMapReady
         linearLayout.addView(textView);
 
     }
-    private int getInfoVserial(String queryString){
+    public int getInfoVserial(String queryString){
         return db.getIDxVserial(queryString);
     }
 
-    private void getAttachedView(String queryString, LinearLayout linearLayout, TextView textView){
+    public void getAttachedView(String queryString, LinearLayout linearLayout, TextView textView){
 
         //GET VICTIMS ID BASED ON VSERIAL
         int id = getInfoVserial(queryString);

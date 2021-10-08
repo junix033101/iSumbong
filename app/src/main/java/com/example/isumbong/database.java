@@ -646,6 +646,20 @@ public class database extends SQLiteOpenHelper {
         return email;
     }
 
+    public ArrayList<String> getReportSerial(){
+        ArrayList<String> serial = new ArrayList<>();
+        String query = "SELECT REPORT_SERIAL FROM INCIDENT_REPORT_TABLE ORDER BY REPORT_SERIAL asc";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            do{
+                serial.add(cursor.getString(0));
+            }while(cursor.moveToNext());
+        }
+        return serial;
+    }
+
+
 
 
 
