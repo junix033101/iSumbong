@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg">
 
     <EditText
         android:id="@+id/Textview_builder_age"
@@ -86,6 +87,7 @@
         android:layout_marginStart="33dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="36dp"
+        android:background="#E3B23C"
         android:gravity="center"
         android:text="TextView"
         app:layout_constraintEnd_toStartOf="@+id/Textview_builder_age"
@@ -100,6 +102,7 @@
         android:layout_marginTop="33dp"
         android:layout_marginEnd="54dp"
         android:layout_marginBottom="14dp"
+        android:background="#E3B23C"
         android:text="Victim"
         app:layout_constraintBottom_toTopOf="@+id/textview_builder_num"
         app:layout_constraintEnd_toStartOf="@+id/Text_builder_name"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#E3B23C"
     tools:context=".fragment_victim_details">
 
     <ListView
@@ -13,6 +13,7 @@
         android:layout_height="462dp"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="72dp"
+        android:background="#EDEBD7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

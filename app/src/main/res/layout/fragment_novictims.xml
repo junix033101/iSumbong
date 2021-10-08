@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/main_bg"
     tools:context=".fragment_novictims">
 
     <TextView
@@ -16,6 +16,7 @@
         android:layout_marginEnd="138dp"
         android:layout_marginBottom="67dp"
         android:text="NUMBER OF VICTIMS"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/editTextNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +42,9 @@
         android:layout_marginStart="155dp"
         android:layout_marginTop="37dp"
         android:layout_marginEnd="162dp"
+        android:background="#423E37"
         android:text="OK"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Text_number" />

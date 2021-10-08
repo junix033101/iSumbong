@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
@@ -22,6 +23,7 @@
             android:id="@+id/textView10"
             android:layout_width="83dp"
             android:layout_height="38dp"
+            android:background="#E3B23C"
             android:gravity="center"
             android:text="VICTIM"
             android:textAlignment="center" />
@@ -41,6 +43,7 @@
             android:layout_width="83dp"
             android:layout_height="78dp"
             android:layout_gravity="bottom|center|left"
+            android:background="#E3B23C"
             android:gravity="center"
             android:text="TextView" />
 
