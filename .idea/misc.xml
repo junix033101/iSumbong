@@ -3,41 +3,31 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/drawable/reportbut_bg.xml" value="0.14635416666666667" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/activity_admin_create_report.xml" value="0.1793478260869565" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/activity_admin_homepage.xml" value="0.1793478260869565" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/activity_admin_login.xml" value="0.1793478260869565" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/activity_main.xml" value="0.17300724637681159" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/activity_public_homepage.xml" value="0.176" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/activity_public_report_now.xml" value="0.152" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/builder_admin_code.xml" value="0.17300724637681159" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/builder_confirmation.xml" value="0.17300724637681159" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/builder_statement.xml" value="0.17300724637681159" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/builder_victim_info.xml" value="0.2" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/card_view.xml" value="0.2" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/fragment_accident_info.xml" value="0.16" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/fragment_confirm.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/fragment_location.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/fragment_maps.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/fragment_novictims.xml" value="0.4" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/fragment_serial.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/fragment_statement.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/fragment_vehicle_info.xml" value="0.17300724637681159" />
-        <entry key="..\:/Users/Shyhara/AndroidStudioProjects/iSumbong/app/src/main/res/layout/fragment_victim_details.xml" value="0.17300724637681159" />
-        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_admin_homepage.xml" value="0.33" />
-        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_admin_login.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/drawable/button_background.xml" value="0.3828125" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/drawable/button_stroke.xml" value="0.3828125" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/drawable/reportbut_bg.xml" value="0.29739583333333336" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_admin_account.xml" value="0.33" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_admin_create_report.xml" value="0.75" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_admin_dl_files.xml" value="0.22" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_admin_homepage.xml" value="0.25" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_admin_login.xml" value="0.25" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_admin_report_files.xml" value="0.33" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_admin_search_bar.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_admin_signup.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_admin_view_serial.xml" value="0.25" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_builder_confirm.xml" value="0.20572916666666666" />
-        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_maps.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_public_homepage.xml" value="0.33" />
-        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_public_report_now.xml" value="0.25" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_public_report_now.xml" value="0.33" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/activity_public_reportnow.xml" value="0.184375" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/admin_builder_attached_serial.xml" value="0.33" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/admin_search_serial.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/admin_verified_serial_list.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/admin_verified_serials.xml" value="0.225" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/builder_admin_code.xml" value="0.264" />
-        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/builder_confirmation.xml" value="0.2" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/builder_confirmation.xml" value="0.29767441860465116" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/builder_statement.xml" value="0.25" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/builder_victim_info.xml" value="0.33" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/card_view.xml" value="0.36666666666666664" />
@@ -48,7 +38,7 @@
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/fragment_maps.xml" value="0.2949438202247191" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/fragment_no_of_victims.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/fragment_novictims.xml" value="0.2" />
-        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/fragment_serial.xml" value="0.24895833333333334" />
+        <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/fragment_serial.xml" value="0.33" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/fragment_statement.xml" value="0.33" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/fragment_vehicle_info.xml" value="0.25" />
         <entry key="..\:/Users/jacja/AndroidStudioProjects/iSumbong2/app/src/main/res/layout/fragment_victim_details.xml" value="0.2296875" />
