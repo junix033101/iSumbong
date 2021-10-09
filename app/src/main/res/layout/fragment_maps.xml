@@ -46,12 +46,12 @@
         android:layout_marginRight="10dp"
         android:background="@color/white"
         android:elevation="10dp">
+
         <fragment
             android:id="@+id/autocomplete_fragment"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:name=
-                "com.google.android.libraries.places.widget.AutocompleteSupportFragment"/>
+            android:layout_height="match_parent" />
 <!--        <ImageView-->
 <!--            android:id="@+id/ic_magnify"-->
 <!--            android:layout_width="wrap_content"-->

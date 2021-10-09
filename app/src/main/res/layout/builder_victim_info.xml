@@ -85,6 +85,7 @@
         android:layout_marginBottom="14dp"
         android:background="#E3B23C"
         android:text="Victim"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/textview_builder_num"
         app:layout_constraintEnd_toStartOf="@+id/Text_builder_name"
         app:layout_constraintStart_toStartOf="parent"
