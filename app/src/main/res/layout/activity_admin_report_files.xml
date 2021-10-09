@@ -55,4 +55,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+    <ListView
+        android:id="@+id/listView_report_files1"
+        android:layout_width="416dp"
+        android:layout_height="466dp"
+        android:layout_marginTop="36dp"
+        android:background="#F1AD4A"
+        android:foregroundGravity="center"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
