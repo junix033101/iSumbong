@@ -459,8 +459,4 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
         attach.setClickable(false);
     }
 
-
-
-
-
 }
