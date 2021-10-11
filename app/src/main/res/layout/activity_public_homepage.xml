@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/reportnow_bg"
+    android:background="@drawable/report"
     tools:context=".public_homepage">
 
     <Button
@@ -17,8 +17,8 @@
         android:layout_marginBottom="203dp"
         android:background="@drawable/reportbut_bg"
         android:text="REPORT NOW"
-        android:textSize="25dp"
         android:textColor="#EDEBD7"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -658,6 +658,31 @@ public class database extends SQLiteOpenHelper {
         }
         return serial;
     }
+    public int getReportID(String serial){
+        int id = 0;
+        String queryString = "SELECT * FROM " + INCIDENT_REPORT_TABLE + " WHERE REPORT_SERIAL = '"+serial+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+             id = cursor.getInt(0);
+        }
+        cursor.close();
+        db.close();
+        return id;
+    }
+
+    public void DeleteVreport(String serial){
+        String query = "DELETE FROM VERIFIED_SERIAL_TABLE WHERE SERIAL_NUMBER ='"+serial+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+    }
+    public void DeleteIreport(String serial){
+        String query = "DELETE FROM INCIDENT_REPORT_TABLE WHERE REPORT_SERIAL ='"+serial+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+    }
 
 
 

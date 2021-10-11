@@ -2,13 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:background="#EDEBD7">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/main_bg"
         tools:context=".fragment_accident_info">
 
         <TextView
@@ -20,6 +20,7 @@
             android:layout_marginEnd="100dp"
             android:layout_marginBottom="26dp"
             android:text="PICTURE OF DRIVER'S LICENSE"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/imageView_license"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +34,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="133dp"
             android:text="PICTURE OF ACCIDENT"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,8 +46,10 @@
             android:layout_marginStart="100dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="101dp"
+            android:background="#39272626"
             android:ems="10"
             android:inputType="textPersonName"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/textView6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,6 +64,7 @@
             android:layout_marginEnd="145dp"
             android:layout_marginBottom="13dp"
             android:text="Driver's License Code"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/Text_license"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +101,10 @@
             android:layout_marginStart="158dp"
             android:layout_marginTop="29dp"
             android:layout_marginEnd="159dp"
+            android:background="#423E37"
             android:text="UPLOAD"
+            android:textColor="#EDEBD7"
+            android:textSize="20dp"
             app:layout_constraintBottom_toTopOf="@+id/textView5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +117,10 @@
             android:layout_marginStart="158dp"
             android:layout_marginTop="21dp"
             android:layout_marginEnd="159dp"
+            android:background="#423E37"
             android:text="UPLOAD"
+            android:textColor="#EDEBD7"
+            android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView_license" />

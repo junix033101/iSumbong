@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#EDEBD7"
+        android:background="#FAFAFA"
         android:orientation="vertical"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbars="vertical"
@@ -28,7 +28,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
-        <TextView
+        <EditText
             android:id="@+id/textView_confirm_statement"
             android:layout_width="270dp"
             android:layout_height="wrap_content"
@@ -36,19 +36,18 @@
             android:layout_marginTop="18dp"
             android:layout_marginEnd="71dp"
             android:gravity="center|top"
-            android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
-        <TextView
+        <EditText
             android:id="@+id/textView_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="176dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="177dp"
-            android:text="Textview"
+            android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -65,14 +64,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <EditText
             android:id="@+id/textView_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="178dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="175dp"
-            android:text="informations"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_number" />
@@ -99,7 +97,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView16"
             app:srcCompat="@drawable/ic_baseline_image_24" />
 
-        <TextView
+        <EditText
             android:id="@+id/textView_confirm_licensenum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,13 +105,12 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="178dp"
             android:layout_marginBottom="19dp"
-            android:text="Textview"
             app:layout_constraintBottom_toTopOf="@+id/textView16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-        <TextView
+        <EditText
             android:id="@+id/textView_confirm_plate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -121,13 +118,12 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="177dp"
             android:layout_marginBottom="20dp"
-            android:text="TextView"
             app:layout_constraintBottom_toTopOf="@+id/textView19"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
-        <TextView
+        <EditText
             android:id="@+id/textView_confirm_vehicletype"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -135,7 +131,6 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="177dp"
             android:layout_marginBottom="26dp"
-            android:text="TextView"
             app:layout_constraintBottom_toTopOf="@+id/textView20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -265,7 +260,7 @@
             android:layout_marginStart="150dp"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="151dp"
-            android:text="Picture of Vehicle"
+            android:text="Picture of C.R."
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_confirm_vehicletype" />
@@ -357,13 +352,108 @@
         <TextView
             android:id="@+id/textView_confirm_vdate"
             android:layout_width="175dp"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="68dp"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView100"
             app:layout_constraintTop_toBottomOf="@+id/textView_confirm_officer" />
+
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="74dp"
+            android:layout_marginTop="10dp"
+            android:text="Edited by:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView100" />
+
+        <TextView
+            android:id="@+id/textView_vreport_edit"
+            android:layout_width="82dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="158dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text"
+            app:layout_constraintTop_toBottomOf="@+id/textView_confirm_vdate" />
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="161dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="162dp"
+            android:text="SAVE"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_vreport_edit" />
+
+        <ImageButton
+            android:id="@+id/imageButton_acc"
+            android:layout_width="39dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="145dp"
+            android:layout_marginEnd="94dp"
+            android:backgroundTint="#00FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView_confirm_accident"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:srcCompat="@drawable/ic_baseline_edit_24" />
+
+        <ImageButton
+            android:id="@+id/imageButton_lic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="101dp"
+            android:layout_marginEnd="81dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView_confirm_license"
+            app:layout_constraintTop_toBottomOf="@+id/textView16"
+            app:srcCompat="@drawable/ic_baseline_edit_24" />
+
+        <ImageButton
+            android:id="@+id/imageButton_cr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="442dp"
+            android:layout_marginEnd="78dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView_confirm_vehicle"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton_lic"
+            app:srcCompat="@drawable/ic_baseline_edit_24" />
+
+        <ImageButton
+            android:id="@+id/imageButton_or"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="198dp"
+            android:layout_marginEnd="78dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView_confirm_or"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton_cr"
+            app:srcCompat="@drawable/ic_baseline_edit_24" />
+
+        <ImageButton
+            android:id="@+id/imageButton_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1732dp"
+            android:layout_marginEnd="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/mapView_confirm"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_edit_24" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
