@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#EDEBD7"
         tools:context=".admin_create_report">
 
         <TextView
@@ -113,6 +114,7 @@
             android:layout_marginTop="64dp"
             android:layout_marginEnd="336dp"
             android:clickable="true"
+            android:backgroundTint="#E3B23C"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -152,7 +154,9 @@
             android:layout_marginStart="163dp"
             android:layout_marginTop="61dp"
             android:layout_marginEnd="163dp"
+            android:background="@drawable/button_background"
             android:text="SUBMIT"
+            android:textColor="#EDEBD7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
