@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EDEBD7"
     tools:context=".admin_report_files">
 
     <RadioGroup
@@ -48,7 +49,7 @@
         android:layout_width="416dp"
         android:layout_height="466dp"
         android:layout_marginTop="36dp"
-        android:background="#F1AD4A"
+        android:background="#EDEBD7"
         android:foregroundGravity="center"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
