@@ -1,11 +1,8 @@
 package com.example.isumbong;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.rakshakhegde.stepperindicator.StepperIndicator;
-
-import java.util.Objects;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 
 public class fragment_novictims extends Fragment {
@@ -27,11 +23,12 @@ public class fragment_novictims extends Fragment {
     Fragment fragment;
     FragmentTransaction ft;
     Button ok ;
-    EditText number;
+    static EditText number;
     static public String vnum;
     SharedPreferences prefs;
     SharedPreferences.Editor edit;
     String plate;
+    static Context context;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +39,15 @@ public class fragment_novictims extends Fragment {
         ok = view.findViewById(R.id.button_no_ok);
         number = view.findViewById(R.id.Text_number);
         //prefs = requireActivity().getSharedPreferences("mypref",0);
+
+        String check = getActivity().getIntent().getStringExtra("edit");
+        try {
+            if(check != null) {
+                setEditInfo();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
 
@@ -54,10 +60,6 @@ public class fragment_novictims extends Fragment {
                     //pref
 //                    edit = prefs.edit().putString("number",vnum);
 //                    edit.apply();
-
-
-
-
 
                     if(vnum.matches("")){
                         Toast.makeText(getActivity().getBaseContext(), "Empty field!",Toast.LENGTH_SHORT).show();
@@ -85,6 +87,19 @@ public class fragment_novictims extends Fragment {
 
         return view;
 
+    }
+    private void setEditInfo(){
+        int id = getActivity().getIntent().getIntExtra("id",0);
+        Boolean check = getActivity().getIntent().getExtras().getBoolean("for_update");
+        if(check){
+            setNum(id);
+        }
+    }
+
+    private void setNum(int ID){
+        database db = new database(requireContext());
+        number.setText(db.getNumVictims(ID));
+       vnum = number.toString();
     }
 
 }

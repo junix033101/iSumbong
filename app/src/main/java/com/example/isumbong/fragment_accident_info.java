@@ -74,8 +74,7 @@ public class fragment_accident_info extends Fragment {
         btn_license = view.findViewById(R.id.button_license);
         license = view.findViewById(R.id.imageView_license);
         text_license = view.findViewById(R.id.Text_license);
-        //setText
-        text_license.setText(Text_license);
+
 
         //setImg
         if (img_accident != null) {
@@ -84,6 +83,20 @@ public class fragment_accident_info extends Fragment {
         if(img_license != null){
             license.setImageURI(img_license);
         }
+
+        String check = getActivity().getIntent().getStringExtra("edit");
+        try {
+            if(check != null) {
+                setEditInfo();
+            }
+            else{
+                //setText
+                text_license.setText(Text_license);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         //image upload
         //accident
@@ -169,4 +182,25 @@ public class fragment_accident_info extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    private void setEditInfo(){
+        int id = getActivity().getIntent().getIntExtra("id",0);
+        Boolean check = getActivity().getIntent().getExtras().getBoolean("for_update");
+        if(check){
+            setNum(id);
+        }
+    }
+
+    private void setNum(int ID){
+        database db = new database(requireContext());
+        Text_license = db.getLicenseNumber(ID);
+        text_license.setText(Text_license);
+        if (img_accident == null) {
+            strUriAccident = db.getAccidentImg(ID);
+            accident.setImageURI(Uri.parse(strUriAccident));
+        }
+        if (img_license == null) {
+            strUriLicense = db.getLicenseImg(ID);
+            license.setImageURI(Uri.parse(strUriLicense));
+        }
+    }
 }

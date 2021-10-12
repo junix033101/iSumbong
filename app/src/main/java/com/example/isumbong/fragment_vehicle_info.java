@@ -50,6 +50,8 @@ public class fragment_vehicle_info extends Fragment {
 
     static String VehicleType;
     static int SpinnerPos;
+    String selecteditem;
+    ArrayAdapter<String> myAdapter;
 
 
 
@@ -74,21 +76,12 @@ public class fragment_vehicle_info extends Fragment {
         or = view.findViewById(R.id.imageView_OR);
         plate = view.findViewById(R.id.Text_plate);
 
-        plate.setText(Plate);
 
-        //set img
-        if(img_vehicle != null){
-            vehicle.setImageURI(img_vehicle);
-
-        }
-        if(img_or != null){
-            or.setImageURI(img_or);
-        }
 
         String[] type = {"Select Vehicle Type","3 WHEELER", "4 WHEELER", "MOTORCYCLE", "BUS", "TRUCK"};
 
         spnr_vehicle = view.findViewById(R.id.spinner_type);
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this.getContext(),android.R.layout.simple_list_item_1, type);
+         myAdapter = new ArrayAdapter<String>(this.getContext(),android.R.layout.simple_list_item_1, type);
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnr_vehicle.setAdapter(myAdapter);
 
@@ -99,30 +92,53 @@ public class fragment_vehicle_info extends Fragment {
             spnr_vehicle.setSelection(spinnerValue);
         }
 
-        spnr_vehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    String selecteditem = adapterView.getItemAtPosition(i).toString();
+        //set img
+        if(img_vehicle != null){
+            vehicle.setImageURI(img_vehicle);
 
-                    SpinnerPos = spnr_vehicle.getSelectedItemPosition();
-                    SharedPreferences.Editor prefEditor = sharedPref.edit();
-                    prefEditor.putInt("userChoiceSpinner",SpinnerPos);
-                    prefEditor.apply();
-
-                   if(selecteditem.matches("Select Vehicle Type")){
-                       selecteditem = "";
-                   }
-                   else{
-                       VehicleType = selecteditem;
-                   }
+        }
+        if(img_or != null){
+            or.setImageURI(img_or);
+        }
 
 
+        String check = getActivity().getIntent().getStringExtra("edit");
+        try {
+            if(check != null) {
+                setEditInfo();
             }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+            else{
+                plate.setText(Plate);
 
+
+                spnr_vehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        String selecteditem = adapterView.getItemAtPosition(i).toString();
+
+                        SpinnerPos = spnr_vehicle.getSelectedItemPosition();
+                        SharedPreferences.Editor prefEditor = sharedPref.edit();
+                        prefEditor.putInt("userChoiceSpinner",SpinnerPos);
+                        prefEditor.apply();
+
+                        if(selecteditem.matches("Select Vehicle Type")){
+                            selecteditem = "";
+                        }
+                        else{
+                            VehicleType = selecteditem;
+                        }
+
+
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
             }
-        });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         ActivityResultLauncher<Intent> launcher_v =
                 registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
@@ -193,5 +209,29 @@ public class fragment_vehicle_info extends Fragment {
         });
 
         return view;
+    }
+
+    private void setEditInfo(){
+        int id = getActivity().getIntent().getIntExtra("id",0);
+        Boolean check = getActivity().getIntent().getExtras().getBoolean("for_update");
+        if(check){
+            setNum(id);
+        }
+    }
+
+    private void setNum(int ID){
+        database db = new database(requireContext());
+        plate.setText(db.getPlateNumber(ID));
+        if (img_vehicle == null) {
+            strUriVehicle = db.getVehicleImg(ID);
+            vehicle.setImageURI(Uri.parse(strUriVehicle));
+        }
+        if (img_or == null) {
+            strUriOr = db.getOrImg(ID);
+            or.setImageURI(Uri.parse(strUriOr));
+        }
+        VehicleType = db.getVehicleType(ID);
+        SpinnerPos = myAdapter.getPosition(VehicleType);
+        spnr_vehicle.setSelection(SpinnerPos);
     }
 }

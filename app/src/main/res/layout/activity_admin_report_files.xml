@@ -61,7 +61,7 @@
         android:layout_width="416dp"
         android:layout_height="466dp"
         android:layout_marginTop="36dp"
-        android:background="#F1AD4A"
+        android:background="#EDEBD7"
         android:foregroundGravity="center"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"

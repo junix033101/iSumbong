@@ -32,10 +32,32 @@ public class fragment_statement extends Fragment {
 
         statement_field = view.findViewById(R.id.editTextTextMultiLine_statement);
 
-        //statement.setText(MessageFormat.format("{0}{1}{2}", getLocation, Double.toString(getCoordinatesLat), Double.toString(getCoordinatesLng)));
-
-        statement_field.setText(Statement);
+        String check = getActivity().getIntent().getStringExtra("edit");
+        try {
+            if(check != null) {
+                setEditInfo();
+            }
+            else{
+                statement_field.setText(Statement);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return view;
     }
+    private void setEditInfo(){
+        int id = getActivity().getIntent().getIntExtra("id",0);
+        Boolean check = getActivity().getIntent().getExtras().getBoolean("for_update");
+        if(check){
+            setNum(id);
+        }
+    }
+
+    private void setNum(int ID){
+        database db = new database(requireContext());
+        Statement = db.getStatement(ID);
+        statement_field.setText(Statement);
+    }
+
 }

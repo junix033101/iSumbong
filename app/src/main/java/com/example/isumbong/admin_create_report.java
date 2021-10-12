@@ -77,6 +77,7 @@ public class admin_create_report extends AppCompatActivity implements OnMapReady
             }
         });
 
+
     }
     public void setInfo(){
         TextView officer = findViewById(R.id.textView_create_officer);
@@ -93,7 +94,7 @@ public class admin_create_report extends AppCompatActivity implements OnMapReady
         date.setText(DnT);
         email.setText(db.getEmail(user));
     }
-    private String setDate(){
+    public String setDate(){
         SimpleDateFormat dateN = new SimpleDateFormat("MMMM dd, yyyy (HH:mm:ss)", Locale.getDefault());
         return dateN.format(Calendar.getInstance().getTime());
     }
@@ -157,7 +158,7 @@ public class admin_create_report extends AppCompatActivity implements OnMapReady
 
         String text = textView.getText().toString();
 //        text1.add(text+"\n");
-        text1 += text+" ";
+        text1 += text+"\n";
 
 //        textView.setBackgroundColor(R.color.grey);
 //        textView.setTextColor(android.R.color.black);
@@ -221,7 +222,7 @@ public class admin_create_report extends AppCompatActivity implements OnMapReady
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("INCIDENT REPORT "+""+reportSerial)
-                .setMessage("Are you sure to proceed creating this report?")
+                .setMessage("Are you sure to Proceed creating this report?")
                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -231,9 +232,8 @@ public class admin_create_report extends AppCompatActivity implements OnMapReady
                         if (check) {
                             Toast.makeText(admin_create_report.this, "Incident Report Created", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(admin_create_report.this, admin_report_files.class);
-                            intent.putExtra("selected", 2);
+                            intent.putExtras(getIntent()).putExtra("selected",2);
                             startActivity(intent);
-                            finish();
 
                         } else
                             Toast.makeText(admin_create_report.this, "ERROR", Toast.LENGTH_SHORT).show();
@@ -351,22 +351,7 @@ public class admin_create_report extends AppCompatActivity implements OnMapReady
         return statement.getText().toString();
     }
 
-//    @RequiresApi(api = Build.VERSION_CODES.N)
-//    private String getSerial(){
-//        int leftLimit = 48; // numeral '0'
-//        int rightLimit = 122; // letter 'z'
-//        int targetStringLength = 8;
-//        Random random = new Random();
-//
-//        String generatedString = random.ints(leftLimit, rightLimit + 1)
-//                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-//                .limit(targetStringLength)
-//                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-//                .toString();
-//        Toast.makeText(admin_create_report.this, ""+generatedString, Toast.LENGTH_SHORT).show();
-//        return generatedString;
-//
-//    }
+
 private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     public String generateString(int length) {

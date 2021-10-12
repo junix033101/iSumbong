@@ -55,8 +55,11 @@ public class admin_view_serial extends AppCompatActivity implements OnMapReadyCa
             public void onClick(View view) {
                 String vdate = setDate();
                 builder(ID, serial, vdate);
+                getIntent();
             }
         });
+
+        editButton(ID);
 
     }
 
@@ -159,6 +162,8 @@ public class admin_view_serial extends AppCompatActivity implements OnMapReadyCa
                             Toast.makeText(admin_view_serial.this, "Verified", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(admin_view_serial.this, admin_report_files.class);
                             intent.putExtra("selected",1);
+                            intent.putExtra("user",user);
+//                            intent.putExtras(getIntent());
                             startActivity(intent);
                             finish();
                         } else
@@ -167,5 +172,21 @@ public class admin_view_serial extends AppCompatActivity implements OnMapReadyCa
                 })
                 .setNegativeButton("NO",null)
                 .show();
+    }
+
+    private void editButton(int ID){
+        Button edit = findViewById(R.id.button_edit);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(admin_view_serial.this, public_report_now.class);
+                intent.putExtra("for_update",true);
+                intent.putExtra("id", ID);
+                intent.putExtra("edit","edit");
+                intent.putExtras(getIntent());
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

@@ -16,12 +16,15 @@ public class database extends SQLiteOpenHelper {
     private static final String PNP_SECTOR = "PNP_SECTOR";
     private static final String CODE = "CODE";
 
+    private static final String CHIEF_CODE_TABLE = "CHIEF_CODE_TABLE";
+
     private static final String ADMIN_TABLE = "ADMIN_TABLE";
     private static final String USER = "USERNAME";
     private static final String PASS = "PASSWORD";
     private static final String NAME = "NAME";
     private static final String ID_NO = "ID_NO";
     private static final String EMAIL = "EMAIL";
+    private static final String PROFIlE_IMG = "PROFILE_IMG";
 
     private static final String LIST_OF_VICTIMS_TABLE = "VICTIMS_INFO_TABLE";
     private static final String LIST_OF_VICTIMS_ID = "LIST_OF_VICTIMS_ID";
@@ -71,7 +74,8 @@ public class database extends SQLiteOpenHelper {
     private static final String ATTACHED_SERIAL = "ATTACHED_SERIAL";
     private static final String REPORT_SERIAL = "REPORT_SERIAL";
 
-
+    private static final String EDIT_TABLE= "EDIT_TABLE";
+    private static final String EDIT_ID = "EDIT_ID";
 
 
 
@@ -86,11 +90,18 @@ public class database extends SQLiteOpenHelper {
         String createCode = "CREATE TABLE " + CODE_TABLE + " (" + ID + " INTEGER PRIMARY KEY, " + PNP_SECTOR+ " TEXT, " + CODE + " TEXT)";
         db.execSQL(createCode);
 
+        String createChiefCode = "CREATE TABLE " + CHIEF_CODE_TABLE + " (" + ID + " INTEGER PRIMARY KEY, " + PNP_SECTOR+ " TEXT, " + CODE + " TEXT)";
+        db.execSQL(createChiefCode);
+
         String createDefaultSec = "INSERT INTO CODE_TABLE(PNP_SECTOR, CODE)\n" +
-                "VALUES ('Cebu Provincial Jail','N9TT-9G0A'),('Cebu City Police Office Station 5','QK6A-JI6S')";
+                "VALUES ('Cebu Provincial Jail','N9TT-9G0A'),('CITOM','QK6A-JI6S')";
         db.execSQL(createDefaultSec);
 
-        String createAdmin = "CREATE TABLE " + ADMIN_TABLE + " (" + USER + " TEXT PRIMARY KEY, " + PASS + " TEXT, " + NAME + " TEXT, " + ID_NO + " TEXT,"+EMAIL+" TEXT)";
+        String createDefChiefCode = "INSERT INTO CHIEF_CODE_TABLE(PNP_SECTOR, CODE)\n" +
+                "VALUES ('Cebu Provincial Jail','4GE4-ETEV'),('CITOM','2YNV-3L4Y')";
+        db.execSQL(createDefChiefCode);
+
+        String createAdmin = "CREATE TABLE " + ADMIN_TABLE + " (" + USER + " TEXT PRIMARY KEY, " + PASS + " TEXT, " + NAME + " TEXT, " + ID_NO + " TEXT,"+EMAIL+" TEXT, " +PROFIlE_IMG+" )";
         db.execSQL(createAdmin);
 
         String createVictimsInfo = "CREATE TABLE " + LIST_OF_VICTIMS_TABLE + " (" + LIST_OF_VICTIMS_ID + " INTEGER PRIMARY KEY, " + NAME + " TEXT, " + AGE + " TEXT, " + GENDER + " TEXT,"+VICTIMS_ID+" INT)";
@@ -120,6 +131,9 @@ public class database extends SQLiteOpenHelper {
         String createIncidentReport = "CREATE TABLE " + INCIDENT_REPORT_TABLE + " (" + REPORT_ID + " INTEGER PRIMARY KEY," + REPORT_SERIAL + " TEXT," + INCIDENT_TYPE + " TEXT, "+ OFFICER + " TEXT,"+ EMAIL + " TEXT,"+PNP_SECTOR+" TEXT, "+DATE+" TEXT, "+STATEMENT+" TEXT,"+
         ATTACHED_SERIAL+" TEXT)";
         db.execSQL(createIncidentReport);
+
+        String createEditedReport = "CREATE TABLE " + EDIT_TABLE + " (" + EDIT_ID + " INTEGER PRIMARY KEY," + SERIAL_NUMBER + " TEXT, "+ OFFICER + " TEXT,"+DATE_VERIFIED+" TEXT)";
+        db.execSQL(createEditedReport);
     }
 
     @Override
@@ -136,6 +150,18 @@ public class database extends SQLiteOpenHelper {
             if (code.matches(cursor.getString(2))) {
                 check = true;
             }
+        }
+        cursor.close();
+        db.close();
+        return check;
+    }
+    public String getChiefCode(String sector) {
+        String check = "";
+        String queryString = "SELECT * FROM " + CHIEF_CODE_TABLE + " WHERE PNP_SECTOR ='" + sector + "'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            check= cursor.getString(2);
         }
         cursor.close();
         db.close();
@@ -327,6 +353,26 @@ public class database extends SQLiteOpenHelper {
             check = true;
 
         return check;
+    }
+    public boolean updateImg(String profile, String user){
+        boolean check = true;
+        String query ="UPDATE ADMIN_TABLE SET PROFILE_IMG ='"+profile+"' WHERE USERNAME = '"+user+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(query);
+        return check;
+    }
+
+    public String getProfile(String user){
+        String img = "";
+        String queryString = "SELECT * FROM " + ADMIN_TABLE + " WHERE USERNAME = '"+user+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            img = cursor.getString(5);
+        }
+        cursor.close();
+        db.close();
+        return img;
     }
 
     public int getSerialID(String serial){
@@ -658,19 +704,78 @@ public class database extends SQLiteOpenHelper {
         }
         return serial;
     }
-    public int getReportID(String serial){
-        int id = 0;
+    public String getReportOfficer(String serial){
+        String officer = "";
         String queryString = "SELECT * FROM " + INCIDENT_REPORT_TABLE + " WHERE REPORT_SERIAL = '"+serial+"'" ;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
         if (cursor.moveToFirst()) {
-             id = cursor.getInt(0);
+             officer = cursor.getString(3);
         }
         cursor.close();
         db.close();
-        return id;
+        return officer;
     }
-
+    public String getReportEmail(String serial){
+        String email = "";
+        String queryString = "SELECT * FROM " + INCIDENT_REPORT_TABLE + "  WHERE REPORT_SERIAL = '"+serial+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            email = cursor.getString(4);
+        }
+        cursor.close();
+        db.close();
+        return email;
+    }
+    public String getReporSector(String serial){
+        String sector = "";
+        String queryString = "SELECT * FROM " + INCIDENT_REPORT_TABLE + "  WHERE REPORT_SERIAL = '"+serial+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            sector = cursor.getString(5);
+        }
+        cursor.close();
+        db.close();
+        return sector;
+    }
+    public String getReportDate(String serial){
+        String date = "";
+        String queryString = "SELECT * FROM " + INCIDENT_REPORT_TABLE + "  WHERE REPORT_SERIAL = '"+serial+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            date = cursor.getString(6);
+        }
+        cursor.close();
+        db.close();
+        return date;
+    }
+    public String getReportStatement(String serial){
+        String s = "";
+        String queryString = "SELECT * FROM " + INCIDENT_REPORT_TABLE + "  WHERE REPORT_SERIAL = '"+serial+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            s = cursor.getString(7);
+        }
+        cursor.close();
+        db.close();
+        return s;
+    }
+    public String getReportAttached(String serial){
+        String att = "";
+        String queryString = "SELECT * FROM " + INCIDENT_REPORT_TABLE + "  WHERE REPORT_SERIAL = '"+serial+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            att = cursor.getString(8);
+        }
+        cursor.close();
+        db.close();
+        return att;
+    }
     public void DeleteVreport(String serial){
         String query = "DELETE FROM VERIFIED_SERIAL_TABLE WHERE SERIAL_NUMBER ='"+serial+"'";
         SQLiteDatabase db = this.getReadableDatabase();
@@ -684,9 +789,122 @@ public class database extends SQLiteOpenHelper {
         cursor.moveToFirst();
     }
 
+    public Cursor getRecentReport(){
+        String query = "SELECT  *  FROM SERIAL_TABLE ORDER BY SERIAL_ID DESC LIMIT 1";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        return cursor;
+    }
+    public Cursor getRecentVerified(){
+        String query = "SELECT  *  FROM VERIFIED_SERIAL_TABLE ORDER BY VERIFIED_SERIAL_ID DESC LIMIT 1";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        return cursor;
+    }
+    public Cursor getRecentIncedent(){
+        String query = "SELECT  *  FROM INCIDENT_REPORT_TABLE ORDER BY REPORT_ID DESC LIMIT 1";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        return cursor;
+    }
+    public boolean update(int num, int id){
+        boolean check = true;
+        String query ="UPDATE VICTIMS_TABLE SET NUMBER_OF_VICTIMS ='"+num+"' WHERE VICTIMS_ID = '"+id+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(query);
+        return check;
+    }
+    public Cursor updateVictimsInfo(int id){
+        String query = "UPDATE * FROM VICTIMS_TABLE WHERE VICTIMS_ID = '"+id+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        return cursor;
+    }
 
+    public void updateAccImg(String aImg, int id){
+        boolean check = true;
+        String query = "UPDATE ACCIDENT_INFO_TABLE SET ACCIDENT_IMG='"+aImg+"' WHERE VICTIMS_ID = '"+id+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(query);
+    }
+    public boolean updatelicImg(String lImg,int id){
+        boolean check = true;
+        String query = "UPDATE ACCIDENT_INFO_TABLE SET LICENSE_IMG='"+lImg+"' WHERE VICTIMS_ID = '"+id+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(query);
+        return check;
+    }
+    public boolean updateCrImg(String cImg,int id){
+        boolean check = true;
+        String query = "UPDATE VEHICLE_INFO_TABLE SET VEHICLE_IMG='"+cImg+"' WHERE VICTIMS_ID = '"+id+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(query);
+        return check;
+    }
+    public boolean updateOrImg(String oImg,int id){
+        boolean check = true;
+        String query = "UPDATE VEHICLE_INFO_TABLE SET OR_IMG='"+oImg+"' WHERE VICTIMS_ID = '"+id+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(query);
+        return check;
+    }
+    public boolean updateLic(String lic,int id){
+        boolean check = true;
+        String query = "UPDATE ACCIDENT_INFO_TABLE SET LICENSE_NUMBER ='"+lic+"' WHERE VICTIMS_ID = '"+id+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(query);
+        return check;
+    }
+    public boolean updatePlate(String plate,int id){
+        boolean check = true;
+        String query = "UPDATE VEHICLE_INFO_TABLE SET PLATE_NUMBER ='"+plate+"' WHERE VICTIMS_ID = '"+id+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(query);
+        return check;
+    }
+    public boolean updateType(String type,int id){
+        boolean check = true;
+        String query = "UPDATE VEHICLE_INFO_TABLE SET VEHICLE_TYPE ='"+type+"' WHERE VICTIMS_ID = '"+id+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(query);
+        return check;
+    }
+    public boolean updateLocation(double lat,double lng, String loc, int id){
+        boolean check = true;
+        String query = "UPDATE LOCATION_TABLE SET ADDRESS_PIN='"+loc+"', LATITUDE ='"+lat+"', LONGITUDE ='"+lng+"'  WHERE VICTIMS_ID = '"+id+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(query);
+        return check;
+    }
+    public boolean updateStatement(String s,int id){
+        boolean check = true;
+        String query = "UPDATE STATEMENT_TABLE SET STATEMENT ='"+s+"' WHERE VICTIMS_ID = '"+id+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(query);
+        return check;
+    }
+    public boolean updateIReport(String s,String serial){
+        boolean check = true;
+        String query = "UPDATE INCIDENT_REPORT_TABLE SET STATEMENT ='"+s+"' WHERE REPORT_SERIAL = '"+serial+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(query);
+        return check;
+    }
+    public String Username (String serial){
+        String user = "";
+        String queryString = "SELECT * FROM " + VERIFIED_SERIAL_TABLE + "  WHERE SERIAL_NUMBER = '"+serial+"'" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            user = cursor.getString(4);
+        }
+        cursor.close();
+        db.close();
+        return user;
 
-
-
-
+    }
 }

@@ -70,6 +70,8 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_public_report_now);
 
+//        int id = getIntent().getExtras().getInt("id");
+
         input = new INPUTS();
         db = new database(this);
         //Stepper
@@ -106,7 +108,7 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
 
 //                    if (state == 2) { VICTIM DETAILS
                     if (fragment instanceof fragment_victim_details) {
-//                            Toast.makeText(public_report_now.this, ""+input.getText_license(), Toast.LENGTH_SHORT).show();
+
                         if (input.getText_license() == null || input.getText_license().equals(""))
                             fragment = new fragment_accident_info();
                         else
@@ -206,13 +208,28 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
 
     @Override
     public void onBackPressed() {
-        ft = getSupportFragmentManager().beginTransaction();
-        fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if (fragment instanceof fragment_novictims) {
-            Intent intent = new Intent(public_report_now.this, public_homepage.class);
-            startActivity(intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP));
-        } else
-            super.onBackPressed();
+        try {
+            String check = getIntent().getStringExtra("edit");
+            if(check != null) {
+                Intent intent = new Intent(public_report_now.this, admin_view_serial.class);
+                intent.putExtras(getIntent());
+                startActivity(intent);
+                finish();
+            }
+            else{
+                ft = getSupportFragmentManager().beginTransaction();
+                fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+                if (fragment instanceof fragment_novictims) {
+                    Intent intent = new Intent(public_report_now.this, public_homepage.class);
+                    startActivity(intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP));
+                } else
+                    super.onBackPressed();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     //state == 1 NUMBER OF VICTIMS
@@ -244,13 +261,29 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
     public void confirmation(StepperIndicator stpi) {
         viewC = getLayoutInflater().inflate(R.layout.builder_confirmation, null);
 
+        String check = getIntent().getStringExtra("edit");
+        try {
+            if(check != null) {
+                getvictimdetails(viewC);
+                getAccidentInfo(viewC);
+                getVehicleInfo(viewC);
+                getStatement(viewC);
+                getDateEdit(viewC);
 
-        //insert info input
-        getvictimdetails(viewC);
-        getAccidentInfo(viewC);
-        getVehicleInfo(viewC);
-        getStatement(viewC);
-        getDate(viewC);
+            }
+            else{
+                //insert info input
+                getvictimdetails(viewC);
+                getAccidentInfo(viewC);
+                getVehicleInfo(viewC);
+                getStatement(viewC);
+                getDate(viewC);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
 //        MapView(viewC);
 
 
@@ -272,27 +305,45 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //stepper and redirect
-                if (fragment != null) {
-                    fragment = new fragment_serial();
-                    ft = getSupportFragmentManager().beginTransaction();
-                    ft.add(R.id.fragment_container, fragment)
-                            .addToBackStack(null)
-                            .commit();
-                    //state+=1;
-                    stpi.setCurrentStep(state + 1);
-                    next.hide();
-                    prev.hide();
 
-                    //add to database
-                    VictimDetailsDB();
-                    AccidentInfoDB();
-                    VehicleInfoDB();
-                    StatementDB();
-                    LocationDB();
 
+                    String check = getIntent().getStringExtra("edit");
+                    int id = getIntent().getIntExtra("id",0);
+                    try {
+                        if(check != null) {
+                            public_report_now.state =  0;
+                            update();
+                            Intent intent = new Intent(public_report_now.this, admin_view_serial.class);
+                            intent.putExtra("id",id);
+                            intent.putExtras(getIntent());
+                            startActivity(intent);
+                            finish();
+                        }
+                        else{
+                            if (fragment != null) {
+                                fragment = new fragment_serial();
+                                ft = getSupportFragmentManager().beginTransaction();
+                                ft.add(R.id.fragment_container, fragment)
+                                        .addToBackStack(null)
+                                        .commit();
+                                //state+=1;
+                                stpi.setCurrentStep(state + 1);
+                                next.hide();
+                                prev.hide();
+                                //add to database
+                                VictimDetailsDB();
+                                AccidentInfoDB();
+                                VehicleInfoDB();
+                                StatementDB();
+                                LocationDB();
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                 }
-            }
+
         });
 
         AlertDialog alertDialog = builder1.create();
@@ -301,7 +352,6 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
     }
 
     public void VictimDetailsDB() {
-
         //add to database victims details
         boolean check = db.InsertVictims(Integer.parseInt(fragment_novictims.vnum));
         if (check) {
@@ -425,7 +475,33 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
         date_field.setText(date);
 
     }
+    private void getDateEdit(View viewC){
+        int id = getIntent().getIntExtra("id",0);
+        TextView date_field = viewC.findViewById(R.id.textView_date);
+        date = db.getDate(id);
+        date_field.setText(date);
+
+    }
+    private void update(){
+        int id = getIntent().getIntExtra("id",0);
+        try{
+            db.update(Integer.parseInt(fragment_novictims.vnum),id);
+            db.updateAccImg(strUriAccident,id);
+            db.updatelicImg(strUriLicense,id);
+            db.updateCrImg(strUriVehicle,id);
+            db.updateOrImg(strUriOr,id);
+            db.updateLic(input.getText_license(),id);
+            db.updatePlate(input.getPlate(),id);
+            db.updateType(VehicleType,id);
+            db.updateLocation(MapsFragment.getCoordinatesLat, MapsFragment.getCoordinatesLng,MapsFragment.getLocation,id);
+            db.updateStatement(input.getstatement(),id);
 
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
 
 }

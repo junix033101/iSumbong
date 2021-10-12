@@ -39,11 +39,11 @@ public class fragment_serial extends Fragment {
 
         home = view.findViewById(R.id.imageButton_home);
         serial = view.findViewById(R.id.textView_serial);
-        String Serial = Serial();
-        serial.setText(Serial);
-        SerialDB(Serial,public_report_now.date);
 
 
+                String Serial = Serial();
+                serial.setText(Serial);
+                SerialDB(Serial,public_report_now.date);
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override

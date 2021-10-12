@@ -1,6 +1,9 @@
 package com.example.isumbong;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,7 +11,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
@@ -45,6 +51,9 @@ public class admin_homepage extends AppCompatActivity {
         openReportFiles();
         openAccount();
         openFiles();
+        RecentAccident();
+        RecentVerified();
+        RecentReport();
 
     }
 
@@ -66,7 +75,7 @@ public class admin_homepage extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line,serials);
         searchAutoComplete.setAdapter(arrayAdapter);
         searchView.setQueryHint("Search Serial Code");
-        searchView.setSubmitButtonEnabled(true);
+//        searchView.setSubmitButtonEnabled(true);
 
         // Listen to search view item on click event.
         searchAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -141,6 +150,97 @@ public class admin_homepage extends AppCompatActivity {
             }
         });
 
+    }
+    private void RecentAccident(){
+        db = new database(this);
+        TextView location = findViewById(R.id.textView_cardview_loc);
+        TextView date = findViewById(R.id.textView_cardview_date);
+        TextView victims = findViewById(R.id.textView_cardview_victims);
+        ImageView acc_img = findViewById(R.id.imageView_cardview_acc);
+
+
+        try {
+            Cursor latestAccident=db.getRecentReport();
+            int id = latestAccident.getInt(1);
+            date.setText(latestAccident.getString(3));
+            location.setText(db.getLocation(id));
+            ArrayList<Victim> vic = db.getVictimsInfo(id);
+            String names="";
+            for(Victim v: vic ){
+                names += v.getName()+"\n";
+            }
+            victims.setText(names);
+
+            acc_img.setImageURI(Uri.parse(db.getAccidentImg(id)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void RecentVerified(){
+        TextView location = findViewById(R.id.textView_cardview_Vloc);
+        TextView date = findViewById(R.id.textView_cardview_Vdate);
+        TextView victims = findViewById(R.id.textView_cardview_Vvictims);
+        ImageView acc_img = findViewById(R.id.imageView_cardview_Vacc);
+
+        int id = 0;
+        try {
+            String names;
+            if (db!=null) {
+                Cursor latestVerified=db.getRecentVerified();
+                id = latestVerified.getInt(1);
+                date.setText(latestVerified.getString(3));
+                location.setText(db.getLocation(id));
+                ArrayList<Victim> vic = db.getVictimsInfo(id);
+                names = "";
+                for(Victim v: vic ){
+                    names += v.getName()+"\n";
+                }
+                victims.setText(names);
+            } else {
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        acc_img.setImageURI(Uri.parse(db.getAccidentImg(id)));
+    }
+    private void RecentReport(){
+        TextView officer= findViewById(R.id.textView_cardview_officer);
+        TextView date = findViewById(R.id.textView_cardview_Idate);
+        TextView sector = findViewById(R.id.textView_cardview_sector);
+        TextView details = findViewById(R.id.textView_cardview_info);
+
+
+        try {
+            if (db!=null) {
+                Cursor latestIncedent=db.getRecentIncedent();
+                officer.setText(latestIncedent.getString(3));
+                sector.setText(latestIncedent.getString(5));
+                date.setText(latestIncedent.getString(6));
+                details.setText(latestIncedent.getString(7));
+            } else {
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Sign Out")
+                .setMessage("Are you sure you want to sign out?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(admin_homepage.this, admin_login.class);
+                        intent.putExtras(getIntent());
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
 

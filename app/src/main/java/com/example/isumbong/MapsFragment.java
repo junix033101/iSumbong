@@ -92,25 +92,32 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-//        Toast.makeText(getActivity(), "MAP IS READY", Toast.LENGTH_SHORT).show();
+
         mMap = googleMap;
 
-
         if(mLocationPermissionGranted){
-            getDeviceLocation();
 
-            if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) !=
-                    PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                    PackageManager.PERMISSION_GRANTED) {
-                return;
+            String check = getActivity().getIntent().getStringExtra("edit");
+            try {
+                if(check != null) {
+                    setEditInfo();
+                }
+                else{
+                    getDeviceLocation();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
-//            init();
+        if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) !=
+            PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) !=
+            PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
         }
-
 
     }
 
@@ -125,9 +132,20 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         mGps = view.findViewById(R.id.ic_gps);
         apikey="AIzaSyBbB_T3Fyy_glsuCqo4P_EZNH59H4n8Ubo";
 
+        String check = getActivity().getIntent().getStringExtra("edit");
+        try {
+            if(check != null) {
+                setEditInfo();
+            }
+            else{
+                init();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         getLocationPermission();
-        init();
+
 
 
 
@@ -173,25 +191,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         });
         hideSoftKeyboard();
     }
-    //
-//    private void geoLocate(){
-//        Geocoder geocoder = new Geocoder(requireActivity());
-//        list = new ArrayList<>();
-//        try{
-//            list = geocoder.getFromLocationName(searchString, 1);
-//        }catch (IOException e){
-//            Toast.makeText(getActivity(), "NO INTERNET AVAILABLE", Toast.LENGTH_SHORT).show();
-//
-//        }
-//        if(list.size() >0){
-//            Address address = list.get(0);
-//            Toast.makeText(getActivity(), address.toString(), Toast.LENGTH_SHORT).show();
-//
-//            moveCamera(new LatLng(address.getLatitude(), address.getLongitude()),DEFAULT_ZOOM,
-//                    address.getAddressLine(0));
-//
-//        }
-//    }
+
 
     private void initMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
@@ -314,6 +314,39 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
+    private void setEditInfo(){
+        int id = getActivity().getIntent().getIntExtra("id",0);
+        Boolean check = getActivity().getIntent().getExtras().getBoolean("for_update");
+        if(check){
+            setNum(id);
+        }
+    }
+
+    private void setNum(int ID){
+        database db = new database(requireContext());
+        LatLng latLng = new LatLng(db.getLatitude(ID),db.getLongitude(ID));
+        moveCameraDB(latLng,DEFAULT_ZOOM,db.getLocation(ID));
+        init();
+    }
+
+    private void moveCameraDB(LatLng latLng, float zoom, String title){
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+
+        mMap.clear();
+
+//        if(!title.equals("My location")){
+        //search marker
+        MarkerOptions options = new MarkerOptions()
+                .position(latLng)
+                .title(title);
+        mMap.addMarker(options);
+//        }
+        getLocation = title;
+        getCoordinatesLat = latLng.latitude;
+        getCoordinatesLng = latLng.longitude;
+        hideSoftKeyboard();
+
+    }
 
 
 }
