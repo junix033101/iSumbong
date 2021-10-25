@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EDEBD7">
+
+    <RadioGroup
+        android:id="@+id/radioGroup3"
+        android:layout_width="300dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="56dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/radioButton_off_reports"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Reports" />
+
+        <RadioButton
+            android:id="@+id/radioButton_off_offenses"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Offenses" />
+    </RadioGroup>
+
+    <ListView
+        android:id="@+id/listView_offenses"
+        android:layout_width="409dp"
+        android:layout_height="490dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup3"
+        tools:layout_editor_absoluteX="1dp" />
+
+    <LinearLayout
+        android:id="@android:id/empty"
+        android:layout_width="416dp"
+        android:layout_height="487dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textView_def"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NO RECORDS" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

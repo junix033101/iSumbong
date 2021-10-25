@@ -68,4 +68,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+    <LinearLayout
+        android:layout_width="416dp"
+        android:layout_height="487dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textView_def"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NO RECORDS" />
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

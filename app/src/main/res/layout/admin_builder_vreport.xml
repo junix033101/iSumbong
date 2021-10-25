@@ -79,8 +79,8 @@
 
         <ImageView
             android:id="@+id/imageView_confirm_accident"
-            android:layout_width="146dp"
-            android:layout_height="129dp"
+            android:layout_width="266dp"
+            android:layout_height="237dp"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -90,8 +90,8 @@
 
         <ImageView
             android:id="@+id/imageView_confirm_license"
-            android:layout_width="150dp"
-            android:layout_height="121dp"
+            android:layout_width="266dp"
+            android:layout_height="237dp"
             android:layout_marginTop="19dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -143,8 +143,8 @@
 
         <ImageView
             android:id="@+id/imageView_confirm_vehicle"
-            android:layout_width="152dp"
-            android:layout_height="150dp"
+            android:layout_width="266dp"
+            android:layout_height="237dp"
             android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -153,8 +153,8 @@
 
         <ImageView
             android:id="@+id/imageView_confirm_or"
-            android:layout_width="159dp"
-            android:layout_height="167dp"
+            android:layout_width="266dp"
+            android:layout_height="237dp"
             android:layout_marginTop="28dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -347,7 +347,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
-            android:layout_marginTop="29dp"
+            android:layout_marginTop="45dp"
             android:text="Verified On:"
             app:layout_constraintEnd_toStartOf="@+id/textView_verified_on"
             app:layout_constraintStart_toStartOf="parent"
@@ -364,6 +364,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView41"
             app:layout_constraintTop_toBottomOf="@+id/textView_officer" />
+
+        <ImageButton
+            android:id="@+id/imageButton_vreport_offenses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="111dp"
+            android:backgroundTint="#00FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_confirm_accident"
+            app:srcCompat="@drawable/ic_baseline_remove_red_eye_24" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

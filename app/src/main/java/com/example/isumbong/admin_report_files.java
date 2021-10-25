@@ -1,10 +1,12 @@
 package com.example.isumbong;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -33,7 +36,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.hendrix.pdfmyxml.PdfDocument;
+import com.hendrix.pdfmyxml.viewRenderer.AbstractViewRenderer;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class admin_report_files extends AppCompatActivity implements OnMapReadyCallback {
@@ -45,6 +51,9 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
     database db = new database(this);
     String queryString;
     int selected;
+    AlertDialog alertDialog;
+    String edited;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,37 +85,47 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
     }
     private void setiReportList(){
         ListView list = findViewById(R.id.listView_report_files);
+        TextView empty = findViewById(R.id.textView_def);
         ArrayList<String> rSerial = new ArrayList<>();
         rSerial = db.getReportSerial();
         arrayAdapterI = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line,rSerial);
         list.setAdapter(arrayAdapterI);
+        list.setEmptyView(empty);
 //        get ItemI
         OnClickI(list);
     }
     private void setvReportList(){
         ListView list1 = findViewById(R.id.listView_report_files1);
+        TextView empty = findViewById(R.id.textView_def);
         ArrayList<String> vSerial = new ArrayList<>();
         vSerial = db.getVerifiedSerial();
         arrayAdapterV = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,vSerial);
         list1.setAdapter(arrayAdapterV);
+        list1.setEmptyView(empty);
         //get Item
         OnClickV(list1);
     }
 
     //radiobutton
     private void getOnClick(){
+        if(!vReport.isChecked()&& !iReport.isChecked()){
+            ListView list = findViewById(R.id.listView_report_files);
+            TextView empty = findViewById(R.id.textView_def);
+            list.setEmptyView(empty);
+        }
         vReport.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(vReport.isChecked()){
                     ListView list = findViewById(R.id.listView_report_files);
                     ListView list1 = findViewById(R.id.listView_report_files1);
+                    TextView empty = findViewById(R.id.textView_def);
                     list1.setVisibility(View.VISIBLE);
                     list.setVisibility(View.INVISIBLE);
+                    list1.setEmptyView(empty);
                     setvReportList();
+
                 }
-
-
             }
         });
         iReport.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -115,9 +134,12 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
                 if(iReport.isChecked()){
                     ListView list = findViewById(R.id.listView_report_files);
                     ListView list1 = findViewById(R.id.listView_report_files1);
+                    TextView empty = findViewById(R.id.textView_def);
                     list1.setVisibility(View.INVISIBLE);
                     list.setVisibility(View.VISIBLE);
+                    list.setEmptyView(empty);
                     setiReportList();
+
                 }
 
             }
@@ -152,6 +174,7 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
 
         return true;
     }
+
     //verified reports get item
     private void OnClickV(ListView list1){
         list1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -167,33 +190,52 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
     private void getArrayItemV(String queryString){
         //GET VICTIMS ID BASED ON VSERIAL
         int id = db.getIDxVserial(queryString);
+
         View viewS = getLayoutInflater().inflate(R.layout.admin_builder_vreport, null);
+
+        ArrayList<String> offenses = db.getOffenses(db.getLicenseNumber(id));
+        ArrayAdapter<String> adapterOff = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, offenses);
+
+        ArrayList<String> reports_list = db.getReports(db.getLicenseNumber(id));
+        ArrayAdapter<String> adapter_rep = new ArrayAdapter<> (this, android.R.layout.simple_dropdown_item_1line, reports_list);
+        ImageButton viewBtn = viewS.findViewById(R.id.imageButton_vreport_offenses);
+        View viewB = getLayoutInflater().inflate(R.layout.builder_offenses, null);
+        Context ctx = admin_report_files.this;
+
 
         setNumber(id,viewS);
         setVictimDetais(id,viewS);
         setInfo(id,viewS);
         setImgs(id,viewS);
+        offensesButton(viewBtn,viewB, id,adapterOff, adapter_rep,ctx);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("VERIFIED REPORT ( " +queryString + " )")
                 .setView(viewS)
                 .setCancelable(false)
-                .setNegativeButton("BACK", new DialogInterface.OnClickListener() {
+                .setNeutralButton("BACK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                     }
                 })
-                .setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+                .setPositiveButton("DOWNLOAD", new DialogInterface.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        pdf(id, queryString);
+
+                    }
+                })
+                .setNegativeButton("DELETE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 });
-        AlertDialog alertDialog = builder.create();
+        alertDialog = builder.create();
         MapView(viewS, alertDialog);
         alertDialog.show();
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 vDel(alertDialog,queryString);
@@ -255,9 +297,6 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
             }
         });
     }
-
-
-
 
 
     //DEFAULT SET BUILDER
@@ -364,11 +403,19 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
         setTextDefI(viewI);
         setInfoI(queryString, viewI);
 
+        ImageButton edit = viewI.findViewById(R.id.imageButton_edit_report);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditRes(viewI);
+            }
+        });
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("INCIDENT REPORT ( " +queryString + " )")
                 .setView(viewI)
                 .setCancelable(false)
-                .setPositiveButton("EDIT", new DialogInterface.OnClickListener() {
+                .setPositiveButton("DOWNLOAD", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                     }
@@ -386,19 +433,40 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
 
                     }
                 });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+        AlertDialog alertDialog2 = builder.create();
+        alertDialog2.show();
+        alertDialog2.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                EditRes(viewI);
+                DelRes(alertDialog2);
             }
         });
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+        alertDialog2.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DelRes(alertDialog);
+                String user = getIntent().getStringExtra("user");
+                boolean fCheck = db.CheckerFile(queryString, user);
+                if(fCheck) {
+                    alertDialog2.dismiss();
+                    AlertDialog.Builder file = new AlertDialog.Builder(admin_report_files.this);
+                    file.setTitle("CONFIRM DOWNLOAD")
+                            .setMessage("" + queryString + " already exists. Do you want to replace it?")
+                            .setCancelable(false)
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    alertDialog2.show();
+                                }
+                            })
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    pdfIncident(queryString);
+                                }
+                            }).show();
+                }
+                else
+                    pdfIncident(queryString);
             }
         });
 
@@ -416,8 +484,17 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
         details.setEnabled(false);
         submit.setVisibility(View.INVISIBLE);
         attach.setClickable(false);
-        text1.setVisibility(View.INVISIBLE);
-        editon.setVisibility(View.INVISIBLE);
+
+        boolean check = db.Checker(queryString);
+        if(check){
+            editon.setVisibility(View.VISIBLE);
+            text1.setVisibility(View.VISIBLE);
+            editon.setText(db.getEditDate(queryString));
+        }
+        else{
+            editon.setVisibility(View.INVISIBLE);
+            text1.setVisibility(View.INVISIBLE);
+        }
 
     }
     private void setTextEdit(View v){
@@ -452,7 +529,20 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
                 EditText details = v.findViewById(R.id.editText_create_report_info);
                 setTextDefI(v);
                 showEdit(v);
+
                 db.updateIReport(details.getText().toString(),queryString);
+
+                boolean check = db.Checker(queryString);
+                Log.e("CHECK", ""+check);
+                        if(check){
+                            db.updateEdit(queryString,edited);
+                            Toast.makeText(admin_report_files.this,"UPDATED", Toast.LENGTH_SHORT ).show();
+                        }
+                        else{
+                            boolean checkupdate = db.InsertEdits(queryString,db.getReportOfficer(queryString),edited);
+                            if(checkupdate)
+                                Toast.makeText(admin_report_files.this,"UPDATED", Toast.LENGTH_SHORT ).show();
+                        }
 
             }
         });
@@ -471,7 +561,6 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
         TextView textView = new TextView(this);
         textView.setText(db.getReportAttached(queryString));
         linearLayout.addView(textView);
-
 
         details.setText(db.getReportStatement(queryString));
         officer.setText(db.getReportOfficer(queryString));
@@ -497,8 +586,8 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
         text1.setVisibility(View.VISIBLE);
         editon.setVisibility(View.VISIBLE);
 
-        String user = getIntent().getStringExtra("user");
         editon.setText(report.setDate());
+        edited = report.setDate();
     }
 
     //incident reports
@@ -560,6 +649,7 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
                 String sector = db.getChiefCode(db.getPnpSector(admin_login.admin_code));
                 if(input.equals(sector)) {
                     db.DeleteIreport(queryString);
+                    db.deleteEdit(queryString);
                     Toast.makeText(admin_report_files.this, "INCIDENT REPORT DELETED", Toast.LENGTH_SHORT).show();
                     arrayAdapterI.remove(queryString);
                     alertDialog2.dismiss();
@@ -572,6 +662,286 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
         });
 
     }
+
+    void pdf(int id,String queryString){
+        AbstractViewRenderer page = new AbstractViewRenderer(this, R.layout.test) {
+
+            @Override
+            protected void initView(View view) {
+                setNumber(id,view);
+                setVictimDetais(id,view);
+                page1(id,view);
+            }
+        };
+        AbstractViewRenderer page2 = new AbstractViewRenderer(this, R.layout.page2) {
+            @Override
+            protected void initView(View view) {
+                page2(id,view);
+            }
+        };
+        AbstractViewRenderer page3 = new AbstractViewRenderer(this, R.layout.page3) {
+            @Override
+            protected void initView(View view) {
+                page3(id,view);
+            }
+        };
+        AbstractViewRenderer page4 = new AbstractViewRenderer(this, R.layout.page4) {
+            @Override
+            protected void initView(View view) {
+                page4(id,view);
+            }
+        };
+        AbstractViewRenderer page5 = new AbstractViewRenderer(this, R.layout.page5) {
+            @Override
+            protected void initView(View view) {
+                page5(id,view);
+            }
+        };
+
+// you can reuse the bitmap if you want
+        page.setReuseBitmap(true);
+        page2.setReuseBitmap(true);
+        page3.setReuseBitmap(true);
+        page4.setReuseBitmap(true);
+        page5.setReuseBitmap(true);
+        PdfDocument doc = new PdfDocument(this);
+
+// add as many pages as you have
+        doc.addPage(page);
+        doc.addPage(page2);
+        doc.addPage(page3);
+        doc.addPage(page4);
+        doc.addPage(page5);
+
+        doc.setRenderWidth(page.getWidth());
+        doc.setRenderHeight(3000);
+        doc.setOrientation(PdfDocument.A4_MODE.PORTRAIT);
+        doc.setProgressTitle(R.string.title);
+        doc.setProgressMessage(R.string.mssg);
+        doc.setFileName(queryString);
+        doc.setSaveDirectory(this.getExternalFilesDir(null));
+
+        String path = this.getExternalFilesDir(null)+"/"+queryString+".pdf";
+
+        doc.setInflateOnMainThread(false);
+        doc.setListener(new PdfDocument.Callback() {
+            @Override
+            public void onComplete(File file) {
+                Log.i(PdfDocument.TAG_PDF_MY_XML, "Complete");
+                Intent intent = new Intent(admin_report_files.this, admin_dl_files.class);
+                intent.putExtras(getIntent());
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
+                String user = getIntent().getStringExtra("user");
+                //insert database
+                boolean fCheck = db.CheckerFile(queryString, user);
+                if(fCheck){
+                    db.updateFile(queryString,user);
+                    Toast.makeText(admin_report_files.this, "PDF file downloaded", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    boolean check = db.InsertPDFs(queryString,user,path);
+                    if(check){
+                        Toast.makeText(admin_report_files.this, "PDF file downloaded", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.i(PdfDocument.TAG_PDF_MY_XML, "Error");
+            }
+        });
+
+        doc.createPdf(this);
+    }
+
+    private void page1(int ID, View v){
+        ImageView a = v.findViewById(R.id.imageView_confirm_accident);
+        a.setImageURI(Uri.parse(db.getAccidentImg(ID)));
+        TextView date = v.findViewById(R.id.textView_date);
+        date.setText(db.getDate(ID));
+    }
+    private void page2 (int ID,View v){
+        ImageView l = v.findViewById(R.id.imageView_confirm_license);
+        l.setImageURI(Uri.parse(db.getLicenseImg(ID)));
+        TextView plate = v.findViewById(R.id.textView_confirm_plate);
+        plate.setText(db.getPlateNumber(ID));
+        TextView type = v.findViewById(R.id. textView_confirm_vehicletype);
+        type.setText(db.getVehicleType(ID));
+
+        TextView license = v.findViewById(R.id.textView_confirm_licensenum2);
+        license.setText(db.getLicenseNumber(ID));
+
+    }
+    private void page3(int ID, View v){
+        ImageView c = v.findViewById(R.id.imageView_confirm_vehicle2);
+        c.setImageURI(Uri.parse(db.getVehicleImg(ID)));
+        ImageView o = v.findViewById(R.id.imageView_confirm_or);
+        o.setImageURI(Uri.parse(db.getOrImg(ID)));
+
+    }
+    private void page4(int ID, View v){
+        TextView loc = v.findViewById(R.id.textView_location);
+        String lat= Double.toString(db.getLatitude(ID));
+        String lng = Double.toString(db.getLongitude(ID));
+        String pin = db.getLocation(ID);
+        String address = pin+"\nLATITUDE: "+lat+"\nLONGITUDE: "+lng;
+        loc.setText(address);
+
+        TextView statement = v.findViewById(R.id.textView_confirm_statement);
+
+        statement.setText(db.getStatement(ID));
+
+    }
+    private void page5(int ID, View v){
+        TextView vdate = v.findViewById(R.id.textView47);
+        TextView officer = v.findViewById(R.id.textView_page_verified);
+
+        vdate.setText(db.getVdate(ID));
+        officer.setText(""+db.getName(db.getUser(ID))+" ("+db.getIdNo(db.getUser(ID))+")");
+    }
+
+    void pdfIncident(String queryString){
+        AbstractViewRenderer page1;
+        String sector = db.getPnpSector(admin_login.admin_code);
+        if(sector.equals("Cebu Provincial Jail")){
+             page1 = new AbstractViewRenderer(this, R.layout.cebu_city_jail) {
+
+                @Override
+                protected void initView(View view) {
+                    page1_CCJ(queryString,view);
+                }
+            };
+        }else{
+            page1 = new AbstractViewRenderer(this, R.layout.citom_page1) {
+
+                @Override
+                protected void initView(View view) {
+                    page1_CCJ(queryString,view);
+                }
+            };
+        }
+
+        AbstractViewRenderer page2 = new AbstractViewRenderer(this, R.layout.cebu_city_jail_page2) {
+            @Override
+            protected void initView(View view) {
+                page2_CCJ(queryString,view);
+            }
+        };
+
+
+// you can reuse the bitmap if you want
+        page1.setReuseBitmap(true);
+        page2.setReuseBitmap(true);
+
+        PdfDocument doc = new PdfDocument(this);
+
+// add as many pages as you have
+        doc.addPage(page1);
+        doc.addPage(page2);
+
+
+        doc.setRenderWidth(page1.getWidth());
+        doc.setRenderHeight(page1.getHeight());
+        doc.setOrientation(PdfDocument.A4_MODE.PORTRAIT);
+        doc.setProgressTitle(R.string.title);
+        doc.setProgressMessage(R.string.mssg);
+        doc.setFileName(queryString);
+        doc.setSaveDirectory(this.getExternalFilesDir(null));
+
+        Log.e("PATH:", ""+this.getExternalFilesDir(null)+"/"+queryString+".pdf");
+        String path = this.getExternalFilesDir(null)+"/"+queryString+".pdf";
+
+        doc.setInflateOnMainThread(false);
+        doc.setListener(new PdfDocument.Callback() {
+            @Override
+            public void onComplete(File file) {
+                Log.i(PdfDocument.TAG_PDF_MY_XML, "Complete");
+                Intent intent = new Intent(admin_report_files.this, admin_dl_files.class);
+                intent.putExtras(getIntent());
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
+                String user = getIntent().getStringExtra("user");
+
+                //insert database
+                boolean fCheck = db.CheckerFile(queryString, user);
+                if(fCheck){
+                    db.updateFile(queryString,user);
+                    Toast.makeText(admin_report_files.this, "PDF file downloaded", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    boolean check = db.InsertPDFs(queryString,user,path);
+                    if(check){
+                        Toast.makeText(admin_report_files.this, "PDF file downloaded", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.i(PdfDocument.TAG_PDF_MY_XML, "Error");
+            }
+        });
+
+        doc.createPdf(this);
+    }
+
+    private void page1_CCJ(String queryString, View v){
+        TextView officer = v.findViewById(R.id.textView_create_officer);
+        TextView sector = v.findViewById(R.id.textView_create_sector);
+        TextView date = v.findViewById(R.id.textView_create_date);
+        TextView email = v.findViewById(R.id.textView_create_email);
+        EditText details = v.findViewById(R.id.editText_create_report_info);
+
+        details.setHint(db.getReportStatement(queryString));
+        officer.setText(db.getReportOfficer(queryString));
+        sector.setText(db.getReporSector(queryString));
+        date.setText(db.getReportDate(queryString));
+        email.setText(db.getReportEmail(queryString));
+    }
+    private void page2_CCJ(String queryString, View v){
+
+        LinearLayout linearLayout = v.findViewById(R.id.linear_layout);
+
+        db = new database(this);
+        TextView textView = new TextView(this);
+        textView.setText(db.getReportAttached(queryString));
+        linearLayout.addView(textView);
+
+        TextView date = v.findViewById(R.id.textView_ireport_edit_date);
+        boolean check = db.Checker(queryString);
+        if(check){
+            date.setText(db.getEditDate(queryString));
+        }
+    }
+    public void offensesButton(ImageButton viewBtn, View viewB, int ID, ArrayAdapter adapterOff, ArrayAdapter adapter_rep, Context ctx){
+
+
+        viewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                admin_view_serial dialog = new admin_view_serial();
+                 Log.e("CHECK", "button is working");
+
+                dialog.radioBtn(viewB,ID,adapterOff, adapter_rep);
+
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(ctx);
+                builder1.setTitle("LICENSE INFORMATION")
+                        .setView(viewB)
+                        .setCancelable(false)
+                        .setNeutralButton("BACK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                }).show();
+            }
+        });
+
+    }
+
 
 
 }

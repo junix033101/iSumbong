@@ -12,24 +12,69 @@
 
     <TextView
         android:id="@+id/textView_serial"
-        android:layout_width="wrap_content"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="74dp"
-        android:layout_marginEnd="75dp"
-        android:text="SERIALLLLLLL NI"
-        android:textColor="#450606"
-        android:textSize="34sp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="6dp"
+        android:gravity="center"
+        android:text="SERIALLLLLLL "
+        android:textColor="@color/black"
+        android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="42dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/imageButton_home"
+    <TextView
+        android:id="@+id/textView53"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#423E37"
-        android:src="@drawable/ic_baseline_home_24"
-        tools:layout_editor_absoluteX="181dp"
-        tools:layout_editor_absoluteY="544dp" />
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="101dp"
+        android:layout_marginEnd="86dp"
+        android:text="REPORT SUCCESSFUL"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_serial" />
+
+    <TextView
+        android:id="@+id/textView54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="31dp"
+        android:text="An authorized personnel will attend to your needs"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView53" />
+
+    <TextView
+        android:id="@+id/textView56"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="106dp"
+        android:text="Please wait for assistance..."
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView54" />
+
+    <TextView
+        android:id="@+id/textView58"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="169dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="169dp"
+        android:text="Thank you"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView56" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

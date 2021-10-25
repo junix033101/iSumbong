@@ -4,6 +4,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url "https://www.jitpack.io" }
+        jcenter()
        // maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
          // Warning: this repository is going to shut down soon
     }

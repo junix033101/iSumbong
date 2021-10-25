@@ -10,15 +10,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#EDEBD7"
         tools:context=".admin_create_report">
 
         <TextView
             android:id="@+id/textView24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="58dp"
+            android:layout_marginStart="59dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="59dp"
+            android:layout_marginEnd="58dp"
             android:text="CREATE INCIDENT REPORT"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,11 +30,9 @@
             android:id="@+id/textView25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
             android:layout_marginTop="12dp"
             android:text="Incident Type                      :"
             app:layout_constraintEnd_toEndOf="@+id/textView26"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
         <TextView
@@ -41,41 +40,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="11dp"
+            android:layout_marginTop="20dp"
             android:text="Reporting Officer               :"
-            app:layout_constraintEnd_toEndOf="@+id/textView33"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView25" />
-
-        <TextView
-            android:id="@+id/textView28"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="13dp"
-            android:text="Sector                                  :"
-            app:layout_constraintEnd_toEndOf="@+id/textView31"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView33" />
-
-        <TextView
-            android:id="@+id/textView31"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="28dp"
-            android:text="Date and Time of Report :"
-            app:layout_constraintEnd_toStartOf="@+id/textView_create_date"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
         <EditText
             android:id="@+id/editText_create_report_info"
             android:layout_width="333dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="38dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="40dp"
             android:ems="10"
             android:gravity="start|top"
@@ -84,17 +59,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_create_date" />
 
-        <TextView
-            android:id="@+id/textView33"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="16dp"
-            android:text="E-mail                                   :"
-            app:layout_constraintEnd_toEndOf="@+id/textView28"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView26" />
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton_create_attach"
             android:layout_width="wrap_content"
@@ -102,7 +66,9 @@
             android:layout_marginStart="19dp"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="336dp"
+            android:backgroundTint="#E3B23C"
             android:clickable="true"
+            app:backgroundTint="#E3B23C"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -142,7 +108,9 @@
             android:layout_marginStart="145dp"
             android:layout_marginTop="132dp"
             android:layout_marginEnd="178dp"
+            android:background="@drawable/button_background"
             android:text="SUBMIT"
+            android:textColor="#EDEBD7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -158,41 +126,74 @@
             app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
         <TextView
-            android:id="@+id/textView_create_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
-            android:text="TextView"
-            app:layout_constraintStart_toEndOf="@+id/textView31"
-            app:layout_constraintTop_toBottomOf="@+id/textView_create_sector" />
-
-        <TextView
             android:id="@+id/textView_create_officer"
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="21dp"
             android:text="TextView"
             app:layout_constraintStart_toStartOf="@+id/textView_create_email"
             app:layout_constraintTop_toBottomOf="@+id/textView_incident" />
 
         <TextView
-            android:id="@+id/textView_create_sector"
+            android:id="@+id/textView_create_email"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="@+id/textView_create_sector"
+            app:layout_constraintTop_toBottomOf="@+id/textView_create_officer" />
+
+        <TextView
+            android:id="@+id/textView31"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:text="Date and Time of Report :"
+            app:layout_constraintEnd_toEndOf="@+id/textView28"
+            app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="34dp"
+            android:text="E-mail                                   :"
+            app:layout_constraintEnd_toEndOf="@+id/textView26"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+        <TextView
+            android:id="@+id/textView_create_date"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/textView28"
+            app:layout_constraintTop_toBottomOf="@+id/textView_create_sector" />
+
+        <TextView
+            android:id="@+id/textView_create_sector"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
             android:text="TextView"
             app:layout_constraintStart_toStartOf="@+id/textView_create_date"
             app:layout_constraintTop_toBottomOf="@+id/textView_create_email" />
 
         <TextView
-            android:id="@+id/textView_create_email"
+            android:id="@+id/textView28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="TextView"
-            app:layout_constraintStart_toStartOf="@+id/textView_create_sector"
-            app:layout_constraintTop_toBottomOf="@+id/textView_create_officer" />
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:text="Sector                                  :"
+            app:layout_constraintEnd_toEndOf="@+id/textView33"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
         <TextView
             android:id="@+id/textView_edit_on"
@@ -215,6 +216,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView_edit_on"
             app:layout_constraintTop_toBottomOf="@+id/linear_layout" />
+
+        <ImageButton
+            android:id="@+id/imageButton_edit_report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#00FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.484"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_edit_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

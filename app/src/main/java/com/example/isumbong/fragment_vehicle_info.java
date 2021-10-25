@@ -105,11 +105,11 @@ public class fragment_vehicle_info extends Fragment {
         String check = getActivity().getIntent().getStringExtra("edit");
         try {
             if(check != null) {
-                setEditInfo();
+                setEditInfo(sharedPref);
+
             }
             else{
                 plate.setText(Plate);
-
 
                 spnr_vehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -127,8 +127,6 @@ public class fragment_vehicle_info extends Fragment {
                         else{
                             VehicleType = selecteditem;
                         }
-
-
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
@@ -211,15 +209,15 @@ public class fragment_vehicle_info extends Fragment {
         return view;
     }
 
-    private void setEditInfo(){
+    private void setEditInfo(SharedPreferences sharedpref){
         int id = getActivity().getIntent().getIntExtra("id",0);
         Boolean check = getActivity().getIntent().getExtras().getBoolean("for_update");
         if(check){
-            setNum(id);
+            setNum(id, sharedpref);
         }
     }
 
-    private void setNum(int ID){
+    private void setNum(int ID, SharedPreferences sharedPref){
         database db = new database(requireContext());
         plate.setText(db.getPlateNumber(ID));
         if (img_vehicle == null) {
@@ -233,5 +231,29 @@ public class fragment_vehicle_info extends Fragment {
         VehicleType = db.getVehicleType(ID);
         SpinnerPos = myAdapter.getPosition(VehicleType);
         spnr_vehicle.setSelection(SpinnerPos);
+        spnr_vehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selecteditem = adapterView.getItemAtPosition(i).toString();
+
+                SpinnerPos = spnr_vehicle.getSelectedItemPosition();
+                SharedPreferences.Editor prefEditor = sharedPref.edit();
+                prefEditor.putInt("userChoiceSpinner",SpinnerPos);
+                prefEditor.apply();
+
+                if(selecteditem.matches("Select Vehicle Type")){
+                    selecteditem = "";
+                }
+                else{
+                    VehicleType = selecteditem;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
     }
 }

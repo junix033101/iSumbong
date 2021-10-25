@@ -34,7 +34,7 @@ public class fragment_statement extends Fragment {
 
         String check = getActivity().getIntent().getStringExtra("edit");
         try {
-            if(check != null) {
+            if(check!=null) {
                 setEditInfo();
             }
             else{

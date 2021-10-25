@@ -76,6 +76,7 @@ public class fragment_novictims extends Fragment {
 //                        ok.setVisibility(View.GONE);
                         public_report_now.next.show();
                         public_report_now.prev.show();
+                        public_report_now.home.setVisibility(View.VISIBLE);
                     }
 
                 }

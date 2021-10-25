@@ -10,11 +10,11 @@
     <EditText
         android:id="@+id/editTextTextMultiLine_statement"
         android:layout_width="330dp"
-        android:layout_height="396dp"
+        android:layout_height="400dp"
         android:layout_marginStart="44dp"
         android:layout_marginTop="49dp"
         android:layout_marginEnd="37dp"
-        android:background="#EDEBD7"
+        android:background="#39272626"
         android:ems="10"
         android:gravity="center|top"
         android:hint="Input Statement"

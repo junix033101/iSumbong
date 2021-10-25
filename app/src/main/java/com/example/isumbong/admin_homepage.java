@@ -67,7 +67,7 @@ public class admin_homepage extends AppCompatActivity {
         searchView = (SearchView) menuItem.getActionView();
 
         searchAutoComplete = searchView.findViewById(R.id.search_src_text);
-        searchAutoComplete.setDropDownBackgroundResource(android.R.color.holo_blue_bright);
+        searchAutoComplete.setDropDownBackgroundResource(R.color.dropdownDARK);
 
         //set suggestions
         db = new database(this);
@@ -158,23 +158,57 @@ public class admin_homepage extends AppCompatActivity {
         TextView victims = findViewById(R.id.textView_cardview_victims);
         ImageView acc_img = findViewById(R.id.imageView_cardview_acc);
 
+        TextView title_d = findViewById(R.id.textView202);
+        TextView title_l = findViewById(R.id.textView204);
+        TextView title_v = findViewById(R.id.textView203);
+        TextView null_a = findViewById(R.id.textView_null_acc);
 
-        try {
-            Cursor latestAccident=db.getRecentReport();
-            int id = latestAccident.getInt(1);
-            date.setText(latestAccident.getString(3));
-            location.setText(db.getLocation(id));
-            ArrayList<Victim> vic = db.getVictimsInfo(id);
-            String names="";
-            for(Victim v: vic ){
-                names += v.getName()+"\n";
+        TextView serial = findViewById(R.id.textView_title_acc);
+
+        boolean check = db.CheckAccident();
+        if(check){
+            acc_img.setVisibility(View.VISIBLE);
+            title_d.setVisibility(View.VISIBLE);
+            title_l.setVisibility(View.VISIBLE);
+            title_v.setVisibility(View.VISIBLE);
+            date.setVisibility(View.VISIBLE);
+            location.setVisibility(View.VISIBLE);
+            victims.setVisibility(View.VISIBLE);
+            null_a.setVisibility(View.INVISIBLE);
+
+            try {
+                Cursor latestAccident=db.getRecentReport();
+                int id = latestAccident.getInt(1);
+                date.setText(latestAccident.getString(3));
+                location.setText(db.getLocation(id));
+                ArrayList<Victim> vic = db.getVictimsInfo(id);
+                String names="";
+                for(Victim v: vic ){
+                    names += v.getName()+"\n";
+                }
+                victims.setText(names);
+
+                acc_img.setImageURI(Uri.parse(db.getAccidentImg(id)));
+                serial.setText(latestAccident.getString(2));
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            victims.setText(names);
 
-            acc_img.setImageURI(Uri.parse(db.getAccidentImg(id)));
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        else{
+
+            acc_img.setVisibility(View.INVISIBLE);
+            title_d.setVisibility(View.INVISIBLE);
+            title_l.setVisibility(View.INVISIBLE);
+            title_v.setVisibility(View.INVISIBLE);
+            date.setVisibility(View.INVISIBLE);
+            location.setVisibility(View.INVISIBLE);
+            victims.setVisibility(View.INVISIBLE);
+            null_a.setVisibility(View.VISIBLE);
+
+        }
+
     }
     private void RecentVerified(){
         TextView location = findViewById(R.id.textView_cardview_Vloc);
@@ -182,27 +216,58 @@ public class admin_homepage extends AppCompatActivity {
         TextView victims = findViewById(R.id.textView_cardview_Vvictims);
         ImageView acc_img = findViewById(R.id.imageView_cardview_Vacc);
 
-        int id = 0;
-        try {
-            String names;
-            if (db!=null) {
-                Cursor latestVerified=db.getRecentVerified();
-                id = latestVerified.getInt(1);
-                date.setText(latestVerified.getString(3));
-                location.setText(db.getLocation(id));
-                ArrayList<Victim> vic = db.getVictimsInfo(id);
-                names = "";
-                for(Victim v: vic ){
-                    names += v.getName()+"\n";
+        TextView vd = findViewById(R.id.textView46);
+        TextView vl = findViewById(R.id.textView48);
+        TextView vv = findViewById(R.id.textView50);
+        TextView null_v = findViewById(R.id.textView_null_Vreport);
+        TextView serialv = findViewById(R.id.textView_title_v);
+
+        boolean check = db.CheckVerified();
+        if(check){
+            try {
+                acc_img.setVisibility(View.VISIBLE);
+                vd.setVisibility(View.VISIBLE);
+                vl.setVisibility(View.VISIBLE);
+                vv.setVisibility(View.VISIBLE);
+                date.setVisibility(View.VISIBLE);
+                location.setVisibility(View.VISIBLE);
+                victims.setVisibility(View.VISIBLE);
+                null_v.setVisibility(View.INVISIBLE);
+
+                int id = 0;
+                String names;
+                if (db!=null) {
+                    Cursor latestVerified=db.getRecentVerified();
+                    id = latestVerified.getInt(1);
+                    date.setText(latestVerified.getString(3));
+                    location.setText(db.getLocation(id));
+                    ArrayList<Victim> vic = db.getVictimsInfo(id);
+                    names = "";
+                    for(Victim v: vic ){
+                        names += v.getName()+"\n";
+                    }
+                    victims.setText(names);
+                    acc_img.setImageURI(Uri.parse(db.getAccidentImg(id)));
+                    serialv.setText(latestVerified.getString(2));
                 }
-                victims.setText(names);
-            } else {
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+        else{
+            acc_img.setVisibility(View.INVISIBLE);
+            vd.setVisibility(View.INVISIBLE);
+            vl.setVisibility(View.INVISIBLE);
+            vv.setVisibility(View.INVISIBLE);
+            date.setVisibility(View.INVISIBLE);
+            location.setVisibility(View.INVISIBLE);
+            victims.setVisibility(View.INVISIBLE);
+            null_v.setVisibility(View.VISIBLE);
         }
 
-        acc_img.setImageURI(Uri.parse(db.getAccidentImg(id)));
+
+
+
     }
     private void RecentReport(){
         TextView officer= findViewById(R.id.textView_cardview_officer);
@@ -210,19 +275,55 @@ public class admin_homepage extends AppCompatActivity {
         TextView sector = findViewById(R.id.textView_cardview_sector);
         TextView details = findViewById(R.id.textView_cardview_info);
 
+        TextView idate = findViewById(R.id.textView52);
+        TextView io = findViewById(R.id.textView55);
+        TextView is = findViewById(R.id.textView57);
+        TextView null_i = findViewById(R.id.textView_null_Ireport);
+        TextView seriali = findViewById(R.id.textView_title_i);
 
-        try {
-            if (db!=null) {
-                Cursor latestIncedent=db.getRecentIncedent();
-                officer.setText(latestIncedent.getString(3));
-                sector.setText(latestIncedent.getString(5));
-                date.setText(latestIncedent.getString(6));
-                details.setText(latestIncedent.getString(7));
-            } else {
+        boolean check = db.CheckIncident();
+        if(check){
+            try {
+                date.setVisibility(View.VISIBLE);
+                officer.setVisibility(View.VISIBLE);
+                sector.setVisibility(View.VISIBLE);
+                idate.setVisibility(View.VISIBLE);
+                io.setVisibility(View.VISIBLE);
+                is.setVisibility(View.VISIBLE);
+                details.setVisibility(View.VISIBLE);
+                null_i.setVisibility(View.INVISIBLE);
+
+                if (db!=null) {
+                    Cursor latestIncedent=db.getRecentIncedent();
+                    officer.setText(latestIncedent.getString(3));
+                    sector.setText(latestIncedent.getString(5));
+                    details.setText(latestIncedent.getString(7));
+                    seriali.setText(latestIncedent.getString(1));
+                    boolean check1 = db.Checker(latestIncedent.getString(1));
+                    if(check1){
+                        String dateEdit = db.getEditDate(latestIncedent.getString(1));
+                        date.setText(dateEdit);
+                    }
+                    else
+                        date.setText(latestIncedent.getString(6));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        else{
+
+            date.setVisibility(View.INVISIBLE);
+            officer.setVisibility(View.INVISIBLE);
+            sector.setVisibility(View.INVISIBLE);
+            idate.setVisibility(View.INVISIBLE);
+            io.setVisibility(View.INVISIBLE);
+            is.setVisibility(View.INVISIBLE);
+            details.setVisibility(View.INVISIBLE);
+            null_i.setVisibility(View.VISIBLE);
+        }
+
+
 
     }
 
@@ -241,6 +342,9 @@ public class admin_homepage extends AppCompatActivity {
                 })
                 .setNegativeButton("No", null)
                 .show();
+    }
+    private void setRecentAcc(){
+
     }
 
 

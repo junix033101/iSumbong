@@ -5,13 +5,14 @@
     android:id="@+id/layout_CONS"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_bg">
+    android:background="@drawable/main_bg"
+    android:hapticFeedbackEnabled="true">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="415dp"
         android:layout_height="127dp"
-        app:cardBackgroundColor="#ffffff"
+        app:cardBackgroundColor="#00474543"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,12 +22,13 @@
 
         <TextView
             android:id="@+id/textView10"
-            android:layout_width="83dp"
+            android:layout_width="86dp"
             android:layout_height="38dp"
-            android:background="#E3B23C"
+            android:background="#423E37"
             android:gravity="center"
             android:text="VICTIM"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="#EDEBD7" />
 
         <EditText
             android:id="@+id/Text_victim_name"
@@ -36,16 +38,18 @@
             android:ems="10"
             android:hint="Name"
             android:inputType="textPersonName"
+            android:textColor="#000000"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/view_num"
-            android:layout_width="83dp"
+            android:layout_width="86dp"
             android:layout_height="78dp"
             android:layout_gravity="bottom|center|left"
-            android:background="#E3B23C"
+            android:background="#423E37"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="#EDEBD7" />
 
         <EditText
             android:id="@+id/Text_victim_age"
@@ -55,6 +59,7 @@
             android:ems="10"
             android:hint="Age"
             android:inputType="number"
+            android:textColor="#000000"
             android:textSize="14sp" />
 
         <RadioGroup
@@ -69,14 +74,19 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="left"
                 android:text="Male"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="#000000" />
 
             <RadioButton
                 android:id="@+id/radioButton_female"
                 android:layout_width="166dp"
                 android:layout_height="wrap_content"
                 android:text="Female"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="#000000" />
         </RadioGroup>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--matug nako bbyy iloveyouuuuu <3-->

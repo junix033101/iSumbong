@@ -36,6 +36,7 @@ public class fragment_victim_details extends Fragment {
     RadioButton b_female ;
     RadioButton b_male ;
     String bnum;
+    static EditText name;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,11 +51,19 @@ public class fragment_victim_details extends Fragment {
         int id = getActivity().getIntent().getIntExtra("id",0);
         database db = new database(requireContext());
         victims = new ArrayList<Victim>(Integer.parseInt(fragment_novictims.vnum));
-        for(int i=0;i<Integer.parseInt(repeat);i++){
-            victims.add(new Victim("Name","Age","Gender"));
-        }
+        ArrayList<Victim> temp = db.getVictimsInfo(id);
+
         if(check != null){
-            victims =db.getVictimsInfo(id);
+            victims.addAll(temp);
+
+            int totalVictims=temp.size();
+            for(int i=totalVictims;i<Integer.parseInt(repeat);i++){
+                victims.add(new Victim("Name","Age","Gender"));
+            }
+        }else{
+            for(int i=0;i<Integer.parseInt(repeat);i++){
+                victims.add(new Victim("Name","Age","Gender"));
+            }
         }
 
         MyAdapter adapter = new MyAdapter();
@@ -92,7 +101,7 @@ public class fragment_victim_details extends Fragment {
 
             TextView num = convertView.findViewById(R.id.view_num);
             et =convertView.findViewById(R.id.Text_victim_age);
-            EditText name =convertView.findViewById(R.id.Text_victim_name);
+            name =convertView.findViewById(R.id.Text_victim_name);
             rbtn_male = convertView.findViewById(R.id.radioButton_male);
             rbtn_female= convertView.findViewById(R.id.radioButton_female);
 
@@ -100,10 +109,19 @@ public class fragment_victim_details extends Fragment {
             et.setText(victims.get(i).getAge());
             name.setText(victims.get(i).getName());
             //set radio button
-            if(victims.get(i).getGender().equals("male"))
-                rbtn_male.setChecked(true);
-            else if(victims.get(i).getGender().equals("female"))
-                rbtn_female.setChecked(true);
+            try {
+                if(victims.get(i).getGender().equals("male"))
+                    rbtn_male.setChecked(true);
+                else if(victims.get(i).getGender().equals("female"))
+                    rbtn_female.setChecked(true);
+                else if (victims.get(i).getGender().equals("")){
+                    rbtn_male.setChecked(false);
+                    rbtn_female.setChecked(false);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
 
             //set to unclickable
@@ -137,9 +155,7 @@ public class fragment_victim_details extends Fragment {
                      b_male = view1.findViewById(R.id.radioButton_builder_male);
                     bnum = num.getText().toString();
 
-                    //set text
-                    String check = getActivity().getIntent().getStringExtra("edit");
-                    try {
+
                             //set edit text to input
                             if(!name.getText().toString().matches("Name")&&
                                     !et.getText().toString().matches("Age")){
@@ -147,13 +163,17 @@ public class fragment_victim_details extends Fragment {
                                 b_age.setText((victims.get(i).getAge()));
                             }
                             //set radio button
-                            if(victims.get(i).getGender().equals("male"))
-                                b_male.setChecked(true);
-                            else if(victims.get(i).getGender().equals("female"))
-                                b_female.setChecked(true);
+                    try {
+                        if(victims.get(i).getGender().equals("male"))
+                            b_male.setChecked(true);
+                       else if(victims.get(i).getGender().equals("female"))
+                            b_female.setChecked(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
 
-                            b_male.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    b_male.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                 @Override
                                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                                     if(b_male.isChecked()){
@@ -199,8 +219,8 @@ public class fragment_victim_details extends Fragment {
                                     victims.set(Integer.parseInt(num.getText().toString()) - 1, victim);
 //                          Toast.makeText(getActivity(), victims.get(Integer.parseInt(num.getText().toString())-1).toString(), Toast.LENGTH_SHORT).show(); pang debug
 
-                                    if (b_name.getText().toString().matches("") || b_age.getText().toString().matches("") || b_male.getText().toString().matches("")
-                                            || b_male.getText().toString().matches("")) {
+                                    if (b_name.getText().toString().matches("") || b_age.getText().toString().matches("")
+                                            ||gender == null) {
                                         Toast.makeText(getActivity(), "There is an empty field!", Toast.LENGTH_SHORT).show();
                                     } else
                                         alertDialog.dismiss();
@@ -210,9 +230,6 @@ public class fragment_victim_details extends Fragment {
 
                             }
                         });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
 
                 }
             });

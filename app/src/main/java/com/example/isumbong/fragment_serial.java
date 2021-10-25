@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,10 +21,10 @@ import java.util.Random;
 
 public class fragment_serial extends Fragment {
 
-    ImageButton home;
-    TextView serial;
-    database db;
 
+    TextView serial;
+    database db ;
+    INPUTS input;
     public fragment_serial() {
         // Required empty public constructor
     }
@@ -37,15 +36,15 @@ public class fragment_serial extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_serial, container, false);
 
-        home = view.findViewById(R.id.imageButton_home);
         serial = view.findViewById(R.id.textView_serial);
 
 
                 String Serial = Serial();
                 serial.setText(Serial);
                 SerialDB(Serial,public_report_now.date);
+                ReportDB(Serial);
 
-        home.setOnClickListener(new View.OnClickListener() {
+        public_report_now.home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //redirect
@@ -92,5 +91,11 @@ public class fragment_serial extends Fragment {
             Toast.makeText(requireContext(), "SUCCESS", Toast.LENGTH_SHORT).show();
         } else
             Toast.makeText(requireContext(), "ERROR", Toast.LENGTH_SHORT).show();
+    }
+    private void ReportDB(String Serial){
+        db = new database(requireContext());
+        String lic = getArguments().getString("lic");
+        db.InsertOffenses(lic, public_report_now.date, Serial);
+
     }
 }

@@ -5,18 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EDEBD7"
-    tools:context=".admin_dl_files">
+    tools:context=".admin_homepage">
+
 
     <TextView
         android:id="@+id/textView37"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="93dp"
         android:text="DOWNLOADED FILES"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/listView_dl"
+        android:layout_width="match_parent"
+        android:layout_height="466dp"
+        android:layout_marginTop="69dp"
+        android:background="#EDEBD7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView37" >
+
+    </ListView>
+    <LinearLayout
+        android:id="@android:id/empty"
+        android:layout_width="416dp"
+        android:layout_height="487dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textView_def"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NO RECORDS" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

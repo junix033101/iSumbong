@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -26,6 +25,7 @@ public class admin_login extends AppCompatActivity {
         LayoutInflater inflater = admin_login.this.getLayoutInflater();
         View view = inflater.inflate(R.layout.builder_admin_code,null);
         EditText code = view.findViewById(R.id.Text_admin_code);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(admin_login.this);
         builder.setView(view)
                 .setTitle("Enter Code")
@@ -57,6 +57,9 @@ public class admin_login extends AppCompatActivity {
                     Toast.makeText(admin_login.this, "SUCCESS", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
+                else if (code.getText().toString().equals("")){
+                    Toast.makeText(admin_login.this, "There is an empty field!", Toast.LENGTH_SHORT).show();
+                }
                 else{
                     Toast.makeText(admin_login.this, "INVALID CODE", Toast.LENGTH_SHORT).show();
                 }
@@ -65,14 +68,21 @@ public class admin_login extends AppCompatActivity {
 
 
         //redirect signup
-        TextView signup = findViewById(R.id.textView_signup);
+        Button signup = findViewById(R.id.button_signup1);
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent intent = new Intent(admin_login.this, admin_signup.class);
                 startActivity(intent.putExtras(getIntent()));
             }
         });
+//        signup.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(admin_login.this, admin_signup.class);
+//                startActivity(intent.putExtras(getIntent()));
+//            }
+//        });
 
         //sign in
         EditText user = findViewById(R.id.Text_admin_user);
@@ -85,7 +95,7 @@ public class admin_login extends AppCompatActivity {
                 String username = user.getText().toString();
                 String password = pass.getText().toString();
                 if(username.matches("") || password.matches("")){
-                    Toast.makeText(admin_login.this, "There is an empty field", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(admin_login.this, "There is an empty field!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 database db = new database(admin_login.this);

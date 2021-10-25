@@ -5,45 +5,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4CD56"
+    android:background="#423E37"
     tools:context=".admin_account">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="#D89532"
+        android:background="#EDEBD7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="138dp"
-            android:layout_height="127dp"
-            android:layout_marginStart="136dp"
-            android:layout_marginTop="52dp"
-            android:layout_marginEnd="137dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView_acc_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_person_24" />
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imageView"-->
+        <!--            android:layout_width="138dp"-->
+        <!--            android:layout_height="127dp"-->
+        <!--            app:srcCompat="@drawable/ic_baseline_person_24"-->
+        <!--            tools:layout_editor_absoluteX="136dp"-->
+        <!--            tools:layout_editor_absoluteY="49dp" />-->
         <!--            android:background="@drawable/layer"/>-->
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView"
+            android:layout_width="155dp"
+            android:layout_height="144dp"
+            android:layout_marginTop="53dp"
+            android:src="@drawable/ic_baseline_person_24"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView_acc_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="176dp"
-            android:layout_marginTop="23dp"
+            android:layout_marginStart="177dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="177dp"
-            android:layout_marginBottom="29dp"
             android:text="NAME"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -52,13 +55,14 @@
             android:id="@+id/imageButton_EDIT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="121dp"
-            android:layout_marginEnd="89dp"
+            android:layout_marginTop="154dp"
+            android:layout_marginEnd="80dp"
             android:backgroundTint="#00FFFFFF"
+            android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_edit_24" />
+            app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
 
         <ImageButton
             android:id="@+id/imageButton_logout"
@@ -83,6 +87,7 @@
         android:layout_marginTop="19dp"
         android:layout_marginEnd="331dp"
         android:text="Username"
+        android:textColor="#EDEBD7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
@@ -96,6 +101,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
+        android:textColor="#EDEBD7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView30" />
@@ -108,6 +114,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="357dp"
         android:text="ID No."
+        android:textColor="#EDEBD7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_acc_user" />
@@ -121,6 +128,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
+        android:textColor="#EDEBD7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView32" />
@@ -133,6 +141,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="354dp"
         android:text="Sector"
+        android:textColor="#EDEBD7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_acc_id" />
@@ -146,6 +155,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
+        android:textColor="#EDEBD7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView34" />
@@ -158,6 +168,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="357dp"
         android:text="E-mail"
+        android:textColor="#EDEBD7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_acc_sector" />
@@ -171,6 +182,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
+        android:textColor="#EDEBD7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView35" />
