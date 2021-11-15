@@ -116,7 +116,7 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
 //                    if (state == 2) { VICTIM DETAILS
                     if (fragment instanceof fragment_victim_details) {
                         String Name = fragment_victim_details.name.getText().toString();
-                            if(!Name.equals("Name")){
+//                            if(!Name.equals("Name")){
                                 if ((input.getText_license() == null || input.getText_license().equals("")))
                                     fragment = new fragment_accident_info();
                                 else{
@@ -129,9 +129,9 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
                                 ft.add(R.id.fragment_container, fragment)
                                         .addToBackStack(null)
                                         .commit();
-                            }
-                            else
-                                Toast.makeText(public_report_now.this, "There is an empty field!", Toast.LENGTH_SHORT).show();
+//                            }
+//                            else
+//                                Toast.makeText(public_report_now.this, "There is an empty field!", Toast.LENGTH_SHORT).show();
                     }
 
 //                    } else if (state == 3) { ACCIDENT INFO
@@ -139,7 +139,7 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
                         //get text license
                         input.setText_license(text_license.getText().toString());
 
-                        if(!text_license.getText().toString().equals("") && img_accident != null && img_license !=null){
+//                        if(!text_license.getText().toString().equals("") && img_accident != null && img_license !=null){
                             //set Vehicle info plate
                             if (input.getPlate() == null || input.getPlate().equals(""))
                                 fragment = new fragment_vehicle_info();
@@ -151,44 +151,44 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
                             ft.add(R.id.fragment_container, fragment)
                                     .addToBackStack(null)
                                     .commit();
-                        }
-                        else{
-                            String check = getIntent().getStringExtra("edit");
-                            try{
-                                if(check != null){
-                                    if (img_accident == null || img_license == null){
-                                        if (input.getPlate() == null || input.getPlate().equals(""))
-                                            fragment = new fragment_vehicle_info();
-                                        else
-                                            fragment = new fragment_vehicle_info(input.getPlate());
-
-                                        state = state + 1;
-                                        stpi.setCurrentStep(state);
-                                        ft.add(R.id.fragment_container, fragment)
-                                                .addToBackStack(null)
-                                                .commit();
-                                    }
-
-                                }
-                                else{
-                                    if (text_license.getText().toString().equals(""))
-                                        Toast.makeText(public_report_now.this, "There is an empty field!", Toast.LENGTH_SHORT).show();
-                                    else if (img_accident == null || img_license == null)
-                                        Toast.makeText(public_report_now.this, "No uploaded image!", Toast.LENGTH_SHORT).show();
-                                }
-
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-
-                        }
+//                        }
+//                        else{
+//                            String check = getIntent().getStringExtra("edit");
+//                            try{
+//                                if(check != null){
+//                                    if (img_accident == null || img_license == null){
+//                                        if (input.getPlate() == null || input.getPlate().equals(""))
+//                                            fragment = new fragment_vehicle_info();
+//                                        else
+//                                            fragment = new fragment_vehicle_info(input.getPlate());
+//
+//                                        state = state + 1;
+//                                        stpi.setCurrentStep(state);
+//                                        ft.add(R.id.fragment_container, fragment)
+//                                                .addToBackStack(null)
+//                                                .commit();
+//                                    }
+//
+//                                }
+//                                else{
+//                                    if (text_license.getText().toString().equals(""))
+//                                        Toast.makeText(public_report_now.this, "There is an empty field!", Toast.LENGTH_SHORT).show();
+//                                    else if (img_accident == null || img_license == null)
+//                                        Toast.makeText(public_report_now.this, "No uploaded image!", Toast.LENGTH_SHORT).show();
+//                                }
+//
+//                            }catch (Exception e){
+//                                e.printStackTrace();
+//                            }
+//
+//                        }
                     }
 
 //                    } else if (state == 4) { VEHICLE INFO
                     else if (fragment instanceof fragment_vehicle_info) {
                         //get text plate num
                         input.setPlate(plate.getText().toString());
-                        if(!plate.getText().toString().equals("") && VehicleType!= null &&img_vehicle!=null && img_or != null) {
+//                        if(!plate.getText().toString().equals("") && VehicleType!= null &&img_vehicle!=null && img_or != null) {
                             //open maps
                             fragment = new MapsFragment();
 
@@ -197,38 +197,38 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
                             ft.add(R.id.fragment_container, fragment)
                                     .addToBackStack(null)
                                     .commit();
-                        }
-                        else {
-                            String check = getIntent().getStringExtra("edit");
-                            try{
-                                if(check != null){
-                                    if(img_vehicle == null || img_or == null) {
-                                        //get text plate num
-                                        input.setPlate(plate.getText().toString());
-                                        if (!plate.getText().toString().equals("") && VehicleType != null) {
-                                            //open maps
-                                            fragment = new MapsFragment();
-
-                                            state = state + 1;
-                                            stpi.setCurrentStep(state);
-                                            ft.add(R.id.fragment_container, fragment)
-                                                    .addToBackStack(null)
-                                                    .commit();
-                                        }
-                                    }
-
-                                }
-                                else {
-                                    if (plate.getText().toString().equals("") || VehicleType == null)
-                                        Toast.makeText(public_report_now.this, "There is an empty field!", Toast.LENGTH_SHORT).show();
-                                    else if (img_vehicle == null || img_or == null)
-                                        Toast.makeText(public_report_now.this, "No uploaded image!", Toast.LENGTH_SHORT).show();
-                                }
-
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
+//                        }
+//                        else {
+//                            String check = getIntent().getStringExtra("edit");
+//                            try{
+//                                if(check != null){
+//                                    if(img_vehicle == null || img_or == null) {
+//                                        //get text plate num
+//                                        input.setPlate(plate.getText().toString());
+//                                        if (!plate.getText().toString().equals("") && VehicleType != null) {
+//                                            //open maps
+//                                            fragment = new MapsFragment();
+//
+//                                            state = state + 1;
+//                                            stpi.setCurrentStep(state);
+//                                            ft.add(R.id.fragment_container, fragment)
+//                                                    .addToBackStack(null)
+//                                                    .commit();
+//                                        }
+//                                    }
+//
+//                                }
+//                                else {
+//                                    if (plate.getText().toString().equals("") || VehicleType == null)
+//                                        Toast.makeText(public_report_now.this, "There is an empty field!", Toast.LENGTH_SHORT).show();
+//                                    else if (img_vehicle == null || img_or == null)
+//                                        Toast.makeText(public_report_now.this, "No uploaded image!", Toast.LENGTH_SHORT).show();
+//                                }
+//
+//                            }catch (Exception e){
+//                                e.printStackTrace();
+//                            }
+//                        }
 
                     }
 
@@ -253,7 +253,7 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
                         //get text statement
                         input.setStatement(statement_field.getText().toString());
 
-                    if(!input.getstatement().equals("")){
+//                    if(!input.getstatement().equals("")){
                         //fragment for confirmation
                         fragment = new fragment_confirm();
                         //ALERT DIALOG FOR CONFIRMATION
@@ -264,8 +264,8 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
                         ft.add(R.id.fragment_container, fragment)
                                 .addToBackStack(null)
                                 .commit();
-                    }    else
-                        Toast.makeText(public_report_now.this, "There is an empty field!", Toast.LENGTH_SHORT).show();
+//                    }    else
+//                        Toast.makeText(public_report_now.this, "There is an empty field!", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -283,7 +283,7 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
                 if (state >= -1) {
 
                     if (state == 0){
-                        mssg(stpi);
+                        tempmssg(stpi);
                     }
                     else {
                             state = state - 1;
@@ -667,6 +667,12 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
                     }
                 })
                 .show();
+    }
+    private void tempmssg(StepperIndicator stpi){
+        next.hide();
+        prev.hide();
+        home.setVisibility(View.INVISIBLE);
+        getSupportFragmentManager().popBackStack();
     }
 
 }

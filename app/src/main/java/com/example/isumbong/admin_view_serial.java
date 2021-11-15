@@ -41,46 +41,46 @@ public class admin_view_serial extends AppCompatActivity implements OnMapReadyCa
         Button verify = findViewById(R.id.button_verify);
 
         setSerial();
-        String serial = SerialString();
-        int ID = getVictimID(serial);
-        setVictimsInfoNumber(ID);
-        setVictimsInfoDetails(ID);
-        setImgs(ID);
-        Infos(ID);
+//        String serial = SerialString();
+//        int ID = getVictimID(serial);
+//        setVictimsInfoNumber(ID);
+//        setVictimsInfoDetails(ID);
+//        setImgs(ID);
+//        Infos(ID);
 
 
         //location
-        MapView map = findViewById(R.id.mapView_confirm);
-        map.onCreate(savedInstanceState);
-        map.onResume();
-        map.getMapAsync(this);
+//        MapView map = findViewById(R.id.mapView_confirm);
+//        map.onCreate(savedInstanceState);
+//        map.onResume();
+//        map.getMapAsync(this);
 
-        boolean check = db.CheckVerifiedSerial(serial);
-        if (check){
-            verify.setText("REPORT VERIFIED");
-        }
-        else{
-            verify.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String vdate = setDate();
-                    builder(ID, serial, vdate);
-                    verify.setText("VERIFY");
-                    getIntent();
-                }
-            });
-        }
+//        boolean check = db.CheckVerifiedSerial(serial);
+//        if (check){
+//            verify.setText("REPORT VERIFIED");
+//        }
+//        else{
+//            verify.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    String vdate = setDate();
+//                    builder(ID, serial, vdate);
+//                    verify.setText("VERIFY");
+//                    getIntent();
+//                }
+//            });
+//        }
 
-        database db1 = new database(this);
-        editButton(ID);
-
-        ArrayList<String> offenses = db1.getOffenses(db1.getLicenseNumber(ID));
-        ArrayAdapter<String> adapterOff = new ArrayAdapter<>(admin_view_serial.this, android.R.layout.simple_dropdown_item_1line, offenses);
-
-        ArrayList<String> reports_list = db1.getReports(db1.getLicenseNumber(ID));
-        ArrayAdapter<String> adapter = new ArrayAdapter<> (this, android.R.layout.simple_dropdown_item_1line, reports_list);
-
-        offensesButton(ID, adapterOff, adapter);
+//        database db1 = new database(this);
+////        editButton(ID);
+//
+//        ArrayList<String> offenses = db1.getOffenses(db1.getLicenseNumber(ID));
+//        ArrayAdapter<String> adapterOff = new ArrayAdapter<>(admin_view_serial.this, android.R.layout.simple_dropdown_item_1line, offenses);
+//
+//        ArrayList<String> reports_list = db1.getReports(db1.getLicenseNumber(ID));
+//        ArrayAdapter<String> adapter = new ArrayAdapter<> (this, android.R.layout.simple_dropdown_item_1line, reports_list);
+//
+//        offensesButton(ID, adapterOff, adapter);
 
     }
 
@@ -219,29 +219,29 @@ public class admin_view_serial extends AppCompatActivity implements OnMapReadyCa
         }
     }
 
-    private void offensesButton(int ID ,ArrayAdapter adapterOff, ArrayAdapter adapter){
-        ImageButton Boffense = findViewById(R.id.imageButton_offenses);
-
-        Boffense.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                View viewS = getLayoutInflater().inflate(R.layout.builder_offenses, null);
-
-                radioBtn(viewS, ID, adapterOff, adapter);
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(admin_view_serial.this);
-                builder.setTitle("LICENSE INFORMATION")
-                        .setView(viewS)
-                        .setCancelable(false)
-                        .setNeutralButton("BACK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        }).show();
-            }
-        });
-    }
+//    private void offensesButton(int ID ,ArrayAdapter adapterOff, ArrayAdapter adapter){
+//        ImageButton Boffense = findViewById(R.id.imageButton_offenses);
+//
+//        Boffense.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                View viewS = getLayoutInflater().inflate(R.layout.builder_offenses, null);
+//
+//                radioBtn(viewS, ID, adapterOff, adapter);
+//
+//                AlertDialog.Builder builder = new AlertDialog.Builder(admin_view_serial.this);
+//                builder.setTitle("LICENSE INFORMATION")
+//                        .setView(viewS)
+//                        .setCancelable(false)
+//                        .setNeutralButton("BACK", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                dialogInterface.dismiss();
+//                            }
+//                        }).show();
+//            }
+//        });
+//    }
     public void radioBtn(View viewS, int ID, ArrayAdapter adapterOff, ArrayAdapter adapter){
         RadioButton offense = viewS.findViewById(R.id.radioButton_off_offenses);
         RadioButton reports = viewS.findViewById(R.id.radioButton_off_reports);

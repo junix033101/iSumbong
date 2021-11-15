@@ -58,26 +58,26 @@ public class admin_create_report extends AppCompatActivity implements OnMapReady
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_create_report);
 
-        setInfo();
+//        setInfo();
         reportSerial = generateString(8);
 
-        FloatingActionButton attach = findViewById(R.id.floatingActionButton_create_attach);
-        attach.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                dialog();
-
-            }
-        });
-
-        Button submit = findViewById(R.id.button_create_submit);
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                submitReport();
-            }
-        });
+//        FloatingActionButton attach = findViewById(R.id.floatingActionButton_create_attach);
+//        attach.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                dialog();
+//
+//            }
+//        });
+//
+//        Button submit = findViewById(R.id.button_create_submit);
+//        submit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                submitReport();
+//            }
+//        });
 
 
     }

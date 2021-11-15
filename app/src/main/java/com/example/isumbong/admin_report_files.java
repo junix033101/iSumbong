@@ -63,8 +63,8 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
         vReport = findViewById(R.id.radioButton_verified_report);
         iReport = findViewById(R.id.radioButton_incident_report);
 
-        getOnClick();
-        setIntent();
+//        getOnClick();
+//        setIntent();
 
     }
     private void setIntent(){

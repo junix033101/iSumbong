@@ -33,10 +33,10 @@ public class admin_account extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_account);
 
-        String user = getIntent().getStringExtra("user");
-        setinfo(user);
-        changePic();
-        signOut();
+//        String user = getIntent().getStringExtra("user");
+//        setinfo(user);
+//        changePic();
+//        signOut();
 
     }
 
