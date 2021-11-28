@@ -42,7 +42,7 @@ public class fragment_serial extends Fragment {
                 String Serial = Serial();
                 serial.setText(Serial);
                 SerialDB(Serial,public_report_now.date);
-                ReportDB(Serial);
+//                ReportDB(Serial);
 
         public_report_now.home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,10 +92,10 @@ public class fragment_serial extends Fragment {
         } else
             Toast.makeText(requireContext(), "ERROR", Toast.LENGTH_SHORT).show();
     }
-    private void ReportDB(String Serial){
-        db = new database(requireContext());
-        String lic = getArguments().getString("lic");
-        db.InsertOffenses(lic, public_report_now.date, Serial);
-
-    }
+//    private void ReportDB(String Serial){
+//        db = new database(requireContext());
+//        String lic = getArguments().getString("lic");
+//        db.InsertOffenses(lic, public_report_now.date, Serial);
+//
+//    }
 }

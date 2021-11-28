@@ -22,38 +22,6 @@ public class admin_signup extends AppCompatActivity {
         EditText id = findViewById(R.id.Text_ID);
         EditText email = findViewById(R.id.Text_email);
 
-//        Button signup = findViewById(R.id.button_signup);
-//        signup.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                database db = new database(admin_signup.this);
-//                String User = user.getText().toString();
-//                String Pass = pass.getText().toString();
-//                String Repass = repass.getText().toString();
-//                String Name = name.getText().toString();
-//                String Id = id.getText().toString();
-//                String Email = email.getText().toString();
-//
-//                if(User.matches("")||Pass.matches("")||Name.matches("")||Id.matches("")||Email.matches("")){
-//                    Toast.makeText(admin_signup.this, "There is an empty field!", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                if(!Pass.matches(Repass)){
-//                    Toast.makeText(admin_signup.this,"Password does not match", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                boolean check = db.createAdmin(User,Pass,Name,Id,Email);
-//                if(check){
-//                    Toast.makeText(admin_signup.this,"Registered", Toast.LENGTH_SHORT).show();
-//                    finish();
-//                }
-//                else
-//                    Toast.makeText(admin_signup.this,"Username Taken", Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
 
     }
 }

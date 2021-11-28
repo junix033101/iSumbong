@@ -116,7 +116,7 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
 //                    if (state == 2) { VICTIM DETAILS
                     if (fragment instanceof fragment_victim_details) {
                         String Name = fragment_victim_details.name.getText().toString();
-//                            if(!Name.equals("Name")){
+
                                 if ((input.getText_license() == null || input.getText_license().equals("")))
                                     fragment = new fragment_accident_info();
                                 else{
@@ -129,9 +129,7 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
                                 ft.add(R.id.fragment_container, fragment)
                                         .addToBackStack(null)
                                         .commit();
-//                            }
-//                            else
-//                                Toast.makeText(public_report_now.this, "There is an empty field!", Toast.LENGTH_SHORT).show();
+
                     }
 
 //                    } else if (state == 3) { ACCIDENT INFO
@@ -139,8 +137,6 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
                         //get text license
                         input.setText_license(text_license.getText().toString());
 
-//                        if(!text_license.getText().toString().equals("") && img_accident != null && img_license !=null){
-                            //set Vehicle info plate
                             if (input.getPlate() == null || input.getPlate().equals(""))
                                 fragment = new fragment_vehicle_info();
                             else
@@ -151,37 +147,7 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
                             ft.add(R.id.fragment_container, fragment)
                                     .addToBackStack(null)
                                     .commit();
-//                        }
-//                        else{
-//                            String check = getIntent().getStringExtra("edit");
-//                            try{
-//                                if(check != null){
-//                                    if (img_accident == null || img_license == null){
-//                                        if (input.getPlate() == null || input.getPlate().equals(""))
-//                                            fragment = new fragment_vehicle_info();
-//                                        else
-//                                            fragment = new fragment_vehicle_info(input.getPlate());
-//
-//                                        state = state + 1;
-//                                        stpi.setCurrentStep(state);
-//                                        ft.add(R.id.fragment_container, fragment)
-//                                                .addToBackStack(null)
-//                                                .commit();
-//                                    }
-//
-//                                }
-//                                else{
-//                                    if (text_license.getText().toString().equals(""))
-//                                        Toast.makeText(public_report_now.this, "There is an empty field!", Toast.LENGTH_SHORT).show();
-//                                    else if (img_accident == null || img_license == null)
-//                                        Toast.makeText(public_report_now.this, "No uploaded image!", Toast.LENGTH_SHORT).show();
-//                                }
-//
-//                            }catch (Exception e){
-//                                e.printStackTrace();
-//                            }
-//
-//                        }
+
                     }
 
 //                    } else if (state == 4) { VEHICLE INFO
@@ -197,38 +163,6 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
                             ft.add(R.id.fragment_container, fragment)
                                     .addToBackStack(null)
                                     .commit();
-//                        }
-//                        else {
-//                            String check = getIntent().getStringExtra("edit");
-//                            try{
-//                                if(check != null){
-//                                    if(img_vehicle == null || img_or == null) {
-//                                        //get text plate num
-//                                        input.setPlate(plate.getText().toString());
-//                                        if (!plate.getText().toString().equals("") && VehicleType != null) {
-//                                            //open maps
-//                                            fragment = new MapsFragment();
-//
-//                                            state = state + 1;
-//                                            stpi.setCurrentStep(state);
-//                                            ft.add(R.id.fragment_container, fragment)
-//                                                    .addToBackStack(null)
-//                                                    .commit();
-//                                        }
-//                                    }
-//
-//                                }
-//                                else {
-//                                    if (plate.getText().toString().equals("") || VehicleType == null)
-//                                        Toast.makeText(public_report_now.this, "There is an empty field!", Toast.LENGTH_SHORT).show();
-//                                    else if (img_vehicle == null || img_or == null)
-//                                        Toast.makeText(public_report_now.this, "No uploaded image!", Toast.LENGTH_SHORT).show();
-//                                }
-//
-//                            }catch (Exception e){
-//                                e.printStackTrace();
-//                            }
-//                        }
 
                     }
 
@@ -264,8 +198,6 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
                         ft.add(R.id.fragment_container, fragment)
                                 .addToBackStack(null)
                                 .commit();
-//                    }    else
-//                        Toast.makeText(public_report_now.this, "There is an empty field!", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -301,6 +233,7 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
     @Override
     public void onBackPressed() {
         try {
+            //not working
             String check = getIntent().getStringExtra("edit");
             if(check != null) {
                 Intent intent = new Intent(public_report_now.this, admin_view_serial.class);
@@ -405,7 +338,7 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
                     try {//EDIT HERE
                         if(check != null) {
                             public_report_now.state =  0;
-                            update();
+//                            update();
                             Intent intent = new Intent(public_report_now.this, admin_view_serial.class);
                             intent.putExtra("id",id);
                             intent.putExtras(getIntent());
@@ -580,37 +513,37 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
         date_field.setText(date);
 
     }
-    private void update(){
-        int id = getIntent().getIntExtra("id",0);
-        try{
-            db.update(Integer.parseInt(fragment_novictims.vnum),id);
-            db.updateAccImg(strUriAccident,id);
-            db.updatelicImg(strUriLicense,id);
-            db.updateCrImg(strUriVehicle,id);
-            db.updateOrImg(strUriOr,id);
-            db.updateLic(input.getText_license(),id);
-            db.updatePlate(input.getPlate(),id);
-            db.updateType(VehicleType,id);
-            db.updateLocation(MapsFragment.getCoordinatesLat, MapsFragment.getCoordinatesLng,MapsFragment.getLocation,id);
-            db.updateStatement(input.getstatement(),id);
-
-            ArrayList<Integer> ids=db.getVictimInfoIds(id);
-            ArrayList<Victim> victims = fragment_victim_details.victims;
-            boolean check =true;
-            for (int j = 0; j < victims.size(); j++) {
-                if (ids.size()>j)
-                    db.updateVictimsInfo(victims.get(j), ids.get(j));
-                else
-                    db.InsertVictimInfo(victims.get(j),id);
-
-            }
-
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+//    private void update(){
+//        int id = getIntent().getIntExtra("id",0);
+//        try{
+//            db.update(Integer.parseInt(fragment_novictims.vnum),id);
+//            db.updateAccImg(strUriAccident,id);
+//            db.updatelicImg(strUriLicense,id);
+//            db.updateCrImg(strUriVehicle,id);
+//            db.updateOrImg(strUriOr,id);
+//            db.updateLic(input.getText_license(),id);
+//            db.updatePlate(input.getPlate(),id);
+//            db.updateType(VehicleType,id);
+//            db.updateLocation(MapsFragment.getCoordinatesLat, MapsFragment.getCoordinatesLng,MapsFragment.getLocation,id);
+//            db.updateStatement(input.getstatement(),id);
+//
+//            ArrayList<Integer> ids=db.getVictimInfoIds(id);
+//            ArrayList<Victim> victims = fragment_victim_details.victims;
+//            boolean check =true;
+//            for (int j = 0; j < victims.size(); j++) {
+//                if (ids.size()>j)
+//                    db.updateVictimsInfo(victims.get(j), ids.get(j));
+//                else
+//                    db.InsertVictimInfo(victims.get(j),id);
+//
+//            }
+//
+//
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
     private void HomeButton(){
         home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -636,37 +569,6 @@ public class public_report_now extends AppCompatActivity implements OnMapReadyCa
                 state = 0;
             }
         });
-    }
-    private void mssg(StepperIndicator stpi){
-        new AlertDialog.Builder(this)
-                .setTitle("WARNING")
-                .setMessage("Are you sure to continue? All inputted information will be lost.")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        next.hide();
-                        prev.hide();
-                        home.setVisibility(View.INVISIBLE);
-                        //reset
-                        img_accident = null;
-                        img_license = null;
-                        fragment_vehicle_info.img_vehicle = null;
-                        fragment_vehicle_info.img_or = null;
-
-                        SharedPreferences sharedPref = getSharedPreferences("FileName", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor prefEditor = sharedPref.edit();
-                        prefEditor.putInt("userChoiceSpinner",0);
-                        prefEditor.apply();
-
-                        stpi.setCurrentStep(state);
-                        getSupportFragmentManager().popBackStack();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                })
-                .show();
     }
     private void tempmssg(StepperIndicator stpi){
         next.hide();
