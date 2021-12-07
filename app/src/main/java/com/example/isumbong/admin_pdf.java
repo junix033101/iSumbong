@@ -18,27 +18,27 @@ public class admin_pdf extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf);
 
-        getPDF();
+//        getPDF();
 
     }
-    private void getPDF(){
-        String user = getIntent().getStringExtra("user");
-        String serial = getIntent().getStringExtra("serial");
-        database db = new database(this);
-
-        PDFView pdfView = findViewById(R.id.pdfView);
-
-        String filepath = db.path(user,serial);
-        Log.e("PATH", filepath);
-
-        File file = new File(filepath);
-        if(file.exists()){
-            Log.e("CHECK", "file exists!");
-            pdfView.fromUri(Uri.fromFile(new File(filepath))).load();
-        }
-        else
-            Toast.makeText(admin_pdf.this, "File not found", Toast.LENGTH_SHORT).show();
-
-
-    }
+//    private void getPDF(){
+//        String user = getIntent().getStringExtra("user");
+//        String serial = getIntent().getStringExtra("serial");
+//        database db = new database(this);
+//
+//        PDFView pdfView = findViewById(R.id.pdfView);
+//
+//        String filepath = db.path(user,serial);
+//        Log.e("PATH", filepath);
+//
+//        File file = new File(filepath);
+//        if(file.exists()){
+//            Log.e("CHECK", "file exists!");
+//            pdfView.fromUri(Uri.fromFile(new File(filepath))).load();
+//        }
+//        else
+//            Toast.makeText(admin_pdf.this, "File not found", Toast.LENGTH_SHORT).show();
+//
+//
+//    }
 }

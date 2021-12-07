@@ -216,21 +216,21 @@
                             app:layout_constraintStart_toEndOf="@+id/imageView_cardview_acc"
                             app:layout_constraintTop_toBottomOf="@+id/textView203" />
 
-                        <TextView
-                            android:id="@+id/textView_null_acc"
-                            android:layout_width="205dp"
-                            android:layout_height="37dp"
-                            android:layout_marginStart="1dp"
-                            android:layout_marginTop="48dp"
-                            android:layout_marginEnd="5dp"
-                            android:gravity="center"
-                            android:text="NO RECENT ACCIDENT"
-                            android:textColor="#EDEBD7"
-                            android:textSize="16sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="1.0"
-                            app:layout_constraintStart_toEndOf="@+id/view3"
-                            app:layout_constraintTop_toTopOf="parent" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView_null_acc"-->
+<!--                            android:layout_width="205dp"-->
+<!--                            android:layout_height="37dp"-->
+<!--                            android:layout_marginStart="1dp"-->
+<!--                            android:layout_marginTop="48dp"-->
+<!--                            android:layout_marginEnd="5dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="NO RECENT ACCIDENT"-->
+<!--                            android:textColor="#EDEBD7"-->
+<!--                            android:textSize="16sp"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintHorizontal_bias="1.0"-->
+<!--                            app:layout_constraintStart_toEndOf="@+id/view3"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </ScrollView>
             </androidx.cardview.widget.CardView>
@@ -347,19 +347,19 @@
                         app:layout_constraintEnd_toStartOf="@+id/textView52"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/textView_null_Ireport"
-                        android:layout_width="210dp"
-                        android:layout_height="69dp"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginEnd="4dp"
-                        android:gravity="center"
-                        android:text="NO RECENT INCIDENT REPORT"
-                        android:textColor="#EDEBD7"
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/textView_cardview_info"
-                        app:layout_constraintTop_toTopOf="parent" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView_null_Ireport"-->
+<!--                        android:layout_width="210dp"-->
+<!--                        android:layout_height="69dp"-->
+<!--                        android:layout_marginTop="40dp"-->
+<!--                        android:layout_marginEnd="4dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="NO RECENT INCIDENT REPORT"-->
+<!--                        android:textColor="#EDEBD7"-->
+<!--                        android:textSize="16sp"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toEndOf="@+id/textView_cardview_info"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -475,20 +475,20 @@
                             app:layout_constraintStart_toEndOf="@+id/imageView_cardview_Vacc"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/textView_null_Vreport"
-                            android:layout_width="205dp"
-                            android:layout_height="37dp"
-                            android:layout_marginStart="1dp"
-                            android:layout_marginTop="48dp"
-                            android:layout_marginEnd="5dp"
-                            android:gravity="center"
-                            android:text="NO RECENT VERIFIED REPORT"
-                            android:textColor="#EDEBD7"
-                            android:textSize="16sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/view2"
-                            app:layout_constraintTop_toTopOf="parent" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView_null_Vreport"-->
+<!--                            android:layout_width="205dp"-->
+<!--                            android:layout_height="37dp"-->
+<!--                            android:layout_marginStart="1dp"-->
+<!--                            android:layout_marginTop="48dp"-->
+<!--                            android:layout_marginEnd="5dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="NO RECENT VERIFIED REPORT"-->
+<!--                            android:textColor="#EDEBD7"-->
+<!--                            android:textSize="16sp"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toEndOf="@+id/view2"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </ScrollView>

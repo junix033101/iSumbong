@@ -35,7 +35,7 @@ public class admin_account extends AppCompatActivity {
 
         String user = getIntent().getStringExtra("user");
         setinfo(user);
-        changePic();
+//        changePic();
         signOut();
 
     }
@@ -70,46 +70,46 @@ public class admin_account extends AppCompatActivity {
         }
     }
 
-    private void changePic(){
-        ImageButton edit = findViewById(R.id.imageButton_EDIT);
-        ImageView profile = findViewById(R.id.imageView);
-        database db = new database(this);
-        String user = getIntent().getStringExtra("user");
-
-        ActivityResultLauncher<Intent> launcher_v =
-                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
-                    if (result.getResultCode() == RESULT_OK) {
-                        img_profile = result.getData().getData();
-                        profile.setImageURI(img_profile);
-                        String profile_uri = img_profile.toString();
-                        db.updateImg(profile_uri,user);
-                        // Use the uri to load the image
-                    } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
-                        // Use ImagePicker.Companion.getError(result.getData()) to show an error
-                    }
-                });
-
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ImagePicker.Companion.with(admin_account.this)
-                        .crop()
-                        .cropSquare()
-                        .maxResultSize(512, 512, true)
-                        .createIntentFromDialog(new Function1() {
-                            public Object invoke(Object var1) {
-                                this.invoke((Intent) var1);
-                                return Unit.INSTANCE;
-                            }
-
-                            public final void invoke(@NotNull Intent it) {
-                                Intrinsics.checkNotNullParameter(it, "it");
-                                launcher_v.launch(it);
-                            }
-                        });
-            }
-        });
-    }
+//    private void changePic(){
+//        ImageButton edit = findViewById(R.id.imageButton_EDIT);
+//        ImageView profile = findViewById(R.id.imageView);
+//        database db = new database(this);
+//        String user = getIntent().getStringExtra("user");
+//
+//        ActivityResultLauncher<Intent> launcher_v =
+//                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
+//                    if (result.getResultCode() == RESULT_OK) {
+//                        img_profile = result.getData().getData();
+//                        profile.setImageURI(img_profile);
+//                        String profile_uri = img_profile.toString();
+//                        db.updateImg(profile_uri,user);
+//                        // Use the uri to load the image
+//                    } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
+//                        // Use ImagePicker.Companion.getError(result.getData()) to show an error
+//                    }
+//                });
+//
+//        edit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ImagePicker.Companion.with(admin_account.this)
+//                        .crop()
+//                        .cropSquare()
+//                        .maxResultSize(512, 512, true)
+//                        .createIntentFromDialog(new Function1() {
+//                            public Object invoke(Object var1) {
+//                                this.invoke((Intent) var1);
+//                                return Unit.INSTANCE;
+//                            }
+//
+//                            public final void invoke(@NotNull Intent it) {
+//                                Intrinsics.checkNotNullParameter(it, "it");
+//                                launcher_v.launch(it);
+//                            }
+//                        });
+//            }
+//        });
+//    }
 
     private void signOut(){
         ImageButton out = findViewById(R.id.imageButton_logout);

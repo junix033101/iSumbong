@@ -74,13 +74,13 @@ public class admin_view_serial extends AppCompatActivity implements OnMapReadyCa
         database db1 = new database(this);
         editButton(ID);
 
-        ArrayList<String> offenses = db1.getOffenses(db1.getLicenseNumber(ID));
-        ArrayAdapter<String> adapterOff = new ArrayAdapter<>(admin_view_serial.this, android.R.layout.simple_dropdown_item_1line, offenses);
+//        ArrayList<String> offenses = db1.getOffenses(db1.getLicenseNumber(ID));
+//        ArrayAdapter<String> adapterOff = new ArrayAdapter<>(admin_view_serial.this, android.R.layout.simple_dropdown_item_1line, offenses);
+//
+//        ArrayList<String> reports_list = db1.getReports(db1.getLicenseNumber(ID));
+//        ArrayAdapter<String> adapter = new ArrayAdapter<> (this, android.R.layout.simple_dropdown_item_1line, reports_list);
 
-        ArrayList<String> reports_list = db1.getReports(db1.getLicenseNumber(ID));
-        ArrayAdapter<String> adapter = new ArrayAdapter<> (this, android.R.layout.simple_dropdown_item_1line, reports_list);
-
-        offensesButton(ID, adapterOff, adapter);
+//        offensesButton(ID, adapterOff, adapter);
 
     }
 
@@ -121,10 +121,16 @@ public class admin_view_serial extends AppCompatActivity implements OnMapReadyCa
         ImageView vehicle = findViewById(R.id.imageView_confirm_vehicle);
         ImageView or = findViewById(R.id.imageView_confirm_or);
 
-        acc.setImageURI(Uri.parse(db.getAccidentImg(ID)));
-        lic.setImageURI(Uri.parse(db.getLicenseImg(ID)));
-        vehicle.setImageURI(Uri.parse(db.getVehicleImg(ID)));
-        or.setImageURI(Uri.parse(db.getOrImg(ID)));
+        try{
+            acc.setImageURI(Uri.parse(db.getAccidentImg(ID)));
+            lic.setImageURI(Uri.parse(db.getLicenseImg(ID)));
+            vehicle.setImageURI(Uri.parse(db.getVehicleImg(ID)));
+            or.setImageURI(Uri.parse(db.getOrImg(ID)));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     private void Infos(int ID){
@@ -219,62 +225,62 @@ public class admin_view_serial extends AppCompatActivity implements OnMapReadyCa
         }
     }
 
-    private void offensesButton(int ID ,ArrayAdapter adapterOff, ArrayAdapter adapter){
-        ImageButton Boffense = findViewById(R.id.imageButton_offenses);
-
-        Boffense.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                View viewS = getLayoutInflater().inflate(R.layout.builder_offenses, null);
-
-                radioBtn(viewS, ID, adapterOff, adapter);
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(admin_view_serial.this);
-                builder.setTitle("LICENSE INFORMATION")
-                        .setView(viewS)
-                        .setCancelable(false)
-                        .setNeutralButton("BACK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        }).show();
-            }
-        });
-    }
-    public void radioBtn(View viewS, int ID, ArrayAdapter adapterOff, ArrayAdapter adapter){
-        RadioButton offense = viewS.findViewById(R.id.radioButton_off_offenses);
-        RadioButton reports = viewS.findViewById(R.id.radioButton_off_reports);
-        ListView list = viewS.findViewById(R.id.listView_offenses);
-        TextView def = viewS.findViewById(R.id.textView_def);
-
-
-        if(!offense.isChecked() && !reports.isChecked())
-            list.setEmptyView(def);
-
-        offense.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(offense.isChecked()) {
-
-                    list.setAdapter(adapterOff);
-                    list.setEmptyView(def);
-
-                }
-            }
-        });
-        reports.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(reports.isChecked()){
-
-                    list.setAdapter(adapter);
-                    list.setEmptyView(def);
-
-                }
-            }
-        });
-    }
+//    private void offensesButton(int ID ,ArrayAdapter adapterOff, ArrayAdapter adapter){
+//        ImageButton Boffense = findViewById(R.id.imageButton_offenses);
+//
+//        Boffense.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                View viewS = getLayoutInflater().inflate(R.layout.builder_offenses, null);
+//
+//                radioBtn(viewS, ID, adapterOff, adapter);
+//
+//                AlertDialog.Builder builder = new AlertDialog.Builder(admin_view_serial.this);
+//                builder.setTitle("LICENSE INFORMATION")
+//                        .setView(viewS)
+//                        .setCancelable(false)
+//                        .setNeutralButton("BACK", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                dialogInterface.dismiss();
+//                            }
+//                        }).show();
+//            }
+//        });
+//    }
+//    public void radioBtn(View viewS, int ID, ArrayAdapter adapterOff, ArrayAdapter adapter){
+//        RadioButton offense = viewS.findViewById(R.id.radioButton_off_offenses);
+//        RadioButton reports = viewS.findViewById(R.id.radioButton_off_reports);
+//        ListView list = viewS.findViewById(R.id.listView_offenses);
+//        TextView def = viewS.findViewById(R.id.textView_def);
+//
+//
+//        if(!offense.isChecked() && !reports.isChecked())
+//            list.setEmptyView(def);
+//
+//        offense.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if(offense.isChecked()) {
+//
+//                    list.setAdapter(adapterOff);
+//                    list.setEmptyView(def);
+//
+//                }
+//            }
+//        });
+//        reports.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if(reports.isChecked()){
+//
+//                    list.setAdapter(adapter);
+//                    list.setEmptyView(def);
+//
+//                }
+//            }
+//        });
+//    }
 
     @Override
     public void onBackPressed() {

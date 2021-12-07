@@ -82,10 +82,10 @@ public class database extends SQLiteOpenHelper {
     private static final String FILE_ID = "FILES_ID";
     private static final String PATH = "PATH";
 
-    private static final String OFFENSES_TABLE= "OFFENSES_TABLE";
-    private static final String OFFENSE_ID = "OFFENSE_ID";
-    private static final String OFFENSES = "OFFENSES";
-    private static final String REPORTS = "REPORTS";
+//    private static final String OFFENSES_TABLE= "OFFENSES_TABLE";
+//    private static final String OFFENSE_ID = "OFFENSE_ID";
+//    private static final String OFFENSES = "OFFENSES";
+//    private static final String REPORTS = "REPORTS";
 
 
 
@@ -148,9 +148,9 @@ public class database extends SQLiteOpenHelper {
 
         String createDls = "CREATE TABLE " + FILES_TABLE + " (" + FILE_ID + " INTEGER PRIMARY KEY," + SERIAL_NUMBER + " TEXT, "+ USER + " TEXT,"+PATH+" )";
         db.execSQL(createDls);
-
-        String createOffenses = "CREATE TABLE " + OFFENSES_TABLE + " (" + OFFENSE_ID + " INTEGER PRIMARY KEY,"+LICENSE_NUMBER+" TEXT, "+ REPORTS + " TEXT, "+ OFFENSES + " TEXT, "+DATE+" TEXT )";
-        db.execSQL(createOffenses);
+//
+//        String createOffenses = "CREATE TABLE " + OFFENSES_TABLE + " (" + OFFENSE_ID + " INTEGER PRIMARY KEY,"+LICENSE_NUMBER+" TEXT, "+ REPORTS + " TEXT, "+ OFFENSES + " TEXT, "+DATE+" TEXT )";
+//        db.execSQL(createOffenses);
 
         String createOffensesList = "INSERT INTO OFFENSES_TABLE(LICENSE_NUMBER, OFFENSES, DATE)\n" +
                 "VALUES ('DO6-11-009385','Reckless Driving','Oct 16, 2021'), ('DO6-11-009385','Drunk Driving','Aug 08, 2020'), ('DO6-11-009385','Speeding', 'March 31, 2019')";
@@ -376,21 +376,21 @@ public class database extends SQLiteOpenHelper {
         return check;
     }
 
-    public boolean InsertOffenses (String lic,String date,String report){
-        boolean check = false;
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(LICENSE_NUMBER, lic);
-        cv.put(DATE, date);
-        cv.put(REPORTS, report);
-        long insert = db.insert(OFFENSES_TABLE, null, cv);
-        if (insert == -1) {
-            check = false;
-        } else
-            check = true;
-
-        return check;
-    }
+//    public boolean InsertOffenses (String lic,String date,String report){
+//        boolean check = false;
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues cv = new ContentValues();
+//        cv.put(LICENSE_NUMBER, lic);
+//        cv.put(DATE, date);
+//        cv.put(REPORTS, report);
+//        long insert = db.insert(OFFENSES_TABLE, null, cv);
+//        if (insert == -1) {
+//            check = false;
+//        } else
+//            check = true;
+//
+//        return check;
+//    }
 
     public boolean InsertPDFs(String serial, String user,String path){
         boolean check = false;

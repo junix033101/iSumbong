@@ -375,17 +375,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_edit" />
 
-        <ImageButton
-            android:id="@+id/imageButton_offenses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="111dp"
-            android:backgroundTint="#00FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView14"
-            app:layout_constraintTop_toBottomOf="@+id/imageView_confirm_accident"
-            app:srcCompat="@drawable/ic_baseline_remove_red_eye_24" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/imageButton_offenses"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="24dp"-->
+<!--            android:layout_marginEnd="111dp"-->
+<!--            android:backgroundTint="#00FFFFFF"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/textView14"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/imageView_confirm_accident"-->
+<!--            app:srcCompat="@drawable/ic_baseline_remove_red_eye_24" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

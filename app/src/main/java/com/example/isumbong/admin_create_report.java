@@ -199,7 +199,7 @@ public class admin_create_report extends AppCompatActivity implements OnMapReady
 
         View viewS = getLayoutInflater().inflate(R.layout.admin_builder_attached_serial, null);
 
-        ImageButton viewBtn = viewS.findViewById(R.id.imageButton_attached_off);
+//        ImageButton viewBtn = viewS.findViewById(R.id.imageButton_attached_off);
         View viewB = getLayoutInflater().inflate(R.layout.builder_offenses, null);
         Context ctx = admin_create_report.this;
 
@@ -208,7 +208,7 @@ public class admin_create_report extends AppCompatActivity implements OnMapReady
         setImgs(id,viewS);
         Infos(id,viewS);
 
-        layout.offensesButton(viewBtn,viewB,id,adapterOff, adapter_rep, ctx);
+//        layout.offensesButton(viewBtn,viewB,id,adapterOff, adapter_rep, ctx);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(queryString)
