@@ -282,11 +282,11 @@ public class admin_view_serial extends AppCompatActivity implements OnMapReadyCa
 //        });
 //    }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(admin_view_serial.this, admin_homepage.class);
-        intent.putExtras(getIntent());
-        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-    }
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        Intent intent = new Intent(admin_view_serial.this, admin_homepage.class);
+//        intent.putExtras(getIntent());
+//        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+//    }
 }

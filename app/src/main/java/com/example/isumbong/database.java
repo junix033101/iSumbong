@@ -152,9 +152,9 @@ public class database extends SQLiteOpenHelper {
 //        String createOffenses = "CREATE TABLE " + OFFENSES_TABLE + " (" + OFFENSE_ID + " INTEGER PRIMARY KEY,"+LICENSE_NUMBER+" TEXT, "+ REPORTS + " TEXT, "+ OFFENSES + " TEXT, "+DATE+" TEXT )";
 //        db.execSQL(createOffenses);
 
-        String createOffensesList = "INSERT INTO OFFENSES_TABLE(LICENSE_NUMBER, OFFENSES, DATE)\n" +
-                "VALUES ('DO6-11-009385','Reckless Driving','Oct 16, 2021'), ('DO6-11-009385','Drunk Driving','Aug 08, 2020'), ('DO6-11-009385','Speeding', 'March 31, 2019')";
-        db.execSQL(createOffensesList);
+//        String createOffensesList = "INSERT INTO OFFENSES_TABLE(LICENSE_NUMBER, OFFENSES, DATE)\n" +
+//                "VALUES ('DO6-11-009385','Reckless Driving','Oct 16, 2021'), ('DO6-11-009385','Drunk Driving','Aug 08, 2020'), ('DO6-11-009385','Speeding', 'March 31, 2019')";
+//        db.execSQL(createOffensesList);
     }
 
     @Override
@@ -486,7 +486,7 @@ public class database extends SQLiteOpenHelper {
 
     public ArrayList<String> getVerifiedSerial(){
         ArrayList<String> serial = new ArrayList<>();
-        String query = "SELECT SERIAL_NUMBER FROM VERIFIED_SERIAL_TABLE ORDER BY SERIAL_NUMBER asc";
+        String query = "SELECT SERIAL_NUMBER FROM VERIFIED_SERIAL_TABLE ORDER BY VERIFIED_SERIAL_ID desc";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst()){
@@ -777,7 +777,7 @@ public class database extends SQLiteOpenHelper {
 
     public ArrayList<String> getReportSerial(){
         ArrayList<String> serial = new ArrayList<>();
-        String query = "SELECT REPORT_SERIAL FROM INCIDENT_REPORT_TABLE ORDER BY REPORT_SERIAL asc";
+        String query = "SELECT REPORT_SERIAL FROM INCIDENT_REPORT_TABLE ORDER BY REPORT_ID desc";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst()){
@@ -1095,36 +1095,36 @@ public class database extends SQLiteOpenHelper {
         return check;
     }
 
-    public ArrayList<String> getOffenses(String lic){
-        ArrayList<String> off = new ArrayList<>();
-        String query = "SELECT OFFENSES, DATE FROM OFFENSES_TABLE WHERE LICENSE_NUMBER = '"+lic+"' AND OFFENSES IS NOT NULL";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-         int data = cursor.getColumnIndex("OFFENSES");
-        int data1 = cursor.getColumnIndex("DATE");
-        if(cursor.moveToFirst()){
-            do{
-                off.add(cursor.getString(data) + " ("+cursor.getString(data1)+")");
-            }while(cursor.moveToNext());
-        }
-        return off;
-    }
+//    public ArrayList<String> getOffenses(String lic){
+//        ArrayList<String> off = new ArrayList<>();
+//        String query = "SELECT OFFENSES, DATE FROM OFFENSES_TABLE WHERE LICENSE_NUMBER = '"+lic+"' AND OFFENSES IS NOT NULL";
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery(query, null);
+//         int data = cursor.getColumnIndex("OFFENSES");
+//        int data1 = cursor.getColumnIndex("DATE");
+//        if(cursor.moveToFirst()){
+//            do{
+//                off.add(cursor.getString(data) + " ("+cursor.getString(data1)+")");
+//            }while(cursor.moveToNext());
+//        }
+//        return off;
+//    }
 
 
-    public ArrayList<String> getReports(String lic){
-        ArrayList<String> rep = new ArrayList<>();
-        String query = "SELECT REPORTS,DATE FROM OFFENSES_TABLE WHERE LICENSE_NUMBER = '"+lic+"' AND REPORTS IS NOT NULL ";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-        int data = cursor.getColumnIndex("REPORTS");
-        int data1 = cursor.getColumnIndex("DATE");
-        if(cursor.moveToFirst()){
-            do{
-                rep.add(cursor.getString(data) + " ("+cursor.getString(data1)+")");
-            }while(cursor.moveToNext());
-        }
-        return rep;
-    }
+//    public ArrayList<String> getReports(String lic){
+//        ArrayList<String> rep = new ArrayList<>();
+//        String query = "SELECT REPORTS,DATE FROM OFFENSES_TABLE WHERE LICENSE_NUMBER = '"+lic+"' AND REPORTS IS NOT NULL ";
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery(query, null);
+//        int data = cursor.getColumnIndex("REPORTS");
+//        int data1 = cursor.getColumnIndex("DATE");
+//        if(cursor.moveToFirst()){
+//            do{
+//                rep.add(cursor.getString(data) + " ("+cursor.getString(data1)+")");
+//            }while(cursor.moveToNext());
+//        }
+//        return rep;
+//    }
 
     public boolean CheckVerifiedSerial(String serial) {
         boolean check = false;

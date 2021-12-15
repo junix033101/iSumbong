@@ -192,15 +192,15 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
         int id = db.getIDxVserial(queryString);
 
         View viewS = getLayoutInflater().inflate(R.layout.admin_builder_vreport, null);
+//
+//        ArrayList<String> offenses = db.getOffenses(db.getLicenseNumber(id));
+//        ArrayAdapter<String> adapterOff = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, offenses);
 
-        ArrayList<String> offenses = db.getOffenses(db.getLicenseNumber(id));
-        ArrayAdapter<String> adapterOff = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, offenses);
-
-        ArrayList<String> reports_list = db.getReports(db.getLicenseNumber(id));
-        ArrayAdapter<String> adapter_rep = new ArrayAdapter<> (this, android.R.layout.simple_dropdown_item_1line, reports_list);
+//        ArrayList<String> reports_list = db.getReports(db.getLicenseNumber(id));
+//        ArrayAdapter<String> adapter_rep = new ArrayAdapter<> (this, android.R.layout.simple_dropdown_item_1line, reports_list);
 //        ImageButton viewBtn = viewS.findViewById(R.id.imageButton_vreport_offenses);
-        View viewB = getLayoutInflater().inflate(R.layout.builder_offenses, null);
-        Context ctx = admin_report_files.this;
+//        View viewB = getLayoutInflater().inflate(R.layout.builder_offenses, null);
+//        Context ctx = admin_report_files.this;
 
 
         setNumber(id,viewS);
@@ -235,12 +235,40 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
         alertDialog = builder.create();
         MapView(viewS, alertDialog);
         alertDialog.show();
-//        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                vDel(alertDialog,queryString);
-//            }
-//        });
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                vDel(alertDialog,queryString);
+            }
+        });
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String user = getIntent().getStringExtra("user");
+                boolean fCheck = db.CheckerFile(queryString, user);
+                if(fCheck) {
+                    alertDialog.dismiss();
+                    AlertDialog.Builder file = new AlertDialog.Builder(admin_report_files.this);
+                    file.setTitle("CONFIRM DOWNLOAD")
+                            .setMessage("" + queryString + " already exists. Do you want to replace it?")
+                            .setCancelable(false)
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    alertDialog.show();
+                                }
+                            })
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    pdfIncident(queryString);
+                                }
+                            }).show();
+                }
+                else
+                    pdf(id, queryString);
+            }
+        });
     }
 
     private void vDel(AlertDialog dialog, String queryString){
@@ -435,40 +463,40 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
                 });
         AlertDialog alertDialog2 = builder.create();
         alertDialog2.show();
-//        alertDialog2.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                DelRes(alertDialog2);
-//            }
-//        });
-//        alertDialog2.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String user = getIntent().getStringExtra("user");
-//                boolean fCheck = db.CheckerFile(queryString, user);
-//                if(fCheck) {
-//                    alertDialog2.dismiss();
-//                    AlertDialog.Builder file = new AlertDialog.Builder(admin_report_files.this);
-//                    file.setTitle("CONFIRM DOWNLOAD")
-//                            .setMessage("" + queryString + " already exists. Do you want to replace it?")
-//                            .setCancelable(false)
-//                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialogInterface, int i) {
-//                                    alertDialog2.show();
-//                                }
-//                            })
-//                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialogInterface, int i) {
-//                                    pdfIncident(queryString);
-//                                }
-//                            }).show();
-//                }
-//                else
-//                    pdfIncident(queryString);
-//            }
-//        });
+        alertDialog2.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DelRes(alertDialog2);
+            }
+        });
+        alertDialog2.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String user = getIntent().getStringExtra("user");
+                boolean fCheck = db.CheckerFile(queryString, user);
+                if(fCheck) {
+                    alertDialog2.dismiss();
+                    AlertDialog.Builder file = new AlertDialog.Builder(admin_report_files.this);
+                    file.setTitle("CONFIRM DOWNLOAD")
+                            .setMessage("" + queryString + " already exists. Do you want to replace it?")
+                            .setCancelable(false)
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    alertDialog2.show();
+                                }
+                            })
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    pdfIncident(queryString);
+                                }
+                            }).show();
+                }
+                else
+                    pdfIncident(queryString);
+            }
+        });
 
     }
 

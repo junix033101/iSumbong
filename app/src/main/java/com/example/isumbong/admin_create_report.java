@@ -191,11 +191,11 @@ public class admin_create_report extends AppCompatActivity implements OnMapReady
 
         admin_report_files layout = new admin_report_files();
 
-        ArrayList<String> offenses = db.getOffenses(db.getLicenseNumber(id));
-        ArrayAdapter<String> adapterOff = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, offenses);
-
-        ArrayList<String> reports_list = db.getReports(db.getLicenseNumber(id));
-        ArrayAdapter<String> adapter_rep = new ArrayAdapter<> (this, android.R.layout.simple_dropdown_item_1line, reports_list);
+//        ArrayList<String> offenses = db.getOffenses(db.getLicenseNumber(id));
+//        ArrayAdapter<String> adapterOff = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, offenses);
+//
+//        ArrayList<String> reports_list = db.getReports(db.getLicenseNumber(id));
+//        ArrayAdapter<String> adapter_rep = new ArrayAdapter<> (this, android.R.layout.simple_dropdown_item_1line, reports_list);
 
         View viewS = getLayoutInflater().inflate(R.layout.admin_builder_attached_serial, null);
 
