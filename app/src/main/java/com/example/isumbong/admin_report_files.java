@@ -407,7 +407,7 @@ public class admin_report_files extends AppCompatActivity implements OnMapReadyC
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditRes(viewI);
+//                EditRes(viewI);
             }
         });
 
